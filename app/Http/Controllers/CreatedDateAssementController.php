@@ -149,7 +149,7 @@ class CreatedDateAssementController extends Controller
         $valArr['occupation']             = 'required';
         $valArr['case_number']             = 'required';
         $valArr['city']                   = 'required';
-        $valArr['phone_no']               = 'required|string|min:7|max:12';
+        $valArr['phone_no']               = 'required|string|min:7';
      
        
         $validator = Validator::make($request->all(), $valArr);
@@ -222,7 +222,6 @@ class CreatedDateAssementController extends Controller
             if (count($personResponse->data->items) === 0) {
                 return response()->json(['error' => "The candidate isn't present in pipedrive"]);
             }
-
             if (isset($personResponse->data->items[0])) {
                 $person          = $personResponse->data->items[0]->item;
                 $id              = $person->id;
@@ -233,7 +232,7 @@ class CreatedDateAssementController extends Controller
                 $age             = isset($person->age) ? $person->age : '';
                 $case_number      = isset($person->case_number) ? $person->case_number : '';
                 $city            = isset($person->city) ? $person->city : '';
-                $phone_no        = isset($person->phone_no) ? $person->phone_no : '';
+                $phone_no        = isset($person->phones[0]) ? str_replace('+', '', $person->phones[0]) : '';
         
                 // Get the status of the person's deals
                 $dealsResponse = $this->makeApiRequest($pipe_setting->url . '/persons/' . $id . '/deals?status=all_not_deleted', $pipe_setting->token);
@@ -246,7 +245,7 @@ class CreatedDateAssementController extends Controller
                     $age             = isset($dealsResponse->data[0]->age) ? $dealsResponse->data[0]->age :'';
                     $case_number      = isset($dealsResponse->data[0]->case_number) ? $dealsResponse->data[0]->case_number :'';
                     $city            = isset($dealsResponse->data[0]->city) ? $dealsResponse->data[0]->city :'';
-                    $phone_no        = isset($dealsResponse->data[0]->phone_no) ? $dealsResponse->data[0]->phone_no :'';
+                 
         
                     if ($status == 'won') {
                         return response()->json([
@@ -303,7 +302,7 @@ class CreatedDateAssementController extends Controller
       
             $MAIL_FILE = Config::get('constants.MAIL_FILE');
 
-            $created_data = CreatedDateAssement::join('visa_type','visa_type.id','=','sent_mail.recommended_visa_type')->select('sent_mail.*','visa_type.name as recommended_visa_name','visa_type.description')->where('sent_mail.id',$id)->first();
+            $created_data = CreatedDateAssement::join('visa_type','visa_type.id','=','sent_mail.recommended_visa_type')->select('sent_mail.*','visa_type.name as recommended_visa_name')->where('sent_mail.id',$id)->first();
 
             if (!$created_data) {
                 return response()->json(['error' => 'Email data not found.']);
@@ -322,13 +321,40 @@ class CreatedDateAssementController extends Controller
             $representative = Representative::where('email', 'like', '%' . $user->email . '%')->first();
             
             //generate pdf
-            $pdf = PDF::loadView('pdf_to_html',compact(['brands','allrepresentatives','representative','created_data','visa_type']));
+            // $pdf = PDF::loadView('pdf_to_html_old',compact(['brands','allrepresentatives','representative','created_data','visa_type']));
+            $pdf = PDF::loadView('pdf_new',compact(['brands','allrepresentatives','representative','created_data','visa_type']));
             $content = $pdf->output();
             $filename = 'generated_pdf_' . time() . '.pdf'; 
             $x= storage_path('app/public/' . $filename);
             file_put_contents($x, $content);
             $pdf_name = '/var/www/html/arp/storage/app/public/' . $filename;
             //end pdf
+
+            // $filename = 'generated_pdf_' . time() . '.pdf'; 
+
+            // $html = View::make('pdf_to_html_old', [
+            //     'brands' => $brands,
+            //     'allrepresentatives' => $allrepresentatives,
+            //     'representative' => $representative,
+            //     'created_data' => $created_data,
+            //     'visa_type' => $visa_type,
+            // ])->render();
+
+            // // Initialize Dompdf
+            // $options = new Options();
+            // $options->set('debugKeepTemp', true);
+            // $options->set('isPhpEnabled', true);
+            // $dompdf = new Dompdf($options);
+            // $dompdf->loadHtml($html); // Load the HTML content
+            // $dompdf->setPaper('A4', 'portrait');   // Set paper size (optional)
+            // $dompdf->render();
+            // $dompdf->stream($filename); // This will stream the PDF to the browser
+            // $content = $dompdf->output(); // Capture the PDF content
+            // $filename = 'generated_pdf_' . time() . '.pdf';
+            // $x = storage_path('app/public/' . $filename);
+            // file_put_contents($x, $content);
+            // $pdf_name = '/var/www/html/arp/storage/app/public/' . $filename;
+            
 
             $smtpSettings = SmtpSetting::where('brand_id',$brands->id)->first();
 

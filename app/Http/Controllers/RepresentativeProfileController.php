@@ -37,7 +37,7 @@ class RepresentativeProfileController extends Controller
             'user_id'     => $user_id,
             'menu'       => 'menu.v_menu_admin',
             'content'    => 'content.view_representative_profile',
-            'title'    => 'Representatives Profile'
+            'title'    => 'Legal Representatives Profile'
         ];
 
         $checkAuth = \Auth::user()->level;

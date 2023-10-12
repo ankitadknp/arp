@@ -55,17 +55,17 @@
                         @foreach ($language_data as $l_data)
                             <!-- <textarea name="description" class="form-control description" id="ckeditor" placeholder="Description"></textarea><br> -->
                             <span>Description_{{$l_data->code}} <span class="label-title">*</sapn></span>
-                            <textarea name="description[{{$l_data->code}}]" class="form-control description" id="description" placeholder="Description"></textarea><br>
+                            <textarea name="description[{{$l_data->code}}]" class="form-control description_{{$l_data->code}}" id="description" placeholder="Description"></textarea><br>
 
                             <span>How does This Program work?_{{$l_data->code}} <span class="label-title">*</sapn></span>
                             <textarea name="program_work[{{$l_data->code}}]" class="form-control" id="program_work" placeholder="How does This Program work?"></textarea><br>
 
                             <span>Candidate Score_{{$l_data->code}} <span class="label-title">*</sapn></span><br>
-                            <input required type="file" name="candidate_score[{{$l_data->code}}]" class="form-control" id="candidate_score" placeholder="Candidate Score"><br>
-                            <img src="" class="image-preview" id="cost_image_preview" width="100" height="100" />
+                            <input required type="file" name="candidate_score[{{$l_data->code}}]" class="form-control candidate_score_{{$l_data->code}}" id="candidate_score" placeholder="Candidate Score"><br>
+                            <!-- <img src="" class="image-preview" id="cost_image_preview_candidate_score[{{$l_data->code}}]" width="100" height="100" /><br> -->
 
                             <span>Canada Express Entry Latest Draw 2023_{{$l_data->code}} <span class="label-title">*</sapn></span><br>
-                            <input required type="file" name="express_image[{{$l_data->code}}]" class="form-control" id="express_image" placeholder="Canada Express Entry Latest Draw 2023"><br>
+                            <input required type="file" name="express_image[{{$l_data->code}}]" class="form-control express_image_{{$l_data->code}}" id="express_image" placeholder="Canada Express Entry Latest Draw 2023"><br>
 
                             <span>Here is a step-by-step breakdown for the process with us_{{$l_data->code}} <span class="label-title">*</sapn></span>
                             <textarea name="break_down[{{$l_data->code}}]" class="form-control" id="break_down" placeholder="Here is a step-by-step breakdown for the process with us"></textarea><br>
@@ -80,7 +80,7 @@
                             <textarea name="time_frame[{{$l_data->code}}]" class="form-control" id="time_frame" placeholder="Time Frame"></textarea><br>
 
                             <span>Service Cost_{{$l_data->code}} <span class="label-title">*</sapn></span><br>
-                            <input required type="file" name="cost_image[{{$l_data->code}}]" class="form-control" id="cost_image" placeholder="Cost Image"><br>
+                            <input required type="file" name="cost_image[{{$l_data->code}}]" class="form-control cost_image_{{$l_data->code}}" id="cost_image" placeholder="Cost Image"><br>
                         @endforeach
                         <input type="hidden" name="id" id="id" value="">
                     </div>
@@ -181,40 +181,43 @@
    
         $('body').on('click', '.edit', function () {
             var id = $(this).data('id');
-            // $('#modal').find('.modal-body img').remove();
+            $('#modal').find('.modal-body img').remove();
             $('.text-danger').remove();
 
             $.get("{{ route('visa-type.index') }}" + '/' + id + '/edit', function (data) {
+                console.log(data);
                 $('#saveBtn').val("edit");
                 $('#modal').modal('show');
                 $('#id').val(data.id);
                 $('#name').val(data.name);
                 $('#brand_id').val(data.brand_id);
 
-                @foreach($language_data as $l_data)
-                data.details.forEach(function(detail) {
-                    var fieldId = detail.visa_key + '[{{$l_data->code}}]';
-                    var field = $('[name="' + fieldId + '"]');
-                    field.val(detail.value);
-                    console.log('fieldId: ' + fieldId);
-                    console.log('is_image: ' + detail.is_image);
-                    
-                    if (detail.is_image == 1) {
-                        alert('in');
-                        var $imagePreview = $('#cost_image_preview');
-                        $imagePreview.attr('src', detail.value);
-                    //     var imgFieldId = detail.visa_key + '[{{$l_data->code}}' + '_img]';
-                    // var $img = $('[name="' + imgFieldId + '"]');
-                    // $img.attr('src', detail.value);
-                    //     console.log('Setting image source for ' + fieldId);
-                    //     alert(fieldId);
-                        // field.next('img').attr('src', detail.value);
-                        // $('#image_preview_' + fieldId).attr('src', detail.value);
-                        // var $image = $('<img>').attr('src', detail.value);
-                        // field.after($image);
-                    }
-                });
-                @endforeach
+                try {
+                    data.details.forEach(function(detail) {
+                        var languageId = detail.language_id;
+                        var fieldId = detail.visa_key + '['+detail.language_id+']';
+
+                        if (detail.is_image == 0) {
+                            var field = $('[name="' + fieldId + '"]');
+                            field.val(detail.value);
+                        }
+                        if (detail.is_image == 1) {
+                            var imageTag = '<img src="' + detail.value + '" width="100" height="100" class="img-fluid"/>';
+                            if (fieldId == $('.candidate_score_'+languageId).attr('name')) {
+                                $('.candidate_score_'+languageId).after(imageTag);
+                            }
+
+                            if (fieldId == $('.cost_image_'+languageId).attr('name')) {
+                                $('.cost_image_'+languageId).after(imageTag);
+                            }
+                            if (fieldId == $('.express_image_'+languageId).attr('name')) {
+                                $('.express_image_'+languageId).after(imageTag);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             });
         });
         

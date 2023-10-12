@@ -46,3 +46,17 @@
 </div>
 @endsection
 
+@push('scripts')
+<script>
+    function swal_errorMsg(msgs){
+        msgs = String(msgs).split(',').join('<br>');
+        Swal.fire({
+            position: 'centered',
+            icon: 'error',
+            title: msgs,
+            showConfirmButton: true,
+        })
+    }
+</script>
+@endpush
+

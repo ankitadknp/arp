@@ -71,6 +71,9 @@
         .ckeditor-field {
             display: none; /* Initially hide CKEditor fields */
         }
+        .aboutLabel {
+            display: none; /* Initially hide CKEditor fields */
+        }
         .loader-overlay {
             position: fixed;
             top: 0;

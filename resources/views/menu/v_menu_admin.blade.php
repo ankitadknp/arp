@@ -100,7 +100,7 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="menu-text">Representative</span>
+                        <span class="menu-text">Legal Representative</span>
                     </a>
                 </li>
 

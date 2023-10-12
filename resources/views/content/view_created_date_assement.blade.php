@@ -332,6 +332,7 @@
                         $('#occupation').val(data.occupation);
                         $('#age').val(data.age);
                         $('#case_number').val(data.case_number);
+                        $('#phone_no').val(data.phone_no);
                         $('#saveBtn').show();
                         $('#search').hide();
                         // table.draw();

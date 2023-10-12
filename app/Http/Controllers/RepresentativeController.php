@@ -27,7 +27,7 @@ class RepresentativeController extends Controller
             'brands'     => $brands,
             'menu'       => 'menu.v_menu_admin',
             'content'    => 'content.view_representative',
-            'title'    => 'Representatives'
+            'title'    => 'Legal Representatives'
         ];
 
         $checkAuth = \Auth::user()->level;

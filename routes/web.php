@@ -68,7 +68,7 @@ Route::post('signature_delete', [RepresentativeController::class, 'signature_del
 Route::post('photo_delete', [RepresentativeController::class, 'photo_delete'])->name('photo_delete');
 
 Route::get('forgot_password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgot_password');
-Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::match(['get', 'post'],'password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 

@@ -3,33 +3,30 @@
 @section('content')
 <tr>
     <td>
-            <thead>
+        <table  align="left" cellpadding="10" cellspacing="0"  width="100%" style="padding: 40px 25px 50px 25px; max-width:600px;border-spacing:0px;border-width:medium;border-style:none;border-top:1px solid #efefef;border-bottom: 1px solid #efefef; color: #4f4f4f; font-size: 14px;line-height:22px;">
+            <tbody>
                 <tr>
-                    <th style="padding-top: 15px;padding-bottom: 15px;">
-                        <img width="65" src="{{asset("public/assets/images/smart_logo.png")}}">
-                    </th>
+                    <td style="color: #ea0a6d; font-size: 22px; font-weight: bold;">Welcome to {{ config('app.name') }}.</td>
                 </tr>
-            </thead>
-            <tbody style="border: 2px solid #f8f8f8; display: table; text-align: center; ">
                 <tr>
-                    <td style="display: flex; ">
-                        <img width="100%" src="{{asset("public/assets/images/email-banner.jpg")}}">
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h1>Forget Password Email</h1>
+                        You can reset password from bellow link:
+                        <a href="{{ route('password.reset', $token) }}">Reset Password</a>
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-size: 24px; font-weight: 700; padding: 40px 25px 30px; color: #29479F;">
-                        {{$title}}
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td style="padding: 0 25px 10px;">
-                        <p></p>
-                        <p style="border: 1px dashed #222; padding: 12px 40px; display: inline-block; margin: 12px 0 20px; font-size: 20px; font-weight: 600;">{{$token}}</p>
-                        <p style="margin: 0; "></p>
-                    </td>
+                    <td style="padding: 10px 10px 0 10px;">The {{ config('app.name') }} Team</td>
                 </tr>
                 <tr>
-                    <td style="padding: 15px 25px 30px;">
+                    <td style="padding:0 10px;">
+                        Contact details are at <a href="{{ env('APP_URL','http://127.0.0.1') }}" style="color:#ea0a6d;text-decoration:none;">{{ env('APP_URL','http://127.0.0.1') }}</a>
                     </td>
                 </tr>
             </tbody>

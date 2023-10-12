@@ -61,12 +61,14 @@
                             <option value="{{$language->code}}">{{$language->name}}</option>
                             @endforeach
                         </select><br>
+                        <!-- @foreach ($languages as $l_data)
+                        <span class="aboutLabel">About Us ({{$l_data->name}})</span>
+                        <textarea class="form-control ckeditor-field" name="about_{{$l_data->code}}" id="ckeditor_{{$l_data->code}}" placeholder="About {{$l_data->name}}"></textarea><br>
+                        @endforeach -->
                         <span id="aboutLabel"></span>
                         <textarea class="form-control ckeditor-field" name="about_en" id="ckeditor_en" placeholder="About English"></textarea><br>
                         <span id="FrenchLabel"></span>
                         <textarea class="form-control ckeditor-field" name="about_fr" id="ckeditor_fr" placeholder="About French"></textarea>
-                        <!-- <span>About Us <span class="label-title">*</sapn></span>
-                        <textarea type="text" name="introduction" class="form-control" id="ckeditor" placeholder="Introduction"></textarea><br> -->
                         <input type="hidden" name="id" id="id" value="">
                     </div>
                 </form>
@@ -160,10 +162,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <script>
-    // $('.selectpicker').selectpicker({
-    //     noneSelectedText: 'Please select language'
-    // });
-
     $('document').ready(function () {
         $('#language_id').select2();
 
@@ -172,9 +170,10 @@
             $('.ckeditor-field').hide(); // Hide all CKEditor fields
             var label = $('#aboutLabel');
             var FrenchLabel = $('#FrenchLabel');
-            // Initialize CKEditor for the selected languages
-            selectedLanguages.forEach(function (language) {
+            
+            selectedLanguages.forEach(function (language) { // Initialize CKEditor for the selected languages
                 $('#ckeditor_' + language).show();
+                // $('.aboutLabel').show();
 
                 if (language.includes('en')) {
                     label.text('About Us (English) *');
@@ -194,8 +193,8 @@
             var allLanguages = ['en', 'fr']; // Replace with the list of all available languages
             var deselectedLanguages = allLanguages.filter(lang => !selectedLanguages.includes(lang));
             deselectedLanguages.forEach(function (language) {
-                // Hide the CKEditor field
-                $('#ckeditor_' + language).hide();
+                $('#ckeditor_' + language).hide(); // Hide the CKEditor field
+                // $('.aboutLabel').hide();
 
                 if (language.includes('en')) {
                     label.text('');
@@ -203,7 +202,6 @@
                     FrenchLabel.text('');
                 }
 
-                // Check if CKEditor instance exists before attempting to destroy it
                 if (typeof CKEDITOR.instances['ckeditor_' + language] !== 'undefined') {
                     CKEDITOR.instances['ckeditor_' + language].destroy();
                 }
@@ -231,6 +229,7 @@
         }
 
         function swal_errorMsg(msgs){
+            msgs = String(msgs).split(',').join('<br>');
             Swal.fire({
                 position: 'centered',
                 icon: 'error',
@@ -323,6 +322,7 @@
                 $('#language_id').trigger('change'); // Refresh the Select2 dropdown (if you're using Select2)
 
                 $('#logo').after(data.logo);
+
                 CKEDITOR.instances.ckeditor_fr.setData(data.about_fr);
                 CKEDITOR.instances.ckeditor_en.setData(data.about_en);
 
@@ -343,6 +343,13 @@
             form_data.append('id', $('#id').val());
             var selectedLanguages = $('#language_id').val();
             form_data.append('language_id', selectedLanguages.join(','));
+
+            // @foreach($languages as $lang)
+            //     if (selectedLanguages.includes('{{ $lang }}')) {
+            //         const aboutData = CKEDITOR.instances[`ckeditor_{{ $lang }}`].getData();
+            //         form_data.append(`about_{{ $lang }}`, aboutData);
+            //     }
+            // @endforeach
 
             if (selectedLanguages.includes('en')) {
                 form_data.append('about_en', CKEDITOR.instances.ckeditor_en.getData());
@@ -370,7 +377,6 @@
                         swal_success();
                         table.draw();
                     }
-
                 },
                 error: function (data) {
                     swal_error();

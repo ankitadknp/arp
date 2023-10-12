@@ -19,7 +19,6 @@ class VisaType extends Authenticatable
     protected $table = 'visa_type';
     protected $fillable = [
         'name',
-        'description',
         'brand_id',
     ];
 
@@ -31,6 +30,11 @@ class VisaType extends Authenticatable
     public function images()
     {
         return $this->hasMany(VisaTypeImages::class, 'visa_type_id');
+    }
+
+    public function details()
+    {
+        return $this->hasMany(VisaTypeDetails::class, 'visa_type_id', 'id');
     }
 
 }

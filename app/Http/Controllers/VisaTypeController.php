@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Validator,File;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
 
 
 class VisaTypeController extends Controller
@@ -106,9 +107,9 @@ class VisaTypeController extends Controller
         $valArr['salary_per_region']  = 'required';
         $valArr['time_frame']         = 'required';
         $valArr['brand_id']           = 'required|max:20';
-        // $valArr['cost_image']         = 'required';
-        // $valArr['express_image']      = 'required';
-        // $valArr['candidate_score']    = 'required';
+        $valArr['cost_image']         = 'required';
+        $valArr['express_image']      = 'required';
+        $valArr['candidate_score']    = 'required';
 
         $validator = Validator::make($request->all(), $valArr);
         
@@ -120,66 +121,52 @@ class VisaTypeController extends Controller
             $single = VisaType::find($request->id);
         }
 
+        $visa_image =  Config::get('constants.VISA_IMAGE');
+
         $reqInt = [
             'name'     => $request->name,
             'brand_id' => $request->brand_id,
         ];
 
         $rec = VisaType::updateOrCreate(['id' => $request->id],$reqInt);
-        $fieldKeys = ['description', 'program_work', 'break_down', 'time_frame', 'salary_per_region', 'main_advantage','candidate_score','express_image','cost_image'];
-        
+        $fieldKeys = ['description', 'program_work','candidate_score', 'break_down', 'time_frame', 'salary_per_region', 'main_advantage','express_image','cost_image'];
+
         foreach ($language_data as $l_data) {
             $languageCode = $l_data->code;
-
+        
             foreach ($fieldKeys as $fieldKey) {
                 $inputFieldName = $fieldKey . '.' . $languageCode;
-
+                $fieldValue = null; // Initialize field value as null
+        
                 if ($request->hasFile($inputFieldName)) {
-                    $uploadedFile = $request->file($inputFieldName);
-                    $name = time() . '_' . $uploadedFile->getClientOriginalName();
+                    $uploadedFile    = $request->file($inputFieldName);
+                    $name            = time() . '_' . $uploadedFile->getClientOriginalName();
                     $destinationPath = public_path('/uploads/visa/');
                     $uploadedFile->move($destinationPath, $name);
+                    $fieldValue      = $visa_image. $name; // Set field value for image
+                    $is_image        = 1 ;
+                } elseif ($request->filled($inputFieldName)) {
+                    $fieldValue     = $request->input($inputFieldName); // Set field value for text data
+                    $is_image       = 0 ;
+                }
         
-                    // Now, you can save the image path in the database
-                    VisaTypeDetails::updateOrCreate([
-                        'visa_type_id' => $rec->id,
-                        'language_id' => 1, // Assuming you use the correct language ID
-                        'brand_id' => $request->brand_id,
-                        'visa_key' => $fieldKey,
-                        'is_image' =>1,
-                    ], [
-                        'value' => '/uploads/visa/' . $name, // Save the image path
-                    ]);
-                } else {
-                    $fieldValue = $request->input($inputFieldName);
-        
-                    VisaTypeDetails::updateOrCreate([
-                        'visa_type_id' => $rec->id,
-                        'language_id' => 1, // Assuming you use the correct language ID
-                        'brand_id' => $request->brand_id,
-                        'visa_key' => $fieldKey,
-                        'is_image' =>0,
-                    ], [
-                        'value' => $fieldValue, // Save text data
-                    ]);
+                // Use upsert to add or edit records
+                if ($fieldValue != null) {
+                    VisaTypeDetails::updateOrCreate(
+                        [
+                            'visa_type_id' => $rec->id,
+                            'language_id' => $languageCode, // Assuming you use the correct language ID
+                            'brand_id'    => $request->brand_id,
+                            'visa_key'    => $fieldKey,
+                            'is_image'    => $is_image
+                        ],
+                        ['value'          => $fieldValue,
+                        ]
+                    );
                 }
             }
         }
-
-        // $newvalue [] = [
-        //     'hash_id'       => $hash_id,
-        //     'field_to'      => $type,
-        //     'value'         => $key_val_array[$key],
-        //     'rel_column_id' => $type_id,
-        //     'deleted_at'    => NULL,
-        //     'field_id'      => $customFieldRec[$key],
-        // ];
-        // DB::table('custom_field_value')->upsert(
-        //     $newvalue, 
-        //     ['field_to', 'rel_column_id','field_id'], 
-        //     ['value','deleted_at']
-        // );
-   
+        
         if(isset($single) && $single){
             setActivityLog('Visa Type Updated [Visa Name: ' . $request->name . ']',json_encode($reqInt),activityEnums('visa-type'),$request->id,\Auth::user()->id);
         }else{
@@ -201,21 +188,18 @@ class VisaTypeController extends Controller
 
         $data = $visa->toArray();
         $details = $visa->details->keyBy('language_id');
-    
-        foreach ($language_data as $l_data) {
-            foreach ($visa->details as $detail) {
-                if ($detail->is_image == 1) {
-                    $data[$detail->visa_key][$l_data->code] = '<img src="' . asset($detail->value) . '" width="100" height="100" class="img-fluid"/>';
-                    $data[$detail->visa_key]['is_image'] = $detail->is_image;
-                } 
-                else {
-                    $data[$detail->visa_key][$l_data->code] = $detail->value;
-                    $data[$detail->visa_key]['is_image'] = $detail->is_image;
-                }
-            }
-        }
-        return response()->json($data);
 
+        // foreach ($language_data as $l_data) {
+            foreach ($visa->details as $detail) {
+                // $data[$detail->visa_key][$l_data->code] = $detail->is_image == 1
+                //     ? '<img src="' . asset($detail->value) . '" width="100" height="100" class="img-fluid"/>'
+                //     : $detail->value;
+                $data[$detail->visa_key][$detail->language_id] = $detail->value;
+                $data[$detail->visa_key]['is_image'] = $detail->is_image;
+            }
+        // }
+    
+        return response()->json($data);
     }
 
     public function destroy($id)
