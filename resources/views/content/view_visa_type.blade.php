@@ -55,16 +55,16 @@
                         @foreach ($language_data as $l_data)
                             <!-- <textarea name="description" class="form-control description" id="ckeditor" placeholder="Description"></textarea><br> -->
                             <span>Description_{{$l_data->code}} <span class="label-title">*</sapn></span>
-                            <textarea name="description[{{$l_data->code}}]" class="form-control description_{{$l_data->code}}" id="description" placeholder="Description"></textarea><br>
+                            <textarea name="description[{{$l_data->code}}]" class="form-control description_{{$l_data->code}}" id="description" placeholder="Description" required></textarea><br>
 
-                            <span>How does This Program work?_{{$l_data->code}} <span class="label-title">*</sapn></span>
+                            <span>How does This Program work?_{{$l_data->code}} </span>
                             <textarea name="program_work[{{$l_data->code}}]" class="form-control" id="program_work" placeholder="How does This Program work?"></textarea><br>
 
-                            <span>Candidate Score_{{$l_data->code}} <span class="label-title">*</sapn></span><br>
+                            <span>Candidate Score_{{$l_data->code}}</span><br>
                             <input required type="file" name="candidate_score[{{$l_data->code}}]" class="form-control candidate_score_{{$l_data->code}}" id="candidate_score" placeholder="Candidate Score"><br>
                             <!-- <img src="" class="image-preview" id="cost_image_preview_candidate_score[{{$l_data->code}}]" width="100" height="100" /><br> -->
 
-                            <span>Canada Express Entry Latest Draw 2023_{{$l_data->code}} <span class="label-title">*</sapn></span><br>
+                            <span>Canada Express Entry Latest Draw 2023_{{$l_data->code}} </span><br>
                             <input required type="file" name="express_image[{{$l_data->code}}]" class="form-control express_image_{{$l_data->code}}" id="express_image" placeholder="Canada Express Entry Latest Draw 2023"><br>
 
                             <span>Here is a step-by-step breakdown for the process with us_{{$l_data->code}} <span class="label-title">*</sapn></span>
@@ -73,13 +73,13 @@
                             <span>Main Advantages_{{$l_data->code}} <span class="label-title">*</sapn></span>
                             <textarea name="main_advantage[{{$l_data->code}}]" class="form-control" id="main_advantage" placeholder="Main Advantages"></textarea><br>
 
-                            <span>Your salary per region in Canada_{{$l_data->code}} <span class="label-title">*</sapn></span>
+                            <span>Your salary per region in Canada_{{$l_data->code}} </span>
                             <textarea name="salary_per_region[{{$l_data->code}}]" class="form-control" id="salary_per_region" placeholder="Your salary per region in Canada"></textarea><br>
 
                             <span>Time Frame_{{$l_data->code}} <span class="label-title">*</sapn></span>
                             <textarea name="time_frame[{{$l_data->code}}]" class="form-control" id="time_frame" placeholder="Time Frame"></textarea><br>
 
-                            <span>Service Cost_{{$l_data->code}} <span class="label-title">*</sapn></span><br>
+                            <span>Service Cost_{{$l_data->code}} </span><br>
                             <input required type="file" name="cost_image[{{$l_data->code}}]" class="form-control cost_image_{{$l_data->code}}" id="cost_image" placeholder="Cost Image"><br>
                         @endforeach
                         <input type="hidden" name="id" id="id" value="">

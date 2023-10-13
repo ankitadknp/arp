@@ -75,11 +75,11 @@ class BrandsController extends Controller
             $valArr['name']    = 'required|max:200|unique:brands,name';
             $valArr['logo']    = 'required|mimes:jpg,jpeg,png,gif|max:2048';
         }
-        // $valArr['introduction']    = 'required|max:2000';
         $valArr['email']    = 'required|max:200';
-        $valArr['phone_no']    = 'required|string|min:7|max:12';
+        $valArr['phone_no']    = 'required|string|min:7';
         $valArr['language_id']    = 'required';
-        $valArr['website']    = 'required|url';
+        // $valArr['website']    = 'required|url';
+        $valArr['website']    = 'required';
         
         $validator = Validator::make($request->all(), $valArr);
 

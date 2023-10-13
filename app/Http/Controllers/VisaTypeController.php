@@ -101,15 +101,15 @@ class VisaTypeController extends Controller
             ];
         }
         $valArr['description']        = 'required';
-        $valArr['program_work']       = 'required';
-        $valArr['break_down']         = 'required';
+        // $valArr['program_work']       = 'required';
+        // $valArr['break_down']         = 'required';
         $valArr['main_advantage']     = 'required';
-        $valArr['salary_per_region']  = 'required';
+        // $valArr['salary_per_region']  = 'required';
         $valArr['time_frame']         = 'required';
         $valArr['brand_id']           = 'required|max:20';
-        $valArr['cost_image']         = 'required';
-        $valArr['express_image']      = 'required';
-        $valArr['candidate_score']    = 'required';
+        // $valArr['cost_image']         = 'required';
+        // $valArr['express_image']      = 'required';
+        // $valArr['candidate_score']    = 'required';
 
         $validator = Validator::make($request->all(), $valArr);
         

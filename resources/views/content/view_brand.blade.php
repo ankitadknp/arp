@@ -57,6 +57,7 @@
                         <input required type="file" name="logo" class="form-control" id="logo" placeholder="Logo"><br>
                         <span>Languages <span class="label-title">*</sapn></span><br>
                         <select name="language_id[]" class="form-control" id="language_id" multiple>
+                            <option value="">Please Select Language</option>
                             @foreach($languages as $language)
                             <option value="{{$language->code}}">{{$language->name}}</option>
                             @endforeach

@@ -52,6 +52,13 @@
                         <div class="crm_data" style="display: none;">
                             <span>Name <span class="label-title">*</sapn></span>
                             <input type="text" name="name" class="form-control" id="name" value="" ><br>
+                            <span>Languages <span class="label-title">*</sapn></span><br>
+                            <select name="language_id" class="form-control" id="language_id">
+                            <option value="">Please select Language</option>
+                            @foreach($languages as $language)
+                            <option value="{{$language->code}}">{{$language->name}}</option>
+                            @endforeach
+                            </select><br>
                             <span>Visa Type <span class="label-title">*</sapn></span>
                             <select name="visa_type_id[]" class="form-control" id="visa_type_id" multiple>
                                 @foreach($visatypes as $visatype)
@@ -248,7 +255,10 @@
                 $('#occupation').val(data.occupation);
                 $('#age').val(data.age);
                 $('#case_number').val(data.case_number);
+                $('#phone_no').val(data.phone_no);
+                $('#city').val(data.city);
                 $('#recommended_visa_type').val(data.recommended_visa_type);
+                $('#language_id').val(data.language_id);
 
                 var selectedVisaIds = data.visa_type_id.split(',');
 
@@ -270,6 +280,7 @@
             form_data.append('name', $('#name').val());
             form_data.append('credit_score', $('#credit_score').val());
             form_data.append('recommended_visa_type', $('#recommended_visa_type').val());
+            form_data.append('language_id', $('#language_id').val());
             form_data.append('country', $('#country').val());
             form_data.append('education_level', $('#education_level').val());
             form_data.append('occupation', $('#occupation').val());
@@ -389,7 +400,6 @@
                 }
             });
         });
-
        
     });
 

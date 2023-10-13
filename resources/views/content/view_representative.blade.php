@@ -51,12 +51,13 @@
                         <input type="text" name="password" class="form-control" placeholder="Password" id="password"><br>
                         <span>Signature Photo <span class="label-title">*</sapn></span><br>
                         <input required type="file" name="signature_photo" class="form-control" id="signature_photo"><br>
-                        <span>Photo</span><br>
+                        <span>Photo <span class="label-title">*</sapn></span><br>
                         <input required type="file" name="photo" class="form-control" id="photo" placeholder="Photo"><br>
                         <span>Bio <span class="label-title">*</sapn></span>
                         <textarea type="text" name="bio" class="form-control" id="bio" placeholder="Bio"></textarea><br>
                         <span>Brand <span class="label-title">*</sapn></span>
-                        <select name="brand_id[]" class="form-control selectpicker" id="brand_id" multiple>
+                        <select name="brand_id[]" class="form-control" id="brand_id" multiple>
+                            <option value="">Please Select Brand</option>
                             @foreach($brands as $brand)
                             <option value="{{$brand->id}}">{{$brand->name}}</option>
                             @endforeach
@@ -80,12 +81,15 @@
 </div>
 
 @push('scripts')
-<script rel="javascript prefetch" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
     $('.selectpicker').selectpicker({
         noneSelectedText: 'Please select brand'
     });
+
+
     $('document').ready(function () {
+        $('#brand_id').select2();
         // success alert
         function swal_success() {
             Swal.fire({
@@ -172,7 +176,6 @@
             $('#signature_preview').remove();
             $('#signature_delete').hide();
             $('#photo_delete').hide();
-            $('#brand_id option').prop('selected', false).removeClass('selected-option');
             $.get("{{route('representative.index')}}" + '/' + id + '/edit', function (data) {
                 $('#saveBtn').val("edit");
                 $('#modal').modal('show');
@@ -182,15 +185,17 @@
                 $('#signature_photo').after(data.signature_photo);
                 $('#photo').after(data.photo);
                 $('#linkedin_id').val(data.linkedin_id);
-                $('#brand_id').val(data.brand_id);
                 $('#email').val(data.email);
                 $('#license_number').val(data.license_number);
                 $('#cba_number').val(data.cba_number);
+
+                var selectedBrandIds = data.brand_id.split(',');
                 $('#brand_id option').each(function () {
-                    if ($.inArray($(this).val(), data.brand_id) !== -1) {
-                        $(this).prop('selected', true).addClass('selected-option');;
+                    if (selectedBrandIds.includes($(this).val())) {
+                        $(this).prop('selected', true);
                     }
                 });
+                $('#brand_id').trigger('change');
             })
         });
         // initialize btn save
@@ -207,7 +212,7 @@
             form_data.append('password', $('#password').val());
             form_data.append('bio', $('#bio').val());
             var selectedBrand = $('#brand_id').val();
-            form_data.append('brand_id', selectedBrand);
+            form_data.append('brand_id', selectedBrand.join(','));
             form_data.append('linkedin_id', $('#linkedin_id').val());
             form_data.append('license_number', $('#license_number').val());
             form_data.append('cba_number', $('#cba_number').val());

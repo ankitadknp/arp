@@ -51,7 +51,8 @@
                         <span>Bio <span class="label-title">*</sapn></span>
                         <textarea type="text" name="bio" class="form-control" id="bio" placeholder="Bio"></textarea><br>
                         <span>Brand <span class="label-title">*</sapn></span>
-                        <select name="brand_id[]" class="form-control selectpicker" id="brand_id" multiple>
+                        <select name="brand_id[]" class="form-control" id="brand_id" multiple>
+                            <option value="">Please Select Brand</option>
                             @foreach($brands as $brand)
                             <option value="{{$brand->id}}">{{$brand->name}}</option>
                             @endforeach
@@ -65,7 +66,7 @@
                         <input type="hidden" name="id" id="id" value="{{$user_id}}">
                         <span>Signature Photo <span class="label-title">*</sapn></span><br>
                         <input required type="file" name="signature_photo" class="form-control" id="signature_photo"><br>
-                        <span>Photo</span><br>
+                        <span>Photo <span class="label-title">*</sapn></span><br>
                         <input required type="file" name="photo" class="form-control" id="photo" placeholder="Photo"><br>
                     </div>
                 </form>
@@ -79,11 +80,10 @@
 </div>
 
 @push('scripts')
-<script rel="javascript prefetch" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
-    $('.selectpicker').selectpicker({
-        noneSelectedText: 'Please select brand'
-    });
+    $('#brand_id').select2();
+
     $('document').ready(function () {
         // success alert
         function swal_success() {
@@ -163,15 +163,16 @@
                 $('#signature_photo').after(data.signature_photo);
                 $('#photo').after(data.photo);
                 $('#linkedin_id').val(data.linkedin_id);
-                $('#brand_id').val(data.brand_id);
                 $('#email').val(data.email);
                 $('#license_number').val(data.license_number);
                 $('#cba_number').val(data.cba_number);
+                 var selectedBrandIds = data.brand_id.split(',');
                 $('#brand_id option').each(function () {
-                    if ($.inArray($(this).val(), data.brand_id) !== -1) {
-                        $(this).prop('selected', true).addClass('selected-option');;
+                    if (selectedBrandIds.includes($(this).val())) {
+                        $(this).prop('selected', true);
                     }
                 });
+                $('#brand_id').trigger('change');
             })
         });
       
