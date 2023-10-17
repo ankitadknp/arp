@@ -57,7 +57,6 @@
                         <input required type="file" name="logo" class="form-control" id="logo" placeholder="Logo"><br>
                         <span>Languages <span class="label-title">*</sapn></span><br>
                         <select name="language_id[]" class="form-control" id="language_id" multiple>
-                            <option value="">Please Select Language</option>
                             @foreach($languages as $language)
                             <option value="{{$language->code}}">{{$language->name}}</option>
                             @endforeach
@@ -66,10 +65,15 @@
                         <span class="aboutLabel">About Us ({{$l_data->name}})</span>
                         <textarea class="form-control ckeditor-field" name="about_{{$l_data->code}}" id="ckeditor_{{$l_data->code}}" placeholder="About {{$l_data->name}}"></textarea><br>
                         @endforeach -->
+                     
                         <span id="aboutLabel"></span>
                         <textarea class="form-control ckeditor-field" name="about_en" id="ckeditor_en" placeholder="About English"></textarea><br>
                         <span id="FrenchLabel"></span>
                         <textarea class="form-control ckeditor-field" name="about_fr" id="ckeditor_fr" placeholder="About French"></textarea>
+                        @foreach ($languages as $l_data)
+                        <span class="aboutLabel">Conclusion ({{$l_data->name}})</span>
+                        <textarea class="form-control conclusion-field" name="conclusion_{{$l_data->code}}" id="conclusion_{{$l_data->code}}" placeholder="Conclusion {{$l_data->name}}"></textarea><br>
+                        @endforeach
                         <input type="hidden" name="id" id="id" value="">
                     </div>
                 </form>
@@ -144,6 +148,8 @@
                         <input type="text" name="from_email_address" class="form-control" id="from_email_address" placeholder="From Email Address"><br>
                         <span>From Name <span class="label-title">*</sapn></span>
                         <input type="text" name="from_name" class="form-control" id="from_name" placeholder="From Name"><br>
+                        <span>CC Email Address </span>
+                        <input type="text" name="cc_email" class="form-control" id="cc_email" placeholder="From Email Address"><br>
                         <input type="hidden" name="id" id="smtp_id" value="">
                     </div>
                 </form>
@@ -174,13 +180,16 @@
             
             selectedLanguages.forEach(function (language) { // Initialize CKEditor for the selected languages
                 $('#ckeditor_' + language).show();
-                // $('.aboutLabel').show();
+                $('.aboutLabel').show();
 
                 if (language.includes('en')) {
                     label.text('About Us (English) *');
                 } else if (language.includes('fr')) {
                     FrenchLabel.text('About Us (French) *');
                 }
+
+                //conclusion
+                // $('#conclusion_' + language).show();
 
                 // Initialize CKEditor if it's not already initialized
                 if (typeof CKEDITOR.instances['ckeditor_' + language] === 'undefined') {
@@ -195,7 +204,9 @@
             var deselectedLanguages = allLanguages.filter(lang => !selectedLanguages.includes(lang));
             deselectedLanguages.forEach(function (language) {
                 $('#ckeditor_' + language).hide(); // Hide the CKEditor field
-                // $('.aboutLabel').hide();
+                $('.aboutLabel').hide();
+
+                // $('#conclusion_' + language).hide();
 
                 if (language.includes('en')) {
                     label.text('');
@@ -345,10 +356,15 @@
             var selectedLanguages = $('#language_id').val();
             form_data.append('language_id', selectedLanguages.join(','));
 
+            @foreach ($languages as $l_data)
+            form_data.append('conclusion_{{$l_data->code}}', $('textarea[name="conclusion_{{$l_data->code}}"]').val());
+            @endforeach
+
+      
             // @foreach($languages as $lang)
-            //     if (selectedLanguages.includes('{{ $lang }}')) {
-            //         const aboutData = CKEDITOR.instances[`ckeditor_{{ $lang }}`].getData();
-            //         form_data.append(`about_{{ $lang }}`, aboutData);
+            //     if (selectedLanguages.includes('{{ $lang->code }}')) {
+            //         const aboutData = CKEDITOR.instances[`ckeditor_{{ $lang->code }}`].getData();
+            //         form_data.append(`about_{{ $lang->code }}`, aboutData);
             //     }
             // @endforeach
 
@@ -356,7 +372,6 @@
                 form_data.append('about_en', CKEDITOR.instances.ckeditor_en.getData());
             }
 
-            // Check if CKEditor for French exists and get data
             if (selectedLanguages.includes('fr')) {
                 form_data.append('about_fr', CKEDITOR.instances.ckeditor_fr.getData());
             }
@@ -375,6 +390,7 @@
                     }else{
                         $('#form').trigger("reset");
                         $('#modal').modal('hide');
+                        $('#deleteImage').hide();
                         swal_success();
                         table.draw();
                     }
@@ -509,6 +525,7 @@
                 $('#encryption').val(data.encryption);
                 $('#from_email_address').val(data.from_email_address);
                 $('#from_name').val(data.from_name);
+                $('#cc_email').val(data.cc_email);
             })
 
             $('#smtp_saveBtn').click(function (p) {

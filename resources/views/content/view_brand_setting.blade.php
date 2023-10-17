@@ -303,6 +303,7 @@
                         swal_errorMsg(data.error);
                     }else{
                         $('#form').trigger("reset");
+                        $('#deleteImage').hide();
                         $('#modal').modal('hide');
                         swal_success();
                         table.draw();

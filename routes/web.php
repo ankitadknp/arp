@@ -19,6 +19,7 @@ use App\Http\Controllers\BrandsSettingController;
 use App\Http\Controllers\RepresentativeProfileController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DPDFController;
 
 
 
@@ -72,6 +73,10 @@ Route::match(['get', 'post'],'password/email', [ForgotPasswordController::class,
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
+Route::get('pdf_download/{file_name}', [CreatedDateAssementController::class, 'pdf_download'])->name('pdf_download');
+
 Route::get('/pdf_to_html', function () {
     return view('pdf_to_html');
 });
+
+Route::get('/pdfD', [DPDFController::class, 'generateHtmlToPDF']);

@@ -7,6 +7,7 @@ use DataTables;
 use App\Models\Language;
 use App\Models\Brand;
 use App\Models\User;
+use App\Models\BrandDetails;
 use App\Models\PipedriveSetting;
 use App\Models\VisaType;
 use Illuminate\Support\Facades\DB;
@@ -42,8 +43,8 @@ class BrandsController extends Controller
                         $btn = '<div class="btn-group" role="group" aria-label="Action buttons">';
                         $btn .= '<div data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit border-circle-right"><i class="fi-rr-edit"></i></div>';
                         $btn .= '<div data-toggle="tooltip" data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm btn-icon btn-outline-danger btn-circle mr-2 delete border-circle-right"><i class="fi-rr-trash"></i></div>';
-                        $btn .= '<div data-toggle="tooltip" title="pipedrive_setting" data-id="'.$row->id.'" data-original-title="pipedrive_setting" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 setting border-circle-right"><i class="fas fa-cog"></i></div>';
-                        $btn .= '<div data-toggle="tooltip" title="smtp_setting" data-id="'.$row->id.'" data-original-title="smtp_setting" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 smtp_setting border-circle-right"><i class="fas fa-cog"></i></div>';
+                        $btn .= '<div data-toggle="tooltip" title="PipeDrive Setting" data-id="'.$row->id.'" data-original-title="pipedrive_setting" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 setting border-circle-right"><i class="fas fa-cog"></i></div>';
+                        $btn .= '<div data-toggle="tooltip" title="SMTP Setting" data-id="'.$row->id.'" data-original-title="smtp_setting" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 smtp_setting border-circle-right"><i class="fas fa-cog"></i></div>';
                         $btn .= '</div>';
  
                         return $btn;
@@ -108,6 +109,27 @@ class BrandsController extends Controller
             $reqInt['logo'] = '/uploads/'. $name;
         }
         $rec = Brand::updateOrCreate(['id' => $request->id],$reqInt);
+
+        //add brand details
+        $brand_lan   = explode(",",$request->language_id);
+        $fieldKeys = ['conclusion'];
+        foreach ($brand_lan as $l_data) { 
+            $languageCode = $l_data;
+        
+            foreach ($fieldKeys as $fieldKey) {
+                $inputFieldName = $fieldKey . '_' . $languageCode;
+        
+                BrandDetails::updateOrCreate(
+                    [
+                        'brand_id'    => $rec->id,
+                        'language_id' => $languageCode, // Assuming you use the correct language ID
+                        'brand_key'   => $fieldKey,
+                    ],
+                    ['value'          => $request->input($inputFieldName),
+                    ]
+                );
+            }
+        } //end brand details
 
         if(isset($single) && $single){
             setActivityLog('Brand Updated [Brand Name: ' . $request->name. ', ' . $request->email  . ']',json_encode($reqInt),activityEnums('brand'),$request->id,\Auth::user()->id);

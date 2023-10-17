@@ -7,7 +7,7 @@
  <br/>
 <style type="text/css">
 	@import url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-	body {color: #000; font-size: 18px; line-height: 27px; font-family: 'Tinos', serif; background: #E6E6E6; }
+	body {color: #000; font-size: 17px; line-height: 25px; font-family: 'Tinos', serif; background: #E6E6E6; }
 	*, *::before, *::after {padding: 0; box-sizing: border-box; margin: 0; }
 	p {margin: 0; padding: 0;}	.ft10{font-size:88px;}
 	.ft11{font-size:13px;font-family:Times;color:#888888;}
@@ -18,7 +18,7 @@
 	li {list-style: none;}
 	.page-div {background-color: #ffffff;}
 	.pb-40 {padding-bottom: 40px; }
-/*	.veed-page {background-image: url({{ asset('pdf/veed-bg.png')}}); background-repeat: no-repeat; background-position: right 0 bottom -10px; background-size: 340px; }*/
+
 	.veed-page.page-1 {background-size: auto; background-position: right 20px bottom -10px; }
 
 	.first-page-logo {display: flex; padding-right: 20px; }
@@ -34,19 +34,25 @@
 	.page-footer ul {display: flex; align-items: center; font-size: 20px; letter-spacing: .8px; }
 	.page-footer ul li {padding: 0 8px; border-left: 2px solid #fff; line-height: 17px; color: #fff; font-size: 18px; }
 	.page-footer ul li:last-child, .page-footer ul li:first-child {border-left: none; }
-	.page-footer ul li a {color: #ffffff; font-size: 17px; white-space: nowrap; }
+	.page-footer ul li a {color: #ffffff; font-size: 14px; white-space: nowrap; }
 	.footer-logo {display: flex; align-items: center; }
 	.footer-logo img {max-width: 173px; }
 	.footer-logo span {font-size: 20px; padding-left: 8px; font-style: italic; }
 	.our-legal-team-logo {background-color: #1c2839; padding:50px 0; text-align:center; margin-top:160px; margin-bottom: 350px; }
+	.visa_box:first-child {
+		padding-left: 60px;
+	}
+	.visa_box:last-child {
+		padding-right: 60px;
+	}
 </style>
 </head>
 <body>
 
-	<table id="page1-div" class="page-div" style="position:relative;width:800px margin: 0 auto 15px;">
+	<table id="page1-div" class="page-div" style="position:relative;width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<img width="800" height="1131" src="{{ asset('pdf/target001.jpg')}}" alt="background image"/>
+				<img width="800" height="1084" src="{{ asset('pdf/target001.jpg')}}" alt="background image"/>
 				<p style="position:absolute;top:763px;left:38px;white-space:nowrap" class="ft12"><i>PROFILE<br/>ASSESSMENT</i></p>
 				<p style="position:absolute;top:1075px;left:785px;white-space:nowrap" class="ft11">1</p>
 				<div style="background-color: #1c2839; position:absolute;bottom:35px; left:0; height: 70px; width: 517px;"></div>
@@ -58,7 +64,7 @@
 	<table id="page2-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
+				<table cellpadding="0" cellspacing="0" width="100%">
 					<tbody>
 						<tr>
 							<th colspan="2" class="page-header" height="70px" style=" padding-top: 80px">
@@ -67,11 +73,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" style="padding: 35px 60px">
-								<p style="white-space:nowrap" class="ft25">Canada Migration is a Leading immigration consultancy which specializes in dealing <br>with professional services related to immigration.</p>
-								<p style="white-space:nowrap" class="ft25">We are private-owned Canadian Immigration Consultancy, based in Peterborough, <br>Ontario, Canada. </p>
-								<p style="white-space:nowrap" class="ft25">CanadaMigration.org assists individuals and families around the world with their visa <br>application and immigration process.</p>
-								<p style="white-space:nowrap" class="ft23">Most of Our legal team are practicing lawyers and the rest are licensed RCICs.</p>
-								<p style="white-space:nowrap" class="ft25">We can handle your case from the initial interview to any potential administrative <br>appeal or higher court appeals if required.</p>
+								<p  class="ft25">{{strip_tags($brand_about)}}</p>
 							</td>
 						</tr>
 						<tr>
@@ -94,17 +96,17 @@
 						</tr>
 						<tr>
 							<td colspan="2" width="100%">
-								<img src="{{ asset('pdf/abt-logo.png')}}" style="width: 100%; display: block; padding: 75px 70px 50px;">
+								<img width="657px" src="{{ asset('pdf/abt-logo.png')}}" style="padding: 75px 70px 50px;">
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+								<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
 									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">2</span></li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->email}}">{{$brands->email}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">2</li>
 									</ul>
 								</div>
 							</td>
@@ -118,7 +120,7 @@
 	<table id="page3-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
+				<table cellpadding="0" cellspacing="0" width="100%">
 					<tbody>
 						<tr>
 							<th colspan="2" class="page-header" height="70px" style=" padding-top: 80px">
@@ -139,12 +141,12 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+								<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
 									<ul>
 										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">3</span></li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}">{{$brands->website}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">3</li>
 									</ul>
 								</div>
 							</td>
@@ -158,25 +160,25 @@
 	<table id="page4-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
+				<table cellpadding="0" cellspacing="0" width="100%">
 					<tbody>
 						<tr>
 							<th colspan="2" class="page-header" height="70px" style=" padding-top: 80px">
 								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Our Legal Team</h2>
 							</th>
 						</tr>
-
+						@foreach($allrepresentatives as $repre)
 						<tr>
-							<td width="195px" style="padding-right: 20px; padding-left: 60px; padding-top: 35px; width: 195px;">
-								<img style="width: 115px; height: 115px" src="{{ asset('pdf/Jonatan-pic.png')}}">
+							<td width="80" style="padding-right: 20px; padding-left: 60px; padding-top: 35px;">
+								<img style="width: 115px; height: 115px" src="{{asset($repre->photo)}}">
 							</td>
-							<td style="padding-right: 60px; padding-top:35px; display: block;">
-								<table cellpadding="0" cellpadding="0" width="100%" style="border-radius: 45px;padding: 30px; background-color: #f7f7f7;">
+							<td width="480" style="padding-top:35px; width: 100%;">
+								<table cellpadding="0" cellpadding="0" width="400" style="text-align: left; border-radius: 45px;padding: 30px; background-color: #f7f7f7;">
 									<tbody>
 										<tr>
 											<td>
-												<p style="font-size: 22px; margin-bottom: 2px;white-space:nowrap;" class="ft42"><i><b>Jonatan Zahav</b></i></p>
-												<p style="font-size: 20px; line-height: 24px; margin-bottom: 10px;white-space:nowrap;" class="ft43"><i><b>Lawyer | LSO Membership | 22731N</b></i></p>
+												<p style="font-size: 20px; margin-bottom: 2px;white-space:nowrap;" class="ft42"><i><b>{{$repre->name}}</b></i></p>
+												<p style="font-size: 18px; margin-bottom: 10px;white-space:nowrap;" class="ft43"><i><b>Lawyer | LSO Membership | {{$repre->license_number}}</b></i></p>
 											</td>
 											<td>
 												<img src="{{ asset('pdf/law-society-logo.png')}}" style="width: 170px;">
@@ -184,37 +186,26 @@
 										</tr>
 										<tr>
 											<td colspan="2">
-												<p style="font-size: 18px; line-height: 24px;">Adv. Jonatan Zahav is the Head of the Legal Team and a member of the Ontario Bar. He was called to the bar over 30 years ago. He has worked in law and in business including many years in banking and the past 4 years in immigration. He has an office in his hometown of Peterborough, Ontario. A graduate of U of Toronto Law he has intimate knowledge of immigration, having lived in 6 countries and experienced fresh starts many times in his life.</p>
+												<p>{{$repre->bio}}</p>
 											</td>
 										</tr>
 									</tbody>
 								</table>
-
-								<!-- <div style="border-radius: 45px;padding: 30px; background-color: #f7f7f7; display: table;">
-									<div style="display: block; width: 100%;">
-										<div style="float: left;">
-											<p style="font-size: 22px; margin-bottom: 2px;white-space:nowrap;" class="ft42"><i><b>Jonatan Zahav</b></i></p>
-											<p style="font-size: 20px; line-height: 24px; margin-bottom: 10px;white-space:nowrap;" class="ft43"><i><b>Lawyer | LSO Membership | 22731N</b></i></p>
-										</div>
-										<img src="{{ asset('pdf/law-society-logo.png')}}" style="width: 170px; float: right;">
-									</div>
-									<p style="display: block; float: left; font-size: 18px; line-height: 24px;">Adv. Jonatan Zahav is the Head of the Legal Team and a member of the Ontario Bar. He was called to the bar over 30 years ago. He has worked in law and in business including many years in banking and the past 4 years in immigration. He has an office in his hometown of Peterborough, Ontario. A graduate of U of Toronto Law he has intimate knowledge of immigration, having lived in 6 countries and experienced fresh starts many times in his life.</p>
-								</div> -->
 							</td>
 						</tr>
-
-						<!-- <tr>
+						@endforeach
+						<tr>
 							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+								<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
 									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">4</span></li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">4</li>
 									</ul>
 								</div>
 							</td>
-						</tr> -->
+						</tr>
 					</tbody>
 				</table>
 			</td>
@@ -224,7 +215,7 @@
 	<table id="page5-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
+				<table cellpadding="0" cellspacing="0" width="100%">
 					<tbody>
 						<tr>
 							<th class="page-header" height="70px" style=" padding-top: 80px">
@@ -278,12 +269,12 @@
 
 						<tr>
 							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+								<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
 									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">5</span></li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">5</li>
 									</ul>
 								</div>
 							</td>
@@ -297,11 +288,11 @@
 	<table id="page6-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
+				<table cellpadding="0" cellspacing="0" width="100%">
 					<tbody>
 						<tr>
 							<th colspan="3" class="page-header" height="70px" style=" padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Prospect: Mohamed Alwerwary, Doha, Qatar</h2>
+								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Prospect: {{$created_data->name}}, {{$created_data->city}}, {{$created_data->country}}</h2>
 							</th>
 						</tr>
 
@@ -311,26 +302,26 @@
 									<tbody>
 										<tr>
 											<td width="50%" style="background: #F5F5F5;border: 1px solid #fff;padding: 17px 10px;">
-												<b><i>Case Number:</i> </b> 00342
+												<b><i>Case Number:</i> </b> {{$created_data->case_number}}
 											</td>
 											<td width="50%" style="background: #F5F5F5;border: 1px solid #fff;padding: 17px 10px;">
-												<b><i>Date:</i> </b>  June 2023
-											</td>
-										</tr>
-										<tr>
-											<td width="50%" style="background: #F5F5F5;border: 1px solid #fff;padding: 17px 10px;">
-												<b><i>Email:</i> </b>
-											</td>
-											<td width="50%" style="background: #F5F5F5;border: 1px solid #fff;padding: 17px 10px;">
-												<b><i>Phone:</i> </b>
+												<b><i>Date:</i> </b>  {{ now()->format('F Y') }}
 											</td>
 										</tr>
 										<tr>
 											<td width="50%" style="background: #F5F5F5;border: 1px solid #fff;padding: 17px 10px;">
-												<b><i>Education:</i> </b>
+												<b><i>Email:</i> </b> {{$created_data->email}}
 											</td>
 											<td width="50%" style="background: #F5F5F5;border: 1px solid #fff;padding: 17px 10px;">
-												<b><i>Occupation:</i> </b>
+												<b><i>Phone:</i> </b>{{$created_data->phone_no}}
+											</td>
+										</tr>
+										<tr>
+											<td width="50%" style="background: #F5F5F5;border: 1px solid #fff;padding: 17px 10px;">
+												<b><i>Education:</i> </b>{{$created_data->education_level}}
+											</td>
+											<td width="50%" style="background: #F5F5F5;border: 1px solid #fff;padding: 17px 10px;">
+												<b><i>Occupation:</i> </b> {{$created_data->occupation}}
 											</td>
 										</tr>
 									</tbody>
@@ -341,47 +332,48 @@
 						<tr>
 							<td colspan="3" style="padding:0 60px 60px;">
 								<strong>
-									<i>Dear Mr. Mohamed Alwerwary.</i>
+									<i>Dear Mr. {{$created_data->name}}.</i>
 								</strong>
 								<p>Following an extensive assessment based on the information you provided to CanadaMigration, we have found that – insofar as Canadian visas are concerned – you are qualified to apply for the following specific visa types in accordance with their requirements:</p>
 							</td>
 						</tr>
 
 						<tr>
-							<td style="padding-left: 60px; text-align: center;">
-								<p style="font-size: 36px; color: #cacaca; font-weight: 700; margin-bottom: -3px; width: 196px; "><i>01</i></p>
-								<div class="count-box" style="border-radius: 30px;padding: 30px 0 0; background-color: #f7f7f7; min-height: 177px; width: 196px;">
-									<p class="ft65"><i><b>Atlantic High-</b></i></p>
-									<p class="ft65"><i><b>Skilled Program</b></i></p>
-								</div>
-							</td>
-							<td style="text-align: center;">
-								<p style="font-size: 36px; color: #cacaca; font-weight: 700; margin-bottom: -3px; "><i>02</i></p>
-								<div class="count-box" style="border-radius: 30px;padding: 30px 0 0; background-color: #f7f7f7; min-height: 177px; width: 196px; width: 196px;">
-									<p class="ft65"><i><b>Alberta </b></i></p>
-									<p class="ft65"><i><b>Immigration Rural </b></i></p>
-									<p class="ft65"><i><b>Renewal Stream</b></i></p>
-									<p style="background: #ee434b;font-size: 14px;line-height: normal;padding: 4px 0;color: #fff;margin-top: 6px;">Most Recommended</p>
-								</div>
-							</td>
-							<td style="padding-right: 60px; text-align: center;">
-								<p style="font-size: 36px; color: #cacaca; font-weight: 700; margin-bottom: -3px; width: 196px;"><i>03</i></p>
-								<div class="count-box" style="border-radius: 30px;padding: 30px 0 0; background-color: #f7f7f7; min-height: 177px; width: 196px;">
-									<p class="ft65"><i><b>British Columbia</b></i></p>
-									<p class="ft65"><i><b>Provincial</b></i></p>
-									<p class="ft65"><i><b>Nominee Program</b></i></p>
-								</div>
-							</td>
+							@if($visa_type)
+								@foreach($visa_type as $key=>$visa)
+									@php  
+									$count = $key+1 ;
+									@endphp
+									
+									@if ($created_data->recommended_visa_name == $visa['name'])
+										<td style="text-align: center; padding:0 20px;">
+											<p style="font-size: 36px; color: #cacaca; font-weight: 700; margin-bottom: -3px; "><i>{{$count }}</i></p>
+											<div class="count-box" style="border-radius: 30px;padding: 30px 15px 0; background-color: #f7f7f7; min-height: 160px; width: 196px; width: 196px;">
+												<p class="ft65"><i><b>{{$created_data->recommended_visa_name}} </b></i></p>
+												<p style="background: #ee434b;font-size: 14px;line-height: normal;padding: 4px 0;color: #fff;margin-top: 15px;">Most Recommended</p>
+											</div>
+										</td>
+									@else
+										<td class="visa_box" style="text-align: center;">
+											<p style="font-size: 36px; color: #cacaca; font-weight: 700; margin-bottom: -3px; width: 196px; "><i>{{$count }}</i></p>
+											<div class="count-box" style="border-radius: 30px;padding: 30px 15px 0; background-color: #f7f7f7; min-height: 160px; width: 196px;">
+												<p class="ft65"><i><b>{{$visa['name']}}</b></i></p>
+											</div>
+										</td>
+
+									@endif
+								@endforeach
+							@endif
 						</tr>		
 
 						<tr>
-							<td colspan="3">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+							<td colspan="2">
+								<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
 									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">6</span></li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">6</li>
 									</ul>
 								</div>
 							</td>
@@ -395,650 +387,418 @@
 	<table id="page7-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<img width="800" height="1131" src="{{ asset('pdf/target007.png')}}" alt="background image"/>
-				<p style="position:absolute;top:905px;left:60px;white-space:nowrap; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>Atlantic High-Skilled <br>Program</i></p>
+				<img width="800" height="1103" src="{{ asset('pdf/target007.png')}}" alt="background image"/>
+				<p style="position:absolute;top:885px;left:60px;white-space:nowrap; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>Atlantic High-Skilled <br>Program</i></p>
 			</td>
 		</tr>
 	</table>
 
-	<table id="page8-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style=" padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Atlantic High-Skilled Program</h2>
-							</th>
-						</tr>
+	@foreach($visa_type as $visa)
+		@if(!empty($visa['visa_details']))
+			@php $visaDetail = $visa['visa_details']; @endphp
+			
+			<table id="page8-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+				<tr>
+					<td>
+						<table cellpadding="0" cellspacing="0" width="100%">
+							<tbody>
+								<tr>
+									<th class="page-header" height="70px" style=" padding-top: 80px">
+										<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$visa['name']}} 
+									</h2>
+									</th>
+								</tr>
 
-						<tr>
-							<td style="padding: 35px 60px 30px">				
-								<p>The Atlantic Immigration Program is designed to welcome additional newcomers to the Atlantic Canada region to fill the needs of local employers and communities.The program allows designated local employers to identify, recruit and retain global talent.</p>
-								<p>The program also has the goals of supporting population growth, developing a skilled workforce, and increasing employment rates in the region.</p>
-								<p>The Atlantic Immigration Program offers permanent residence to skilled workers that want to settle in:</p>
-							</td>
-						</tr>
+								<tr>
+									<td style="padding: 35px 60px 30px">				
+										<p>{{$visaDetail['description']}}</p>
+									</td>
+								</tr>
 
-						<tr>
-							<td style="padding: 0 60px 50px">				
-								<p style="margin-bottom: 5px;"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">Nova Scotia.</p>
-								<p style="margin-bottom: 5px;"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">New Brunswick.</p>
-								<p style="margin-bottom: 5px;"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">Newfoundland and Labrador.</p>
-								<p style="margin-bottom: 5px;"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">Prince Edward Island</p>
-							</td>
-						</tr>
+								<tr>
+									<td style="padding-bottom: 50px;">
+										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+											<strong><i>How does This Program work?</strong>
+										</div>
+									</td>
+								</tr>
 
-						<tr>
-							<td style="padding-bottom: 50px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>How does This Program work?</strong>
-								</div>
-							</td>
-						</tr>
+								<tr>
+									<td style="padding: 0 60px;">
+										<p style="margin-bottom: 5px;"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">{{$visaDetail['program_work']}}</p>
 
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="margin-bottom: 5px;"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">The Atlantic Immigration Program is an employer-driven program that facilitates the hiring of foreign nationals. All principal applicants arriving in Canada under the program must have a job offer from a designated employer and an individualized settlement plan for themselves and their family.</p>
-								<p><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">TOnce a designated employer finds a candidate who meets their employment needs and the program criteria, that employer will need to first offer them a job. Employers do not need to go through the process of obtaining a Labour Market Impact Assessment (LMIA).</p>
+									</td>
+								</tr>
 
-							</td>
-						</tr>
+								<tr>
+									<td colspan="2">
+										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+											<ul>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">8</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
 
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">8</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
+			
+			<table id="page9-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+				<tr>
+					<td>
+						<table cellpadding="0" cellspacing="0" width="100%">
+							<tbody>
+								<tr>
+									<th class="page-header" height="70px" style=" padding-top: 80px">
+										<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$visa['name']}}</h2>
+									</th>
+								</tr>
+
+								<tr>
+									<td style="padding-bottom: 30px;">
+										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+											<strong><i>Candidate Requirements:</strong>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding: 0 60px;">
+										<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/check-icon.png')}}" width="14px" height="auto" style="margin-right: 8px;"> {{$visaDetail['break_down']}}</p>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding-bottom: 30px; padding-top: 50px;">
+										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+											<strong><i>Highest paying cities for Sales Managers near Canada</strong>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding:0 60px;">
+										<img width="680" src="{{ asset('pdf/Highest-paying-cities-for-Sales.png')}}">
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="2">
+										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+											<ul>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}">{{$brands->website}}</a> </li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">9</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+			<table id="page10-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+				<tr>
+					<td>
+						<table cellpadding="0" cellspacing="0" width="100%">
+							<tbody>
+								<tr>
+									<th class="page-header" height="70px" style=" padding-top: 80px">
+										<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$visa['name']}}</h2>
+									</th>
+								</tr>
+
+								<tr>
+									<td style="padding-bottom: 30px;padding-top: 35px;">
+										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+											<strong><i>Main Advantages:</strong>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding: 0 60px;">
+										<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/check-icon.png')}}" width="14px" height="auto" style="margin-right: 8px;"> {{$visaDetail['main_advantage']}}</p>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding-bottom: 30px; padding-top: 50px;">
+										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+											<strong><i>Time Frame:{{$visaDetail['time_frame']}}</strong>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding-bottom: 30px; padding-top: 50px;">
+										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+											<strong><i>Our Service:</strong>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding: 0 60px;">
+										<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/check-icon.png')}}" width="14px" height="auto" style="margin-right: 8px;"> We will open your family an account and submit your case to the Atlantic High- Skilled Program.</p>
+										<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/check-icon.png')}}" width="14px" height="auto" style="margin-right: 8px;"> We will assist you in Job Search and represent to you In front of Canadian company to get the best possible work conditions!</p>
+										<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/check-icon.png')}}" width="14px" height="auto" style="margin-right: 8px;"> We will represent you in front of the Ministry of Immigration.</p>
+										<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/check-icon.png')}}" width="14px" height="auto" style="margin-right: 8px;"> We will represent you in front of the Embassy of Canada in your country of residence.</p>
+									</td>
+								</tr>
+
+								<tr>
+									<td style="padding: 50px 60px;">
+										<div style=" padding: 45px; border-radius: 30px; background: #1c2839; text-align: center;">
+										<img src ="{{ asset('pdf/check-icon.png')}}">
+											<p style="white-space:nowrap; color: #ffffff; margin-bottom: 15px;" class="ft107"><i><b>Service Cost: 6,478 CAD - 478 CAD (First Payment Promotion) *</b></i></p>
+											<p style="white-space:nowrap; color: #ef434c; font-size: 27px;" class="ft108"><i><b>Service Cost after Discount: 6,000 CAD</b></i></p>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="2">
+										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+											<ul>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">10</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+				@if ($created_data->recommended_visa_name == $visa['name'])
+				<table id="page11-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+					<tr>
+						<td>
+							<img width="800" height="1084" src="{{ asset('pdf/target011.png')}}" alt="background image"/>
+							<p style="position:absolute;top:885px;left:60px;white-space:nowrap; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>{{$created_data->recommended_visa_name}}</i></p>
+						</td>
+					</tr>
 				</table>
-			</td>
-		</tr>
-	</table>
 
-	<table id="page9-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style=" padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Atlantic High-Skilled Program</h2>
-							</th>
-						</tr>
+				<table id="page12-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+					<tr>
+						<td>
+							<table cellpadding="0" cellspacing="0" width="100%">
+								<tbody>
+									<tr>
+										<th class="page-header" height="70px" style="position: relative; padding-top: 80px">
+											<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$created_data->recommended_visa_name}}</h2>
+											<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
+											<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
+										</th>
+									</tr>
 
-						<tr>
-							<td style="padding: 35px 60px 50px">				
-								<p style="margin-bottom: 5px;"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">Once the candidate has accepted the job, the employer will connect the candidate with a designated settlement service provider organization for a needs assessment and to develop a settlement plan. Employers will also support the long- term integration of the new immigrant and his or her family, if applicable, so they can reach the goals of their settlement plan once they arrive in Canada.</p>
-								<p><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">Employers that need to fill a job vacancy quickly will have access to a temporary work permit, so that the candidate and his or her family can come to Canada as soon as possible.</p>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding: 35px 60px 0">
+											<p style="padding-bottom: 20px;">{{$visaDetail['description']}}</p>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding-bottom: 30px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Candidate Requirements:</strong>
-								</div>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding-bottom: 30px;padding-top: 35px;">
+											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+												<strong><i>The Rural Renewal Stream has a 2-step process:</strong>
+											</div>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ Have the required work experience: 1,560 hours in the last 5 years - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="white-space:nowrap; margin-bottom: 30px;" class="ft92">✓ Meet educational requirements: Minimum one-year post-secondary educational - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ Meet language requirements: Minimum CLB 5 - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ Have the required settlement funds: Minimum 15,124$(CAD) - <span style="color: #ef434c;">Approved.</span></p>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding: 0 60px;">
+											<p style="margin-bottom: 5px; " class="ft92"><span style="color: #ef434c;">1.</span> {{$visaDetail['break_down']}}</p>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding-bottom: 30px; padding-top: 50px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Highest paying cities for Sales Managers near Canada</strong>
-								</div>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding-bottom: 30px;padding-top: 35px;">
+											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+												<strong><i>Candidate Requirements</strong>
+											</div>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding:0 60px;">
-								<img width="100%" src="{{ asset('pdf/Highest-paying-cities-for-Sales.png')}}">
-							</td>
-						</tr>
+									<tr>
+										<td style="padding: 0 60px;">
+											<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Endorsement of Candidate letter from designated community.</p>
+											<p style="margin-bottom: 5px;" class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Full-time, permanent job offer for minimum of 12 months and 30 hours per week (see below for ineligible occupations).</p>
+											<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Valid licensing, registration and certification as required by the position - <span style="color: #ef434c;">Approved.</span></p>
+											<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Minimum of 12 months full-time work experience in an eligible occupation within the last 18 months - <span style="color: #ef434c;">Approved.</span></p>
+											<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Meet language requirements - <span style="color: #ef434c;">Approved.</span></p>
+											<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Minimum of Canadian high school education or equivalent - <span style="color: #ef434c;">Approved.</span></p>
+											<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Have the required settlement funds - <span style="color: #ef434c;">Approved.</span></p>
+										</td>
+									</tr>
 
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">9</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
+									<tr>
+										<td colspan="2">
+											<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+												<ul>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">12</li>
+												</ul>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
 				</table>
-			</td>
-		</tr>
-	</table>
 
-	<table id="page10-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style=" padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Atlantic High-Skilled Program</h2>
-							</th>
-						</tr>
+				<table id="page13-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+					<tr>
+						<td>
+							<table cellpadding="0" cellspacing="0" width="100%">
+								<tbody>
+									<tr>
+										<th class="page-header" height="70px" style="position: relative; padding-top: 80px">
+											<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$created_data->recommended_visa_name}}</h2>
+											<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
+											<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
+										</th>
+									</tr>
 
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Main Advantages:</strong>
-								</div>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding-bottom: 30px;padding-top: 35px;">
+											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+												<strong><i>Main Advantages:</strong>
+											</div>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ You get a permeant residency card for life!</p>
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ High Success Ratio!</p>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding: 0 60px;">
+											<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/check-icon.png')}}" width="14px" height="auto" style="margin-right: 8px;"> {{$visaDetail['main_advantage']}}</p>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding-bottom: 30px; padding-top: 50px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Time Frame: 12 - 15 Months</strong>
-								</div>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding-bottom: 30px;padding-top: 35px;">
+											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+												<strong><i>Corporate sales manager: salaries per region</strong>
+											</div>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding-bottom: 30px; padding-top: 50px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Our Service:</strong>
-								</div>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding: 0 60px;">
+											<img src="{{ asset('pdf/salaries-per-region-img.png')}}" width="100%">
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="margin-bottom: 5px; " class="ft92">✓ We will open your family an account and submit your case to the Atlantic High- Skilled Program.</p>
-								<p style="margin-bottom: 5px; " class="ft92">✓ We will assist you in Job Search and represent to you In front of Canadian company to get the best possible work conditions!</p>
-								<p style="margin-bottom: 5px; " class="ft92">✓ We will represent you in front of the Ministry of Immigration.</p>
-								<p style="margin-bottom: 5px; " class="ft92">✓ We will represent you in front of the Embassy of Canada in your country of residence.</p>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 50px 60px;">
-								<div style=" padding: 45px; border-radius: 30px; background: #1c2839; text-align: center;">
-									<p style="white-space:nowrap; color: #ffffff; margin-bottom: 15px;" class="ft107"><i><b>Service Cost: 6,478 CAD - 478 CAD (First Payment Promotion) *</b></i></p>
-									<p style="white-space:nowrap; color: #ef434c; font-size: 27px;" class="ft108"><i><b>Service Cost after Discount: 6,000 CAD</b></i></p>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">10</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
+									<tr>
+										<td colspan="2">
+											<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+												<ul>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">13</li>
+												</ul>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
 				</table>
-			</td>
-		</tr>
-	</table>
 
-	<table id="page11-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<img width="800" height="1131" src="{{ asset('pdf/target011.png')}}" alt="background image"/>
-				<p style="position:absolute;top:905px;left:60px;white-space:nowrap; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>Alberta Immigration <br>Rural Renewal Stream</i></p>
-			</td>
-		</tr>
-	</table>
+				<table id="page14-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+					<tr>
+						<td>
+							<table cellpadding="0" cellspacing="0" width="100%">
+								<tbody>
+									<tr>
+										<th class="page-header" height="70px" style="position: relative; padding-top: 80px">
+											<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$created_data->recommended_visa_name}}</h2>
+											<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
+											<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
+										</th>
+									</tr>
 
-	<table id="page12-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style="position: relative; padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Alberta Immigration Rural <br> Renewal Stream</h2>
-								<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
-								<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
-							</th>
-						</tr>
+									<tr>
+										<td style="padding-bottom: 30px;padding-top: 35px;">
+											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+												<strong><i>Time Frame:</i></strong>{{$visaDetail['time_frame']}}
+											</div>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding: 35px 60px 0">
-								<p style="padding-bottom: 20px;">The Alberta Immigration Rural Renewal Stream aims to attract skilled Canada immigration newcomers to rural areas of the Canadian province.</p>
-								<p style="padding-bottom: 20px;">Mr. Abdul Samad Shamshad Ali is a High Qualified candidate and a job offer from an Alberta employer in a designated rural Alberta community can apply for Canada permanent residence through the Alberta Advantage Immigration Program (AAIP).</p>
-								<p>Communities must have a population below 100,000 and be outside the Calgary and Edmonton census metropolitan areas to become designated.</p>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding-bottom: 30px;padding-top: 35px;">
+											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+												<strong><i>Our Service:</i></strong>
+											</div>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>The Rural Renewal Stream has a 2-step process:</strong>
-								</div>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding: 0 60px;">
+											<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">1.</span> We will assist to get an Endorsement of Candidate letter from designated community.</p>
+											<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">2.</span> We will open your family an account and submit your case to Rural Renewal Stream</p>
+											<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">3.</span> We will assist you to find a Job and we will represent you in front of a Canadian employer to get LMIA.</p>
+											<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">4.</span> We will represent you in front of the Ministry of Immigration.</p>
+											<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">5.</span> We will represent you in front of the Embassy of Canada in your country of residence.</p>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92"><span style="color: #ef434c;">1.</span> Community designation: Community recruits’ newcomers to meet labor needs.</p>
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92"><span style="color: #ef434c;">2.</span> Submit the AAIP application under the Rural Renewal Stream.</p>
-							</td>
-						</tr>
+									<tr>
+										<td style="padding: 50px 60px;">
+											<div style=" padding: 45px; border-radius: 30px; background: #1c2839; text-align: center;">
+												<p style="white-space:nowrap; color: #ffffff; margin-bottom: 15px;" class="ft107"><i><b>Service Cost: 5,478 CAD - 478 CAD (First Payment Promotion) *</b></i></p>
+												<p style="white-space:nowrap; color: #ef434c; font-size: 27px;" class="ft108"><i><b>Service Cost after Discount: 5,000 CAD</b></i></p>
+												<p style="white-space:nowrap; color: #fff;" class="ft108"><i><b>Family</b></i></p>
+											</div>
+										</td>
+									</tr>
 
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Candidate Requirements</strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Endorsement of Candidate letter from designated community.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Full-time, permanent job offer for minimum of 12 months and 30 hours per week (see below for ineligible occupations).</p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Valid licensing, registration and certification as required by the position - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Minimum of 12 months full-time work experience in an eligible occupation within the last 18 months - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Meet language requirements - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Minimum of Canadian high school education or equivalent - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Have the required settlement funds - <span style="color: #ef434c;">Approved.</span></p>
-							</td>
-						</tr>
-
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">12</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
+									<tr>
+										<td colspan="2">
+											<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+												<ul>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">{{$brands->website}}</a> </li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
+													<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">14</li>
+												</ul>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
 				</table>
-			</td>
-		</tr>
-	</table>
-
-	<table id="page13-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style="position: relative; padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Alberta Immigration Rural <br> Renewal Stream</h2>
-								<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
-								<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
-							</th>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Main Advantages:</strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ Small community.</p>
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ You get a Permeant Residency for all your family.</p>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Corporate sales manager: salaries per region</strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<img src="{{ asset('pdf/salaries-per-region-img.png')}}" width="100%">
-							</td>
-						</tr>
-
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">13</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</table>
-
-	<table id="page14-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style="position: relative; padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">Alberta Immigration Rural <br> Renewal Stream</h2>
-								<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
-								<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
-							</th>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Time Frame:</i></strong> 12 - 15 Months
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Our Service:</i></strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">1.</span> We will assist to get an Endorsement of Candidate letter from designated community.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">2.</span> We will open your family an account and submit your case to Rural Renewal Stream</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">3.</span> We will assist you to find a Job and we will represent you in front of a Canadian employer to get LMIA.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">4.</span> We will represent you in front of the Ministry of Immigration.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">5.</span> We will represent you in front of the Embassy of Canada in your country of residence.</p>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 50px 60px;">
-								<div style=" padding: 45px; border-radius: 30px; background: #1c2839; text-align: center;">
-									<p style="white-space:nowrap; color: #ffffff; margin-bottom: 15px;" class="ft107"><i><b>Service Cost: 5,478 CAD - 478 CAD (First Payment Promotion) *</b></i></p>
-									<p style="white-space:nowrap; color: #ef434c; font-size: 27px;" class="ft108"><i><b>Service Cost after Discount: 5,000 CAD</b></i></p>
-									<p style="white-space:nowrap; color: #fff;" class="ft108"><i><b>Family</b></i></p>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">14</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</table>
-
-	<table id="page15-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<img width="800" height="1131" src="{{ asset('pdf/target015.png')}}" alt="background image"/>
-				<p style="position:absolute;top:852px;left:60px;white-space:nowrap; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>British Columbia <br>Provincial Nominee <br>Program</i></p>
-			</td>
-		</tr>
-	</table>
-
-	<table id="page16-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style="padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">British Columbia Provincial Nominee Program</h2>
-							</th>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px; padding: 35px 60px 0">
-								<p>The BC Provincial Nominee Program (BC PNP) is an economic immigration program administered by the Government of British Columbia’s Immigration Programs Branch.BC PNP has supported more than 6,000 workers to be nominated for permanentresidence since its launch in May 2017. BC PNP helps ensure B.C. can continue to attract and retain the talent needed to sustain and grow the Medical Health sector in the province.</p>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 50px 60px;">
-								<div style=" padding:35px 45px; border-radius: 30px; background: #f7f7f7; text-align: center;">
-									<p style="color: #ef434c; font-size: 22px; margin-bottom: 30px;" class="ft107"><i><b>Corporate sales managers are under National Occupational Classification(NOC): 60010– Hight Demand</b></i></p>
-									<p style="color: #ef434c; font-size: 22px;" class="ft108"><i><b>The position is also one of the 35 target occupations under the BC PNP.</b></i></p>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>corporate sales managers salary in Canada</i></strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<img src="{{ asset('pdf/corporate-sales-managers-salary-in-Canada-img.png')}}" width="90%">
-							</td>
-						</tr>
-						
-
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">16</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</table>
-
-	<table id="page17-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style="padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">British Columbia Provincial Nominee Program</h2>
-							</th>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>How does This Program work?</i></strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="margin-bottom: 5px;" class="ft92">Interested candidates must follow a two-stage process.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">1.</span> Step 1: Satisfy eligibility criteria of the BC PNP.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">2.</span> Step 2: Create an Express Entry profile.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">3.</span> Step 3: BC PNP identifies candidates in the Express Entry pool.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">4.</span> WStep 4: Receive a NOI from the BC PNP.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">5.</span> Step 5: Apply to the BC PNP under the Human Capital Priorities Stream within 45 calendar days after receiving a NOI from British Colombia.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">6.</span> Step 6: If nominated, candidates obtain a Nomination Approval Letter and an BC PNP Certificate of Nomination by email. Candidates have 30 calendar days to accept the nomination in the Express Entry system.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">7.</span> Step 7: If a nomination is accepted, Express Entry candidates are awarded an additional 600 CRS points and an Invitation to Apply (ITA) for permanent residence at a future draw from the pool.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">8.</span> Step 8: Apply for Canadian permanent residence to IRCC within 60 days of receiving the ITA.</p>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 50px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Main Advantages:</i></strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ You get a Permeant Residency for all your family.</p>
-								<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">✓ The best education in Canada.</p>
-							</td>
-						</tr>
-
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">17</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</table>
-
-	<table id="page18-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
-					<tbody>
-						<tr>
-							<th class="page-header" height="70px" style="padding-top: 80px">
-								<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">British Columbia Provincial Nominee Program</h2>
-							</th>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 35px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Candidate Requirements</i></strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="margin-bottom: 5px; " class="ft92">The candidates must work in an eligible occupation - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Language Requirements - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Education Requirements - <span style="color: #ef434c;"> Approved.</span></p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;"> Work Experience Requirements - <span style="color: #ef434c;">Approved.</span></p>
-								<p style="margin-bottom: 5px; " class="ft92"><img src="{{ asset('pdf/bullet-icon.png')}}" style="margin-right: 15px; margin-bottom: -3px;">Have the required settlement funds >20,450$ - <span style="color: #ef434c;">Approved.</span></p>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 50px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Time Frame:</i></strong> 9 - 12 Months
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding-bottom: 30px;padding-top: 50px;">
-								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>Our Service:</i></strong>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 0 60px;">
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">1.</span> We will guide you to collect all required documents and notarize them by our Lawyers.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">2.</span> We will open you an account and submit your case to BC PNP Program.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">3.</span> We will represent you in front of the Ministry of Immigration to get the permeant residency.</p>
-								<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;">4.</span> We will represent you in front of the Embassy of Canada in your country of residence.</p>
-							</td>
-						</tr>
-
-						<tr>
-							<td style="padding: 50px 60px;">
-								<div style=" padding: 45px; border-radius: 30px; background: #1c2839; text-align: center;">
-									<p style="white-space:nowrap; color: #ffffff; margin-bottom: 15px;" class="ft107"><i><b>Service Cost: 5,478 CAD - 478 CAD (First Payment Promotion) *</b></i></p>
-									<p style="white-space:nowrap; color: #ef434c; font-size: 27px;" class="ft108"><i><b>Service Cost after Discount: 5,000 CAD</b></i></p>
-									<p style="white-space:nowrap; color: #fff;" class="ft108"><i><b>Family</b></i></p>
-								</div>
-							</td>
-						</tr>
-
-						<tr>
-							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
-									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">18</span></li>
-									</ul>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</td>
-		</tr>
-	</table>
+				@endif
+			
+		@endif
+	@endforeach
 
 	<table id="page19-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<img width="800" height="1131" src="{{ asset('pdf/target019.png')}}" alt="background image"/>
-				<p style="position:absolute;top:995px;left:60px;white-space:nowrap; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>Conclusion</i></p>
+				<img width="800" height="1084" src="{{ asset('pdf/target019.png')}}" alt="background image"/>
+				<p style="position:absolute;top:970px;left:60px;white-space:nowrap; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>Conclusion</i></p>
 			</td>
 		</tr>
 	</table>
@@ -1046,7 +806,7 @@
 	<table id="page20-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 		<tr>
 			<td>
-				<table cellpadding="0" cellspacing="0" width="100%" style="overflow: hidden;">
+				<table cellpadding="0" cellspacing="0" width="100%">
 					<tbody>
 						<tr>
 							<th colspan="2" class="page-header" height="70px" style="padding-top: 80px">
@@ -1066,7 +826,7 @@
 						<tr>
 							<td colspan="2" style="padding-bottom: 30px;padding-top: 50px;">
 								<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-									<strong><i>I recommend going for:</i></strong>
+									<strong><i>I recommend going for:</i></strong>{{$created_data->recommended_visa_name}}
 								</div>
 							</td>
 						</tr>
@@ -1082,40 +842,40 @@
 
 						<tr>
 							<td colspan="2" style="padding: 0 60px 30px;">
-								<p style="padding-bottom: 4px;" class="ft204"><i><b>Immigration Lawyer - Jonatan Zahav, LL.B.</b></i></p>
-								<p>LSO Member 22731N - CBA Member 9033497</p>
+								<p style="padding-bottom: 4px;" class="ft204"><i><b>Immigration Lawyer - {{$representative->name}}, LL.B.</b></i></p>
+								<p>LSO Member {{$representative->license_number}} - CBA Member {{$representative->cba_number}}</p>
 							</td>
 						</tr>
 
 						<tr>
 							<td width="500px" style="padding-left: 60px;">
 								<div class="signature-profile" style="background-color: #f7f7f7; padding-right: 35px; border-radius: 55px 20px 20px 55px; display: table; width: 100%;">
-									<img src="{{ asset('pdf/Jonatan-pic.png')}}" style="width: 103px; margin-right: 22px; float: left; ">
+									<img src="{{asset($representative->photo)}}" style="width: 103px; margin-right: 22px; float: left; ">
 									<div style="padding: 24px 0; ">
 										<p>
-											<strong style="float: left;"><i>Jonatan Zahav</i></strong> 
-											<img src="{{ asset('pdf/law-society-logo.png')}}" style="width: 128px; margin-left: auto; display: table;">
+											<strong style="float: left;"><i>{{$representative->name}}</i></strong> 
+											<!-- <img src="{{ asset('pdf/law-society-logo.png')}}" style="width: 128px; margin-left: auto; display: table;"> -->
 										</p>
-										<p><i><b>Lawyer | LSO Membership | 22731N</b></i></p>
+										<p><i><b>Lawyer | LSO Membership | {{$representative->license_number}}</b></i></p>
 									</div>
 								</div>
 							</td>
 							<td style="text-align: right; padding-right: 60px;">
 								<div class="stamp" style="position: relative; max-width: 205px; margin-left: auto;">
-									<img src="{{ asset('pdf/stamp-img.png')}}" style="width: 205px; ">
-									<p style="position: absolute; top: 60px; left: 30px; white-space: nowrap; "><b><i>Jonatan Zahav</i></b></p>
+									<img src="{{asset($representative->signature_photo)}}" style="width: 205px; ">
+									<p style="position: absolute; top: 60px; left: 30px; white-space: nowrap; "><b><i>{{$representative->name}}</i></b></p>
 								</div>
 							</td>
 						</tr>
 
 						<tr>
 							<td colspan="2">
-								<div class="page-footer" width="100%" style="background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
+								<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 39px; padding: 0 15px 0 15px; margin-top: 35px; ">
 									<ul>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">Info@canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}"><span style="margin-bottom: 9px;">20</span></li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+										<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 9px 0; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">20</li>
 									</ul>
 								</div>
 							</td>

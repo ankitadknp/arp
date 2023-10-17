@@ -121,8 +121,6 @@ class VisaTypeController extends Controller
             $single = VisaType::find($request->id);
         }
 
-        $visa_image =  Config::get('constants.VISA_IMAGE');
-
         $reqInt = [
             'name'     => $request->name,
             'brand_id' => $request->brand_id,
@@ -143,7 +141,7 @@ class VisaTypeController extends Controller
                     $name            = time() . '_' . $uploadedFile->getClientOriginalName();
                     $destinationPath = public_path('/uploads/visa/');
                     $uploadedFile->move($destinationPath, $name);
-                    $fieldValue      = $visa_image. $name; // Set field value for image
+                    $fieldValue      = $name; // Set field value for image
                     $is_image        = 1 ;
                 } elseif ($request->filled($inputFieldName)) {
                     $fieldValue     = $request->input($inputFieldName); // Set field value for text data
@@ -155,7 +153,7 @@ class VisaTypeController extends Controller
                     VisaTypeDetails::updateOrCreate(
                         [
                             'visa_type_id' => $rec->id,
-                            'language_id' => $languageCode, // Assuming you use the correct language ID
+                            'language_code' => $languageCode, // Assuming you use the correct language ID
                             'brand_id'    => $request->brand_id,
                             'visa_key'    => $fieldKey,
                             'is_image'    => $is_image
@@ -194,7 +192,7 @@ class VisaTypeController extends Controller
                 // $data[$detail->visa_key][$l_data->code] = $detail->is_image == 1
                 //     ? '<img src="' . asset($detail->value) . '" width="100" height="100" class="img-fluid"/>'
                 //     : $detail->value;
-                $data[$detail->visa_key][$detail->language_id] = $detail->value;
+                $data[$detail->visa_key][$detail->language_code] = $detail->value;
                 $data[$detail->visa_key]['is_image'] = $detail->is_image;
             }
         // }

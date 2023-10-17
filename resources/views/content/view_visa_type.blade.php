@@ -62,7 +62,6 @@
 
                             <span>Candidate Score_{{$l_data->code}}</span><br>
                             <input required type="file" name="candidate_score[{{$l_data->code}}]" class="form-control candidate_score_{{$l_data->code}}" id="candidate_score" placeholder="Candidate Score"><br>
-                            <!-- <img src="" class="image-preview" id="cost_image_preview_candidate_score[{{$l_data->code}}]" width="100" height="100" /><br> -->
 
                             <span>Canada Express Entry Latest Draw 2023_{{$l_data->code}} </span><br>
                             <input required type="file" name="express_image[{{$l_data->code}}]" class="form-control express_image_{{$l_data->code}}" id="express_image" placeholder="Canada Express Entry Latest Draw 2023"><br>
@@ -73,14 +72,17 @@
                             <span>Main Advantages_{{$l_data->code}} <span class="label-title">*</sapn></span>
                             <textarea name="main_advantage[{{$l_data->code}}]" class="form-control" id="main_advantage" placeholder="Main Advantages"></textarea><br>
 
+                            <span>Candidate Requirements_{{$l_data->code}} </span>
+                            <textarea name="requirements[{{$l_data->code}}]" class="form-control" id="requirements" placeholder="Candidate Requirements"></textarea><br>
+
                             <span>Your salary per region in Canada_{{$l_data->code}} </span>
-                            <textarea name="salary_per_region[{{$l_data->code}}]" class="form-control" id="salary_per_region" placeholder="Your salary per region in Canada"></textarea><br>
+                            <input required type="file" name="salary_per_region[{{$l_data->code}}]" class="form-control salary_per_region{{$l_data->code}}" id="salary_per_region" placeholder="Cost Image"><br>
 
                             <span>Time Frame_{{$l_data->code}} <span class="label-title">*</sapn></span>
                             <textarea name="time_frame[{{$l_data->code}}]" class="form-control" id="time_frame" placeholder="Time Frame"></textarea><br>
 
                             <span>Service Cost_{{$l_data->code}} </span><br>
-                            <input required type="file" name="cost_image[{{$l_data->code}}]" class="form-control cost_image_{{$l_data->code}}" id="cost_image" placeholder="Cost Image"><br>
+                            <textarea name="cost_image[{{$l_data->code}}]" class="form-control" id="cost_image" placeholder="Service Cost"></textarea><br>
                         @endforeach
                         <input type="hidden" name="id" id="id" value="">
                     </div>
@@ -101,9 +103,8 @@
     $('#selectedBrandLabel').text(brand_name.name);
 </script>
 <script>
-    // CKEDITOR.replace('ckeditor', {
-    //     filebrowserUploadMethod: 'form'
-    // });
+    var imageUrl = "{{asset('uploads/visa/')}}";
+
     $('document').ready(function () {
         // success alert
         function swal_success() {
@@ -194,21 +195,21 @@
 
                 try {
                     data.details.forEach(function(detail) {
-                        var languageId = detail.language_id;
-                        var fieldId = detail.visa_key + '['+detail.language_id+']';
+                        var languageId = detail.language_code;
+                        var fieldId = detail.visa_key + '['+detail.language_code+']';
 
                         if (detail.is_image == 0) {
                             var field = $('[name="' + fieldId + '"]');
                             field.val(detail.value);
                         }
                         if (detail.is_image == 1) {
-                            var imageTag = '<img src="' + detail.value + '" width="100" height="100" class="img-fluid"/>';
+                            var imageTag = '<img src="' + imageUrl +'/'+ detail.value + '" width="100" height="100" class="img-fluid"/>';
                             if (fieldId == $('.candidate_score_'+languageId).attr('name')) {
                                 $('.candidate_score_'+languageId).after(imageTag);
                             }
 
-                            if (fieldId == $('.cost_image_'+languageId).attr('name')) {
-                                $('.cost_image_'+languageId).after(imageTag);
+                            if (fieldId == $('.salary_per_region_'+languageId).attr('name')) {
+                                $('.salary_per_region_'+languageId).after(imageTag);
                             }
                             if (fieldId == $('.express_image_'+languageId).attr('name')) {
                                 $('.express_image_'+languageId).after(imageTag);
@@ -232,8 +233,9 @@
                 form_data.append('program_work[{{$l_data->code}}]', $('textarea[name="program_work[{{$l_data->code}}]"]').val());
                 form_data.append('break_down[{{$l_data->code}}]', $('textarea[name="break_down[{{$l_data->code}}]"]').val());
                 form_data.append('time_frame[{{$l_data->code}}]', $('textarea[name="time_frame[{{$l_data->code}}]"]').val());
-                form_data.append('salary_per_region[{{$l_data->code}}]', $('textarea[name="salary_per_region[{{$l_data->code}}]"]').val());
+                form_data.append('cost_image[{{$l_data->code}}]', $('textarea[name="cost_image[{{$l_data->code}}]"]').val());
                 form_data.append('main_advantage[{{$l_data->code}}]', $('textarea[name="main_advantage[{{$l_data->code}}]"]').val());
+                form_data.append('requirements[{{$l_data->code}}]', $('textarea[name="requirements[{{$l_data->code}}]"]').val());
 
 
                 var candidate_score = (typeof $('input[name="candidate_score[{{$l_data->code}}]"]')[0].files[0] != 'undefined') ? $('input[name="candidate_score[{{$l_data->code}}]"]')[0].files[0] : '';
@@ -242,8 +244,8 @@
                 var express_image = (typeof $('input[name="express_image[{{$l_data->code}}]"]')[0].files[0] != 'undefined') ? $('input[name="express_image[{{$l_data->code}}]"]')[0].files[0] : '';
                 form_data.append("express_image[{{$l_data->code}}]", express_image);
 
-                var cost_image = (typeof $('input[name="cost_image[{{$l_data->code}}]"]')[0].files[0] != 'undefined') ? $('input[name="cost_image[{{$l_data->code}}]"]')[0].files[0] : '';
-                form_data.append("cost_image[{{$l_data->code}}]", cost_image);
+                var salary_per_region = (typeof $('input[name="salary_per_region[{{$l_data->code}}]"]')[0].files[0] != 'undefined') ? $('input[name="salary_per_region[{{$l_data->code}}]"]')[0].files[0] : '';
+                form_data.append("salary_per_region[{{$l_data->code}}]", salary_per_region);
 
             @endforeach
             form_data.append('name', $('#name').val());

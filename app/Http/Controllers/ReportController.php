@@ -40,12 +40,13 @@ class ReportController extends Controller
         $checkAuth = \Auth::user()->level;
         if ($request->ajax()) {
             $q_brand = CreatedDateAssement::select('*')->where('is_sent_mail',1)->orderByDesc('created_at');
-
             
             return Datatables::of($q_brand)
                     ->addIndexColumn()
                     ->addColumn('action', function($row) use($checkAuth){
-                        $btn = '<a href="' . $row->pdf_file . '" target="_blank" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2"><i class="fas fa-download"></i></a>';
+                        $path = route('pdf_download',$row->id);
+                        $btn = '<a href="'.$path.'" ><i class="fas fa-download"></i></a>';
+                        
 
                     return $btn;
 

@@ -10,6 +10,7 @@ use App\Models\VisaType;
 use App\Models\PipedriveSetting;
 use App\Models\Representative;
 use App\Models\Brand;
+use App\Models\VisaTypeDetails;
 use App\Models\Language;
 use App\Models\PdfDesign;
 use Illuminate\Support\Facades\DB;
@@ -91,7 +92,7 @@ class CreatedDateAssementController extends Controller
 
     //     $data = [
     //         'visatypes'  => $visatypes,
-            //    'languages'  => $languages,
+    //            'languages'  => $languages,
     //         'brands'     => $brands,
     //         'brand'     => $brand,
     //         'menu'       => 'menu.v_menu_admin',
@@ -130,7 +131,6 @@ class CreatedDateAssementController extends Controller
     //         return view('layouts.v_template',$data);
     //     }
     //     return view('layouts.v_not_representative');
-
     // }
 
     public function store(Request $request)
@@ -182,7 +182,7 @@ class CreatedDateAssementController extends Controller
             'is_sent_mail'           => 0,
             'phone_no'               => $request->phone_no,
             'city'                   => $request->city,
-            'language_id'                   => $request->language_id,
+            'language_code'                   => $request->language_code,
         ];
    
         $rec = CreatedDateAssement::updateOrCreate(['id' => $request->id],$reqInt);
@@ -202,108 +202,6 @@ class CreatedDateAssementController extends Controller
         return response()->json($data);
 
     }
-
-    // public function search_email(Request $request) 
-    // {
-    //     $email = $request->get('email');
-    //     $brand_name = $request->get('brand_name');
-
-    //     if ($email == '' ) {
-    //         return response()->json(['error' => "Email is required"]);
-    //     }
-
-    //     $checkEmail = CreatedDateAssement::where('email', 'like', '%' . $email . '%')->first();
-
-    //     if ($checkEmail) {
-    //         return response()->json(['error' => "The mail has already been sent"]);
-    //     }
-
-    //     $brands = Brand::where('name', 'like', '%' . $brand_name . '%')->first();
-    //     $pipe_setting = PipedriveSetting::where('brand_id',$brands->id)->first();
-
-    //     if ($pipe_setting) 
-    //     {
-    //         $personResponse = $this->makeApiRequest($pipe_setting->url . '/persons/search?term=' . $email . '&exact_match=true', $pipe_setting->token);
-
-    //         if (count($personResponse->data->items) === 0) {
-    //             return response()->json(['error' => "The candidate isn't present in pipedrive"]);
-    //         }
-    //         if (isset($personResponse->data->items[0])) {
-    //             $person          = $personResponse->data->items[0]->item;
-    //             $id              = $person->id;
-    //             $name            = $person->name;
-    //             $country         = isset($person->country) ? $person->country : '';
-    //             $education_level = isset($person->education_level) ? $person->education_level : '';
-    //             $occupation      = isset($person->occupation) ? $person->occupation : '';
-    //             $age             = isset($person->age) ? $person->age : '';
-    //             $case_number      = isset($person->case_number) ? $person->case_number : '';
-    //             $city            = isset($person->city) ? $person->city : '';
-    //             $phone_no        = isset($person->phones[0]) ? str_replace('+', '', $person->phones[0]) : '';
-        
-    //             // Get the status of the person's deals
-    //             $dealsResponse = $this->makeApiRequest($pipe_setting->url . '/persons/' . $id . '/deals?status=all_not_deleted', $pipe_setting->token);
-    //             $property = '9454c36ad451a91ff4a7d6eecb49bec36a14ad48';
-    //             if (isset($dealsResponse->data[0])) {
-    //                 $status          = isset($dealsResponse->data[0]->status) ? $dealsResponse->data[0]->status :'';
-    //                 $country         = isset($dealsResponse->data[0]->country) ? $dealsResponse->data[0]->country :'';
-    //                 $education_level = isset($dealsResponse->data[0]->education_level) ? $dealsResponse->data[0]->education_level :'';
-    //                 $occupation      = isset($dealsResponse->data[0]->occupation) ? $dealsResponse->data[0]->occupation :'';
-    //                 $age             = isset($dealsResponse->data[0]->age) ? $dealsResponse->data[0]->age :'';
-    //                 $case_number     = isset($dealsResponse->data[0]->case_number) ? $dealsResponse->data[0]->case_number :'';
-    //                 $city            = isset($dealsResponse->data[0]->city) ? $dealsResponse->data[0]->city :'';
-                 
-        
-    //                 if ($status == 'won') {
-    //                     // $personsResponse = $this->makeApiRequest($pipe_setting->url . '/persons/' . $id , $pipe_setting->token);
-
-    //                     $curl = curl_init();
-
-    //                     curl_setopt_array($curl, array(
-    //                         CURLOPT_URL => 'https://api.pipedrive.com/v1/persons/2315?api_token=02f14f76be9bce4fab8dfc1053f0c3d59490085a',
-    //                         CURLOPT_RETURNTRANSFER => true,
-    //                         CURLOPT_ENCODING => '',
-    //                         CURLOPT_MAXREDIRS => 10,
-    //                         CURLOPT_TIMEOUT => 0,
-    //                         CURLOPT_FOLLOWLOCATION => true,
-    //                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    //                         CURLOPT_CUSTOMREQUEST => 'GET',
-    //                         CURLOPT_HTTPHEADER => array(
-    //                             'Cookie: __cf_bm=E1q_VL9JUsPlk8iDskEKlkiKcHc3eTmezr5VBvBS1XE-1697200189-0-ATCbJMd9ha27kaRbI6znGFg5y3V/mlrH7pQBXutP5gYfVDruOSVxTJpafOdfyANP5/8NaWmfoWwSLdy1YaEfAxE='
-    //                         ),
-    //                     ));
-
-    //                     $pesronsResponse = curl_exec($curl);
-    //                     curl_close($curl);
-    //                     $finalResult = json_decode($pesronsResponse);
-
-    //                     $country          = isset($finalResult->data->{'9454c36ad451a91ff4a7d6eecb49bec36a14ad48'}) ? $finalResult->data->{'9454c36ad451a91ff4a7d6eecb49bec36a14ad48'} :'';
-    //                     $education_level  = isset($finalResult->data->{'eac67ba1b38f1749501fb4d8526f0ffec670267a'}) ? $finalResult->data->{'eac67ba1b38f1749501fb4d8526f0ffec670267a'} :'';
-    //                     $occupation       = isset($finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'}) ? $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} :'';
-    //                     $age              = isset($finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'}) ? $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} :'';
-    //                     $city             = isset($finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'}) ? $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} :'';
-
-
-    //                     return response()->json([
-    //                         'name' => $name,
-    //                         'country' => $country,
-    //                         'education_level' => $education_level,
-    //                         'occupation' => $occupation,
-    //                         'age' => $age,
-    //                         'case_number' => $case_number,
-    //                         'city'     => $city,
-    //                         'phone_no' => $phone_no,
-    //                     ]);
-    //                 } else {
-    //                     return response()->json(['error' => 'User status is ' . $status]);
-    //                 }
-    //             } else {
-    //                 return response()->json(['error' => "User status is't found"]);
-    //             }
-    //         }
-    //     } else {
-    //         return response()->json(['error' => "Pipedrive setting wasn't added in this brand "]);
-    //     }
-    // }
 
     public function search_email(Request $request) 
     {
@@ -349,8 +247,7 @@ class CreatedDateAssementController extends Controller
         $status = $dealsResponse->data[0]->status;
 
         if ($status === 'won') {
-            // $finalResult = $this->makeApiRequest($pipe_setting->url . '/persons/' . $id, $pipe_setting->token);
-            if ($brand_name == 'CanadaMigration')
+            if ($brand_name == 'CanadaMigration') {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
                     CURLOPT_URL => 'https://api.pipedrive.com/v1/persons/2315?api_token=02f14f76be9bce4fab8dfc1053f0c3d59490085a',
@@ -442,27 +339,33 @@ class CreatedDateAssementController extends Controller
                 $allrepresentatives = [];
             }
 
+            $visa_type = [];
             if ( $created_data->visa_type_id) {
-                // $visa_type = VisaType::whereRaw("FIND_IN_SET(id, '$created_data->visa_type_id')")->get();
-                $visa_type = VisaType::join('visa_type_details','visa_type_details.visa_type_id','=','visa_type.id')->whereRaw("FIND_IN_SET(visa_type.id, '$created_data->visa_type_id')")->where('visa_type_details.language_id',$created_data->language_id)->get();
+                $vt = VisaType::whereRaw("FIND_IN_SET(id, '$created_data->visa_type_id')")->get();
+                
+                if ($vt) {
+                    $vt = $vt->toArray();
+                    foreach($vt as $key=>$val) {
+                       $visa_details = VisaTypeDetails::where('visa_type_id',$val['id'])->where('language_code',$created_data->language_code)->pluck('value','visa_key');
+                       $visa_type[$key] = $val;
+                       $visa_type[$key]['visa_details'] = $visa_details;
+                    }
+                }
             }
             $representative = Representative::where('email', 'like', '%' . $user->email . '%')->first();
 
             //language wise
-            if($created_data->language_id) {
+            if($created_data->language_code) {
                 $brand_about = $brands->about_en;
             } else {
                 $brand_about = $brands->about_fr;
             }
-            
             //generate pdf
-            // $pdf = PDF::loadView('pdf_to_html_old',compact(['brands','allrepresentatives','representative','created_data','visa_type']));
             $pdf = PDF::loadView('pdf_new',compact(['brands','allrepresentatives','representative','created_data','visa_type','brand_about']));
             $content = $pdf->output();
             $filename = 'generated_pdf_' . time() . '.pdf'; 
-            $x= storage_path('app/public/' . $filename);
-            file_put_contents($x, $content);
-            $pdf_name = '/var/www/html/arp/storage/app/public/' . $filename;
+            $pdf_name = storage_path('app/public/' . $filename);
+            file_put_contents($pdf_name, $content);
             //end pdf
 
             // $filename = 'generated_pdf_' . time() . '.pdf'; 
@@ -512,26 +415,22 @@ class CreatedDateAssementController extends Controller
                 'credit_score'=>$created_data->credit_score,
             );
 
-            $imageExtension = pathinfo($pdf_name, PATHINFO_EXTENSION);
-            $mimeTypes = [
-                'jpg' => 'image/jpeg',
-                'jpeg' => 'image/jpeg',
-                'png' => 'image/png',
-            ];
-            $attachmentMimeType = $mimeTypes[$imageExtension] ?? 'application/octet-stream';
-            Mail::send('emails.sent_mail',$new_data, function($message) use ($created_data,$smtpSettings,$pdf_name,$attachmentMimeType) {
+            $attachmentMimeType = 'application/octet-stream';
+            Mail::send('emails.sent_mail',$new_data, function($message) use ($created_data,$smtpSettings,$pdf_name,$attachmentMimeType,$user) {
                 $message
                     ->from($smtpSettings->username, 'Assetment Results Platform')
                     ->to($created_data->email)
-                    // ->to('ankitad.knp@gmail.com')
+                    ->to($user->email)
+                    ->to($smtpSettings->cc_email)
+                    ->to('jasminh.knp@gmail.com')
                     ->subject("Sent Mail")
                     ->attach($pdf_name, [
-                        'as' => pathinfo($pdf_name, PATHINFO_BASENAME), // The name you want for the attachment
+                        'as' => pathinfo($pdf_name, PATHINFO_BASENAME), 
                         'mime' => $attachmentMimeType 
                     ]);
             });
 
-            // CreatedDateAssement::where('id',$id)->update(['is_sent_mail'=>1,'pdf_file'=>$MAIL_FILE.$filename]);
+            CreatedDateAssement::where('id',$id)->update(['is_sent_mail'=>1,'pdf_file'=>$filename]);
 
             return response()->json(['success'=>'Sent Mail successfully!']);
         } catch (\Exception $e) {
@@ -539,5 +438,11 @@ class CreatedDateAssementController extends Controller
         }
     }
 
+    public function pdf_download($file_name)
+    {
+        $file = CreatedDateAssement::where('id',$file_name)->first();
+        $myfile = storage_path('app/public/' . $file->pdf_file);
+        return response()->download($myfile);
+    }
    
 }

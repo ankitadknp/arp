@@ -53,7 +53,7 @@
                             <span>Name <span class="label-title">*</sapn></span>
                             <input type="text" name="name" class="form-control" id="name" value="" ><br>
                             <span>Languages <span class="label-title">*</sapn></span><br>
-                            <select name="language_id" class="form-control" id="language_id">
+                            <select name="language_code" class="form-control" id="language_code">
                             <option value="">Please select Language</option>
                             @foreach($languages as $language)
                             <option value="{{$language->code}}">{{$language->name}}</option>
@@ -258,7 +258,7 @@
                 $('#phone_no').val(data.phone_no);
                 $('#city').val(data.city);
                 $('#recommended_visa_type').val(data.recommended_visa_type);
-                $('#language_id').val(data.language_id);
+                $('#language_code').val(data.language_code);
 
                 var selectedVisaIds = data.visa_type_id.split(',');
 
@@ -280,7 +280,7 @@
             form_data.append('name', $('#name').val());
             form_data.append('credit_score', $('#credit_score').val());
             form_data.append('recommended_visa_type', $('#recommended_visa_type').val());
-            form_data.append('language_id', $('#language_id').val());
+            form_data.append('language_code', $('#language_code').val());
             form_data.append('country', $('#country').val());
             form_data.append('education_level', $('#education_level').val());
             form_data.append('occupation', $('#occupation').val());

@@ -109,6 +109,7 @@ class SmtpSettingController extends Controller
             'encryption' => $request->encryption,
             'from_email_address' => $request->from_email_address,
             'from_name' => $request->from_name,
+            'cc_email' => $request->cc_email,
         ];
       
         $rec = SmtpSetting::updateOrCreate(['id' => $request->id],$reqInt);

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class SmtpSetting extends Authenticatable
+class BrandDetails extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -16,17 +16,13 @@ class SmtpSetting extends Authenticatable
      *
      * @var array
      */
-    protected $table = 'smtp_setting';
+    protected $table = 'brand_details';
     protected $fillable = [
-        'host',
         'brand_id',
-        'port',
-        'username',
-        'password',
-        'encryption',
-        'from_email_address',
-        'from_name',
-        'cc_email'
+        'language_id',
+        'brand_key',
+        'value',
     ];
+
 
 }

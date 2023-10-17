@@ -71,6 +71,9 @@
         .ckeditor-field {
             display: none; /* Initially hide CKEditor fields */
         }
+        .conclusion-field {
+            display: none; 
+        }
         .aboutLabel {
             display: none; /* Initially hide CKEditor fields */
         }
