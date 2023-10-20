@@ -27,7 +27,8 @@ class Representative extends Authenticatable
         'email',
         'cba_number',
         'license_number',
-        'password'
+        'password',
+        'law_logo'
     ];
 
 }

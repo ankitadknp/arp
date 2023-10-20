@@ -20,7 +20,7 @@ class CreatedDateAssement extends Authenticatable
     protected $table = 'sent_mail';
     protected $fillable = [
         'representative_id',
-        'language_id',
+        'language_code',
         'name',
         'email',
         'credit_score',
@@ -34,7 +34,8 @@ class CreatedDateAssement extends Authenticatable
         'age',
         'case_number',
         'phone_no',
-        'city'
+        'city',
+        'conclusion'
     ];
 
 }

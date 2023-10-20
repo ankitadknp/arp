@@ -41,6 +41,9 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="visa_titile_array">
+                    <!-- This is where dynamically generated elements will be appended -->
+                </div>
                 <form id="form" name="form" enctype="multipart/form-data">
                     <div class="form-group">
                         <span>Name <span class="label-title">*</sapn></span>
@@ -52,38 +55,6 @@
                             <option value="{{$brand->id}}">{{$brand->name}}</option>
                             @endforeach
                         </select><br>
-                        @foreach ($language_data as $l_data)
-                            <!-- <textarea name="description" class="form-control description" id="ckeditor" placeholder="Description"></textarea><br> -->
-                            <span>Description_{{$l_data->code}} <span class="label-title">*</sapn></span>
-                            <textarea name="description[{{$l_data->code}}]" class="form-control description_{{$l_data->code}}" id="description" placeholder="Description" required></textarea><br>
-
-                            <span>How does This Program work?_{{$l_data->code}} </span>
-                            <textarea name="program_work[{{$l_data->code}}]" class="form-control" id="program_work" placeholder="How does This Program work?"></textarea><br>
-
-                            <span>Candidate Score_{{$l_data->code}}</span><br>
-                            <input required type="file" name="candidate_score[{{$l_data->code}}]" class="form-control candidate_score_{{$l_data->code}}" id="candidate_score" placeholder="Candidate Score"><br>
-
-                            <span>Canada Express Entry Latest Draw 2023_{{$l_data->code}} </span><br>
-                            <input required type="file" name="express_image[{{$l_data->code}}]" class="form-control express_image_{{$l_data->code}}" id="express_image" placeholder="Canada Express Entry Latest Draw 2023"><br>
-
-                            <span>Here is a step-by-step breakdown for the process with us_{{$l_data->code}} <span class="label-title">*</sapn></span>
-                            <textarea name="break_down[{{$l_data->code}}]" class="form-control" id="break_down" placeholder="Here is a step-by-step breakdown for the process with us"></textarea><br>
-
-                            <span>Main Advantages_{{$l_data->code}} <span class="label-title">*</sapn></span>
-                            <textarea name="main_advantage[{{$l_data->code}}]" class="form-control" id="main_advantage" placeholder="Main Advantages"></textarea><br>
-
-                            <span>Candidate Requirements_{{$l_data->code}} </span>
-                            <textarea name="requirements[{{$l_data->code}}]" class="form-control" id="requirements" placeholder="Candidate Requirements"></textarea><br>
-
-                            <span>Your salary per region in Canada_{{$l_data->code}} </span>
-                            <input required type="file" name="salary_per_region[{{$l_data->code}}]" class="form-control salary_per_region{{$l_data->code}}" id="salary_per_region" placeholder="Cost Image"><br>
-
-                            <span>Time Frame_{{$l_data->code}} <span class="label-title">*</sapn></span>
-                            <textarea name="time_frame[{{$l_data->code}}]" class="form-control" id="time_frame" placeholder="Time Frame"></textarea><br>
-
-                            <span>Service Cost_{{$l_data->code}} </span><br>
-                            <textarea name="cost_image[{{$l_data->code}}]" class="form-control" id="cost_image" placeholder="Service Cost"></textarea><br>
-                        @endforeach
                         <input type="hidden" name="id" id="id" value="">
                     </div>
                 </form>
@@ -103,9 +74,12 @@
     $('#selectedBrandLabel').text(brand_name.name);
 </script>
 <script>
-    var imageUrl = "{{asset('uploads/visa/')}}";
+    var imageUrl = "{{asset('/')}}";
 
     $('document').ready(function () {
+
+      
+     
         // success alert
         function swal_success() {
             Swal.fire({
@@ -180,6 +154,9 @@
             $('#modal').modal('show');
         });
    
+
+        var textareasAppended = false;
+
         $('body').on('click', '.edit', function () {
             var id = $(this).data('id');
             $('#modal').find('.modal-body img').remove();
@@ -189,67 +166,98 @@
                 console.log(data);
                 $('#saveBtn').val("edit");
                 $('#modal').modal('show');
-                $('#id').val(data.id);
-                $('#name').val(data.name);
-                $('#brand_id').val(data.brand_id);
-
+                $('#id').val(id);
+                $('#name').val(data.data.name);
+                $('#brand_id').val(data.data.brand_id);
+                $('.visa_title_div').show();
                 try {
-                    data.details.forEach(function(detail) {
-                        var languageId = detail.language_code;
-                        var fieldId = detail.visa_key + '['+detail.language_code+']';
+                    if (data.data.details) {
+                        data.data.details.forEach(function (detail) {
+                            var languageId = detail.language_code;
+                            var fieldId = detail.visa_key + '[' + detail.language_code + ']';
 
-                        if (detail.is_image == 0) {
-                            var field = $('[name="' + fieldId + '"]');
-                            field.val(detail.value);
-                        }
-                        if (detail.is_image == 1) {
-                            var imageTag = '<img src="' + imageUrl +'/'+ detail.value + '" width="100" height="100" class="img-fluid"/>';
-                            if (fieldId == $('.candidate_score_'+languageId).attr('name')) {
-                                $('.candidate_score_'+languageId).after(imageTag);
+                            if (detail.is_image == 0) {
+                                // var field = $('[name="' + fieldId + '"]');
+
+                                CKEDITOR.on('instanceReady', function (ev) {
+                                    if (ev.editor.name == fieldId) {
+                                        ev.editor.setData(detail.value);
+                                    }
+                                });
+                            }
+                            if (detail.is_image == 1) {
+                                var imageTag = '<img src="' + imageUrl + detail.value + '" width="100" height="100" class="img-fluid"/>';
+                                $('[name="' + fieldId + '"]').after(imageTag);
+                            }
+                        });
+                    }
+
+                    if (!textareasAppended && data.title) {
+                        @foreach ($language_data as $l_data)
+
+                        data.title.forEach(function (keyItem) {
+                            var key = keyItem.key;
+                            var isImage = keyItem.is_image;
+
+                            var container = $('#visa_titile_array');
+                            var languageId = '{{$l_data->code}}';
+
+                            var titleElement = $('<span class="visa_title"> ' + key + '_' + languageId + '<span class="label-title">*</span></span><br>');
+
+                            if (isImage == 1) {
+                                fieldElement = '<input required type="file" name="' + key + '[' + languageId + ']" class="form-control ' + key + '_' + languageId + '" id="' + key + '" placeholder="' + key + '"><br>';
+                            } else {
+                                is_ckeditor = 1;
+                                fieldElement = '<textarea name="' + key + '[' + languageId + ']" class="form-control ckeditor_visa_type ' + key + '_' + languageId + '" id="' + key + '[' + languageId + ']" placeholder="' + key + '" required></textarea><br>';
                             }
 
-                            if (fieldId == $('.salary_per_region_'+languageId).attr('name')) {
-                                $('.salary_per_region_'+languageId).after(imageTag);
-                            }
-                            if (fieldId == $('.express_image_'+languageId).attr('name')) {
-                                $('.express_image_'+languageId).after(imageTag);
-                            }
-                        }
-                    });
+                            // Append the title and field to the container
+                            container.append(titleElement);
+                            container.append(fieldElement);
+                            $('#form .form-group').append(container);
+                        });
+                        CKEDITOR.replaceAll('ckeditor_visa_type');
+                        textareasAppended = true; // Set the flag to true after appending
+                        @endforeach
+                    } else {
+                        console.error('Error:', error);
+                    }
                 } catch (error) {
                     console.error('Error:', error);
                 }
             });
         });
         
+
         // initialize btn save
         $('#saveBtn').click(function (e) {
             e.preventDefault();
             $(this).html('Save');
             
             var form_data = new FormData($('#form')[0]);
-            @foreach ($language_data as $l_data)
-                form_data.append('description[{{$l_data->code}}]', $('textarea[name="description[{{$l_data->code}}]"]').val());
-                form_data.append('program_work[{{$l_data->code}}]', $('textarea[name="program_work[{{$l_data->code}}]"]').val());
-                form_data.append('break_down[{{$l_data->code}}]', $('textarea[name="break_down[{{$l_data->code}}]"]').val());
-                form_data.append('time_frame[{{$l_data->code}}]', $('textarea[name="time_frame[{{$l_data->code}}]"]').val());
-                form_data.append('cost_image[{{$l_data->code}}]', $('textarea[name="cost_image[{{$l_data->code}}]"]').val());
-                form_data.append('main_advantage[{{$l_data->code}}]', $('textarea[name="main_advantage[{{$l_data->code}}]"]').val());
-                form_data.append('requirements[{{$l_data->code}}]', $('textarea[name="requirements[{{$l_data->code}}]"]').val());
-
-
-                var candidate_score = (typeof $('input[name="candidate_score[{{$l_data->code}}]"]')[0].files[0] != 'undefined') ? $('input[name="candidate_score[{{$l_data->code}}]"]')[0].files[0] : '';
-                form_data.append("candidate_score[{{$l_data->code}}]", candidate_score);
-
-                var express_image = (typeof $('input[name="express_image[{{$l_data->code}}]"]')[0].files[0] != 'undefined') ? $('input[name="express_image[{{$l_data->code}}]"]')[0].files[0] : '';
-                form_data.append("express_image[{{$l_data->code}}]", express_image);
-
-                var salary_per_region = (typeof $('input[name="salary_per_region[{{$l_data->code}}]"]')[0].files[0] != 'undefined') ? $('input[name="salary_per_region[{{$l_data->code}}]"]')[0].files[0] : '';
-                form_data.append("salary_per_region[{{$l_data->code}}]", salary_per_region);
-
-            @endforeach
             form_data.append('name', $('#name').val());
-            // form_data.append('description', CKEDITOR.instances.ckeditor.getData());
+
+            $('textarea.ckeditor_visa_type').each(function () {
+                // var $textarea = $(this);
+                // var editorName = $textarea.attr('name');
+                // CKEDITOR.instances[editorName].updateElement(); // Update the CKEditor instance's content
+                // var editorData = CKEDITOR.instances[editorName].getData(); // Get the updated content
+                // form_data.append(editorName, editorData);
+
+                var $textarea = $(this);
+                var editorName = $textarea.attr('name');
+                var ckEditorInstance = CKEDITOR.instances[editorName];
+
+                // Update and get the data only for the CKEditor instance that has changed
+                if (ckEditorInstance.checkDirty()) {
+                    ckEditorInstance.updateElement();
+                    var editorData = ckEditorInstance.getData();
+                    form_data.append(editorName, editorData);
+                }
+            });
+
+            console.log('form data =>' ,form_data);
+
             $.ajax({
                 data: form_data,
                 url: "{{ route('visa-type.store') }}",

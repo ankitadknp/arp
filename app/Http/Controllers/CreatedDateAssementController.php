@@ -48,7 +48,7 @@ class CreatedDateAssementController extends Controller
             'brand'     => $brand,
             'menu'       => 'menu.v_menu_admin',
             'content'    => 'content.view_created_date_assement',
-            'title'      => 'Created Date Assement'
+            'title'      => 'Create Assement PDF'
         ];
 
         $checkAuth = \Auth::user()->level;
@@ -60,9 +60,9 @@ class CreatedDateAssementController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row) use($checkAuth){
                     $btn = '';
-                    if ($row->is_sent_mail == 0) {
+                    // if ($row->is_sent_mail == 0) {
                         $btn = '<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Sent Mail" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2  sent_mail"><i class="fas fa-envelope"></i></div>';
-                    }
+                    // }
                     $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit edit"><i class=" fi-rr-edit"></i></div>';
 
                     return $btn;
@@ -97,7 +97,7 @@ class CreatedDateAssementController extends Controller
     //         'brand'     => $brand,
     //         'menu'       => 'menu.v_menu_admin',
     //         'content'    => 'content.view_created_date_assement',
-    //         'title'      => 'Created Date Assement'
+    //         'title'      => 'Create Assement PDF'
     //     ];
 
     //     $checkAuth = \Auth::user()->level;
@@ -155,6 +155,7 @@ class CreatedDateAssementController extends Controller
         $valArr['case_number']             = 'required';
         $valArr['city']                   = 'required';
         $valArr['phone_no']               = 'required|string|min:7';
+        $valArr['language_code']          = 'required';
      
        
         $validator = Validator::make($request->all(), $valArr);
@@ -182,7 +183,8 @@ class CreatedDateAssementController extends Controller
             'is_sent_mail'           => 0,
             'phone_no'               => $request->phone_no,
             'city'                   => $request->city,
-            'language_code'                   => $request->language_code,
+            'language_code'          => $request->language_code,
+            'conclusion'             => $request->conclusion,
         ];
    
         $rec = CreatedDateAssement::updateOrCreate(['id' => $request->id],$reqInt);
@@ -228,6 +230,7 @@ class CreatedDateAssementController extends Controller
 
         $personResponse = $this->makeApiRequest($pipe_setting->url . '/persons/search?term=' . $email . '&exact_match=true', $pipe_setting->token);
 
+
         if (count($personResponse->data->items) === 0) {
             return response()->json(['error' => "The candidate isn't present in pipedrive"]);
         }
@@ -247,7 +250,7 @@ class CreatedDateAssementController extends Controller
         $status = $dealsResponse->data[0]->status;
 
         if ($status === 'won') {
-            if ($brand_name == 'CanadaMigration') {
+            if ($brand_name == $brands->name) {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
                     CURLOPT_URL => 'https://api.pipedrive.com/v1/persons/2315?api_token=02f14f76be9bce4fab8dfc1053f0c3d59490085a',
@@ -267,17 +270,20 @@ class CreatedDateAssementController extends Controller
                 curl_close($curl);
                 $finalResult = json_decode($pesronsResponse);
                 
-                $country = $finalResult->data->{'9454c36ad451a91ff4a7d6eecb49bec36a14ad48'} ?$finalResult->data->{'9454c36ad451a91ff4a7d6eecb49bec36a14ad48'} : '';
-                $education_level = $finalResult->data->{'eac67ba1b38f1749501fb4d8526f0ffec670267a'} ? $finalResult->data->{'eac67ba1b38f1749501fb4d8526f0ffec670267a'} : '';
-                $occupation = $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} ? $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} :'';
-                $age = $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} ? $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} : '';
-                $city = $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} ? $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} : '';
+                $country         = $finalResult->data->{'9454c36ad451a91ff4a7d6eecb49bec36a14ad48'} ?$finalResult->data->{'9454c36ad451a91ff4a7d6eecb49bec36a14ad48'} : '';
+                $edu_data = $finalResult->data->{'eac67ba1b38f1749501fb4d8526f0ffec670267a'} ? $finalResult->data->{'eac67ba1b38f1749501fb4d8526f0ffec670267a'} : '';
+                $educationArray = setEducationLevel();
+                $education_level = $educationArray[$edu_data];
+                $occupation      = $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} ? $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} :'';
+                $age             = $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} ? $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} : '';
+                $city            = $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} ? $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} : '';
+            } else {
+                $country = '';
+                $education_level = '';
+                $occupation = '';
+                $age = '';
+                $city = '';
             }
-            $country = '';
-            $education_level = '';
-            $occupation = '';
-            $age = '';
-            $city = '';
 
             return response()->json([
                 'name' => $name,
@@ -285,7 +291,6 @@ class CreatedDateAssementController extends Controller
                 'education_level' => $education_level,
                 'occupation' => $occupation,
                 'age' => $age,
-                'case_number' => $finalResult->data->{'1c9b033fae4b636f0400feb5eab33ce1c415d066'},
                 'city' => $city,
                 'phone_no' => $phone_no,
             ]);
@@ -346,7 +351,8 @@ class CreatedDateAssementController extends Controller
                 if ($vt) {
                     $vt = $vt->toArray();
                     foreach($vt as $key=>$val) {
-                       $visa_details = VisaTypeDetails::where('visa_type_id',$val['id'])->where('language_code',$created_data->language_code)->pluck('value','visa_key');
+                    //    $visa_details = VisaTypeDetails::where('visa_type_id',$val['id'])->where('language_code',$created_data->language_code)->pluck('value','visa_key');
+                    $visa_details = VisaTypeDetails::where('visa_type_id',$val['id'])->where('language_code',$created_data->language_code)->get();
                        $visa_type[$key] = $val;
                        $visa_type[$key]['visa_details'] = $visa_details;
                     }
@@ -355,17 +361,18 @@ class CreatedDateAssementController extends Controller
             $representative = Representative::where('email', 'like', '%' . $user->email . '%')->first();
 
             //language wise
+            $brand_about = '';
             if($created_data->language_code) {
-                $brand_about = $brands->about_en;
-            } else {
-                $brand_about = $brands->about_fr;
-            }
+                $a = 'about_'.$created_data->language_code;
+                $brand_about = $brands->$a;
+            } 
             //generate pdf
             $pdf = PDF::loadView('pdf_new',compact(['brands','allrepresentatives','representative','created_data','visa_type','brand_about']));
             $content = $pdf->output();
             $filename = 'generated_pdf_' . time() . '.pdf'; 
             $pdf_name = storage_path('app/public/' . $filename);
             file_put_contents($pdf_name, $content);
+            dd('done');
             //end pdf
 
             // $filename = 'generated_pdf_' . time() . '.pdf'; 
@@ -420,9 +427,8 @@ class CreatedDateAssementController extends Controller
                 $message
                     ->from($smtpSettings->username, 'Assetment Results Platform')
                     ->to($created_data->email)
-                    ->to($user->email)
-                    ->to($smtpSettings->cc_email)
-                    ->to('jasminh.knp@gmail.com')
+                    ->cc([$user->email,$smtpSettings->cc_email])
+                    // ->to('jasminh.knp@gmail.com')
                     ->subject("Sent Mail")
                     ->attach($pdf_name, [
                         'as' => pathinfo($pdf_name, PATHINFO_BASENAME), 

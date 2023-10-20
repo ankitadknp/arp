@@ -67,11 +67,14 @@ Route::resource('representative_profile', RepresentativeProfileController::class
 Route::post('brand_delete', [BrandsController::class, 'brand_delete'])->name('brand_delete');
 Route::post('signature_delete', [RepresentativeController::class, 'signature_delete'])->name('signature_delete');
 Route::post('photo_delete', [RepresentativeController::class, 'photo_delete'])->name('photo_delete');
+Route::post('law_logo_delete', [RepresentativeController::class, 'law_logo_delete'])->name('law_logo_delete');
 
 Route::get('forgot_password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgot_password');
 Route::match(['get', 'post'],'password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
+
+Route::post('getVisaTitle', [VisaTypeController::class, 'getVisaTitle'])->name('getVisaTitle');
 
 Route::get('pdf_download/{file_name}', [CreatedDateAssementController::class, 'pdf_download'])->name('pdf_download');
 

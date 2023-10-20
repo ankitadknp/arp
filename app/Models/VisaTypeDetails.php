@@ -20,7 +20,7 @@ class VisaTypeDetails extends Authenticatable
     protected $fillable = [
         'visa_type_id',
         'brand_id',
-        'language_id',
+        'language_code',
         'visa_key',
         'value',
         'is_image'

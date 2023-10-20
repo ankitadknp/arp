@@ -1,13 +1,10 @@
 $(document).ready(function () {
-    // Check if the selectedBrand cookie exists
-    var selectedBrand = getCookie("selectedBrand");
+    var selectedBrand = getCookie("selectedBrand");  // Check if the selectedBrand cookie exists
 
-    // If the cookie exists, update the brand name in the topbar
     if (selectedBrand) {
         $('#selectedBrandLabel').text(selectedBrand);
     } else {
-        // The cookie doesn't exist, show the brand selection modal
-        $('#modal').modal('show');
+        $('#modal').modal('show');  // The cookie doesn't exist, show the brand selection modal
     }
 });
 
@@ -17,16 +14,16 @@ $(document).ready(function () {
             var selectedBrand = $(this).val();
             console.log('Selected Brand ID:', selectedBrand);
             if (selectedBrand) {
-                // Store selected brand name in a cookie with an expiration time (in seconds)
+
                 var expirationTime = 3600; // 1 hour (you can adjust this value)
-                var expiryDate = new Date();
-                expiryDate.setTime(expiryDate.getTime() + (expirationTime * 1000)); // Convert to milliseconds
+                var currentTime = new Date().getTime(); // Current time in milliseconds
+                var expiryTime = currentTime + (expirationTime * 1000); // Convert to milliseconds
+                var expiryDate = new Date(expiryTime);
 
                 document.cookie = "selectedBrand=" + selectedBrand + "; expires=" + expiryDate.toUTCString() + "; path=/";
                 document.cookie = "brandModalShown=true; expires=" + expiryDate.toUTCString() + "; path=/"; // Mark the modal as shown
                 $('#modal').modal('hide');
 
-                // Update the brand name in the topbar immediately
                 $('#selectedBrandLabel').text(selectedBrand);
             }
         });
@@ -46,3 +43,27 @@ function getCookie(cookieName) {
     }
     return null;
 }
+
+function deleteCookie(cookieName,path) {
+    // document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=" + path + ";";
+}
+
+
+$(document).ready(function () {
+    $('.topbar').on('click', function () {
+        var currentPath = window.location.pathname; // Get the current URL path
+        var selectedBrandLabelElement = document.getElementById("selectedBrandLabel");
+        var selectedBrand = selectedBrandLabelElement.textContent;
+        // deleteCookie(selectedBrand, "/"); 
+        deleteCookie(selectedBrand, currentPath);
+        $('#selectedBrandLabel').text("");  // Optionally, update the brand name in the topbar to a default value
+    });
+});
+
+
+
+
+
+
+
