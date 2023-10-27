@@ -3,10 +3,10 @@
         <div class="card">
             <div class="card-header">
                 <h2>{{$title}}</h2>
-                <div class="d-flex flex-row-reverse"><button
+                <!-- <div class="d-flex flex-row-reverse"><button
                     class="btn btn-sm btn-pill btn-outline-primary font-weight-bolder" id="createNew"><i
                         class="fas fa-plus"></i>Add</button>
-                </div>
+                </div> -->
             </div>
             <div class="card-body">
                 <div class="col-md-12">
@@ -36,7 +36,7 @@
         <div class="modal-content">
             <div class="modal-header bg-primary">
                 <h5 class="modal-title text-white" id="exampleModalLabel">Visa Type</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close visa_close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
@@ -60,7 +60,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light-primary font-weight-bold visa_close" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary font-weight-bold" id="saveBtn">Save changes</button>
             </div>
         </div>
@@ -69,17 +69,15 @@
 
 @push('scripts')
 <script type="text/javascript" src="{{asset("/plugins/ckeditor/ckeditor.js")}}"></script>
+
 <script>
     var brand_name = <?php echo json_encode($menu_brand); ?>; 
     $('#selectedBrandLabel').text(brand_name.name);
 </script>
 <script>
-    var imageUrl = "{{asset('/')}}";
+    var imageUrl = "{{asset('')}}";
 
     $('document').ready(function () {
-
-      
-     
         // success alert
         function swal_success() {
             Swal.fire({
@@ -142,6 +140,10 @@
             }
         });
 
+        $('.visa_close').click(function () {
+            location.reload();
+        });
+
         // initialize btn add
         $('#createNew').click(function () {
             $('#saveBtn').val("create visa type");
@@ -160,7 +162,6 @@
         $('body').on('click', '.edit', function () {
             var id = $(this).data('id');
             $('#modal').find('.modal-body img').remove();
-            $('.text-danger').remove();
 
             $.get("{{ route('visa-type.index') }}" + '/' + id + '/edit', function (data) {
                 console.log(data);
@@ -171,92 +172,97 @@
                 $('#brand_id').val(data.data.brand_id);
                 $('.visa_title_div').show();
                 try {
+                    if (!textareasAppended && data.title) {
+                        @foreach ($language_data as $l_data)
+
+                            data.title.forEach(function (keyItem) {
+                                var key = keyItem.key;
+                                var input_id = keyItem.id;
+                                var isImage = keyItem.is_image;
+
+                                var container = $('#visa_titile_array');
+                                var languageId = '{{$l_data->code}}';
+
+                                var titleElement = $('<span class="visa_title"> ' + key + '_' + languageId + '<span class="label-title">*</span></span><br>');
+
+                                if (isImage == 1) {
+                                    fieldElement = '<input required type="file" name="' + key + '[' + languageId + ']" class="form-control img-container ' + key + '_' + languageId + '" id="' + key + '" placeholder="' + key + '"><br>';
+                                } else {
+                                    fieldElement = '<textarea name="' + key + '[' + languageId + ']" class="form-control ckeditor_visa_type ' + key + '_' + languageId + '" id="' + key + '[' + languageId + ']" placeholder="' + key + '" required></textarea><br>';
+                                }
+
+                                // Append the title and field to the container
+                                container.append(titleElement);
+                                container.append(fieldElement);
+                                $('#form .form-group').append(container);
+                            });
+                            CKEDITOR.replaceAll('ckeditor_visa_type');
+                            textareasAppended = true; // Set the flag to true after appending
+                        @endforeach
+                    } 
+
                     if (data.data.details) {
                         data.data.details.forEach(function (detail) {
                             var languageId = detail.language_code;
                             var fieldId = detail.visa_key + '[' + detail.language_code + ']';
 
-                            if (detail.is_image == 0) {
-                                // var field = $('[name="' + fieldId + '"]');
+                            if (detail.is_image == 1) {
+                                var imageTag = '<img src="' + imageUrl + detail.value + '" width="100" height="100" class="img-fluid"/>';
+                                $('[name="' + fieldId + '"]').after(imageTag);
+                            }
 
+                            if (detail.is_image == 0) {
                                 CKEDITOR.on('instanceReady', function (ev) {
                                     if (ev.editor.name == fieldId) {
                                         ev.editor.setData(detail.value);
                                     }
                                 });
                             }
-                            if (detail.is_image == 1) {
-                                var imageTag = '<img src="' + imageUrl + detail.value + '" width="100" height="100" class="img-fluid"/>';
-                                $('[name="' + fieldId + '"]').after(imageTag);
-                            }
                         });
-                    }
-
-                    if (!textareasAppended && data.title) {
-                        @foreach ($language_data as $l_data)
-
-                        data.title.forEach(function (keyItem) {
-                            var key = keyItem.key;
-                            var isImage = keyItem.is_image;
-
-                            var container = $('#visa_titile_array');
-                            var languageId = '{{$l_data->code}}';
-
-                            var titleElement = $('<span class="visa_title"> ' + key + '_' + languageId + '<span class="label-title">*</span></span><br>');
-
-                            if (isImage == 1) {
-                                fieldElement = '<input required type="file" name="' + key + '[' + languageId + ']" class="form-control ' + key + '_' + languageId + '" id="' + key + '" placeholder="' + key + '"><br>';
-                            } else {
-                                is_ckeditor = 1;
-                                fieldElement = '<textarea name="' + key + '[' + languageId + ']" class="form-control ckeditor_visa_type ' + key + '_' + languageId + '" id="' + key + '[' + languageId + ']" placeholder="' + key + '" required></textarea><br>';
-                            }
-
-                            // Append the title and field to the container
-                            container.append(titleElement);
-                            container.append(fieldElement);
-                            $('#form .form-group').append(container);
-                        });
-                        CKEDITOR.replaceAll('ckeditor_visa_type');
-                        textareasAppended = true; // Set the flag to true after appending
-                        @endforeach
-                    } else {
-                        console.error('Error:', error);
                     }
                 } catch (error) {
                     console.error('Error:', error);
                 }
             });
         });
-        
 
         // initialize btn save
         $('#saveBtn').click(function (e) {
             e.preventDefault();
-            $(this).html('Save');
+            // $(this).html('Save');
             
             var form_data = new FormData($('#form')[0]);
             form_data.append('name', $('#name').val());
+            var hasEmptyEditor = false; 
 
             $('textarea.ckeditor_visa_type').each(function () {
-                // var $textarea = $(this);
-                // var editorName = $textarea.attr('name');
-                // CKEDITOR.instances[editorName].updateElement(); // Update the CKEditor instance's content
-                // var editorData = CKEDITOR.instances[editorName].getData(); // Get the updated content
-                // form_data.append(editorName, editorData);
-
                 var $textarea = $(this);
                 var editorName = $textarea.attr('name');
                 var ckEditorInstance = CKEDITOR.instances[editorName];
 
                 // Update and get the data only for the CKEditor instance that has changed
-                if (ckEditorInstance.checkDirty()) {
-                    ckEditorInstance.updateElement();
+                // if (ckEditorInstance.checkDirty()) {
+                //     ckEditorInstance.updateElement();
+                //      var editorData = ckEditorInstance.getData();
+                        // form_data.append(editorName, editorData);
+                // }
                     var editorData = ckEditorInstance.getData();
-                    form_data.append(editorName, editorData);
-                }
+                    if (!editorData.trim()) {
+                        hasEmptyEditor = true;
+                        Swal.fire({
+                            position: 'centered',
+                            icon: 'error',
+                            title: editorName + 'field is required',
+                            showConfirmButton: true,
+                        })
+                    } else {
+                        form_data.append(editorName, editorData);
+                    }
+                
             });
-
-            console.log('form data =>' ,form_data);
+            if (hasEmptyEditor) {
+                return false;
+            }
 
             $.ajax({
                 data: form_data,
@@ -274,6 +280,7 @@
                         $('#modal').modal('hide');
                         swal_success();
                         table.draw();
+                        location.reload();
                     }
                 },
                 error: function (data) {

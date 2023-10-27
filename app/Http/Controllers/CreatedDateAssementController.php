@@ -32,59 +32,10 @@ class CreatedDateAssementController extends Controller
         $this->middleware('auth');
     } 
 
-    public function search_list(Request $request)
-    {
-        $languages = Language::all();
-        $visatypes = VisaType::all();
-        $user = \Auth::user();
-        $brand_ids = $user->brand_id;
-        $brands = explode(",",$brand_ids);
-        $brand = DB::table('brands')->join('users', 'brands.id', '=', 'users.brand_id')->select('brands.name')->where('users.id',$user->id)->first();
-
-        $data = [
-            'visatypes'  => $visatypes,
-            'languages'  => $languages,
-            'brands'     => $brands,
-            'brand'     => $brand,
-            'menu'       => 'menu.v_menu_admin',
-            'content'    => 'content.view_created_date_assement',
-            'title'      => 'Create Assement PDF'
-        ];
-
-        $checkAuth = \Auth::user()->level;
-        if ($request->ajax()) {
-            $q_brand = CreatedDateAssement::select('*')->orderByDesc('created_at');
-
-            
-            return Datatables::of($q_brand)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row) use($checkAuth){
-                    $btn = '';
-                    // if ($row->is_sent_mail == 0) {
-                        $btn = '<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Sent Mail" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2  sent_mail"><i class="fas fa-envelope"></i></div>';
-                    // }
-                    $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit edit"><i class=" fi-rr-edit"></i></div>';
-
-                    return $btn;
-
-                    })
-                    ->make(true);
-        }
-
-        if ($checkAuth == 2) {
-            return view('layouts.v_template',$data);
-        }
-        return view('layouts.v_not_representative');
-
-    }
-
-    public function index(Request $request) {}
-
     // public function search_list(Request $request)
     // {
-    //     $search_email = $request->get('search_email_filters');
-    //     $visatypes  = VisaType::all();
     //     $languages = Language::all();
+    //     $visatypes = VisaType::all();
     //     $user = \Auth::user();
     //     $brand_ids = $user->brand_id;
     //     $brands = explode(",",$brand_ids);
@@ -92,7 +43,7 @@ class CreatedDateAssementController extends Controller
 
     //     $data = [
     //         'visatypes'  => $visatypes,
-    //            'languages'  => $languages,
+    //         'languages'  => $languages,
     //         'brands'     => $brands,
     //         'brand'     => $brand,
     //         'menu'       => 'menu.v_menu_admin',
@@ -102,36 +53,85 @@ class CreatedDateAssementController extends Controller
 
     //     $checkAuth = \Auth::user()->level;
     //     if ($request->ajax()) {
-
-    //         if ($search_email !== null) {
-    //             $q_brand = CreatedDateAssement::select('*')->where('email', 'like', '%' . $search_email . '%')->where('is_sent_mail',0)->orderByDesc('created_at');
+    //         $q_brand = CreatedDateAssement::select('*')->orderByDesc('created_at');
 
             
-    //             return Datatables::of($q_brand)
+    //         return Datatables::of($q_brand)
     //                 ->addIndexColumn()
     //                 ->addColumn('action', function($row) use($checkAuth){
     //                 $btn = '';
-    //                 if ($row->is_sent_mail == 0) {
+    //                 // if ($row->is_sent_mail == 0) {
     //                     $btn = '<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Sent Mail" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2  sent_mail"><i class="fas fa-envelope"></i></div>';
-    //                 }
-    //                     $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit edit"><i class=" fi-rr-edit"></i></div>';
+    //                 // }
+    //                 $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit edit"><i class=" fi-rr-edit"></i></div>';
 
     //                 return $btn;
 
     //                 })
     //                 ->make(true);
-    //         } else {
-    //             // Return an empty result when search_email is null
-    //             return Datatables::of([])
-    //                 ->make(true);
-    //         }
     //     }
 
     //     if ($checkAuth == 2) {
     //         return view('layouts.v_template',$data);
     //     }
     //     return view('layouts.v_not_representative');
+
     // }
+
+    public function index(Request $request) {}
+
+    public function search_list(Request $request)
+    {
+        $search_email = $request->get('search_email_filters');
+        $visatypes  = VisaType::all();
+        $languages = Language::all();
+        $user = \Auth::user();
+        $brand_ids = $user->brand_id;
+        $brands = explode(",",$brand_ids);
+        $brand = DB::table('brands')->join('users', 'brands.id', '=', 'users.brand_id')->select('brands.name')->where('users.id',$user->id)->first();
+
+        $data = [
+            'visatypes'  => $visatypes,
+               'languages'  => $languages,
+            'brands'     => $brands,
+            'brand'     => $brand,
+            'menu'       => 'menu.v_menu_admin',
+            'content'    => 'content.view_created_date_assement',
+            'title'      => 'Create Assement PDF'
+        ];
+
+        $checkAuth = \Auth::user()->level;
+        if ($request->ajax()) {
+
+            if ($search_email !== null) {
+                $q_brand = CreatedDateAssement::select('*')->where('email', 'like', '%' . $search_email . '%')->where('is_sent_mail',0)->orderByDesc('created_at');
+
+            
+                return Datatables::of($q_brand)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row) use($checkAuth){
+                    $btn = '';
+                    if ($row->is_sent_mail == 0) {
+                        $btn = '<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Sent Mail" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2  sent_mail"><i class="fas fa-envelope"></i></div>';
+                    }
+                        $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit edit"><i class=" fi-rr-edit"></i></div>';
+
+                    return $btn;
+
+                    })
+                    ->make(true);
+            } else {
+                // Return an empty result when search_email is null
+                return Datatables::of([])
+                    ->make(true);
+            }
+        }
+
+        if ($checkAuth == 2) {
+            return view('layouts.v_template',$data);
+        }
+        return view('layouts.v_not_representative');
+    }
 
     public function store(Request $request)
     {
@@ -251,29 +251,17 @@ class CreatedDateAssementController extends Controller
 
         if ($status === 'won') {
             if ($brand_name == $brands->name) {
-                $curl = curl_init();
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://api.pipedrive.com/v1/persons/2315?api_token=02f14f76be9bce4fab8dfc1053f0c3d59490085a',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Cookie: __cf_bm=E1q_VL9JUsPlk8iDskEKlkiKcHc3eTmezr5VBvBS1XE-1697200189-0-ATCbJMd9ha27kaRbI6znGFg5y3V/mlrH7pQBXutP5gYfVDruOSVxTJpafOdfyANP5/8NaWmfoWwSLdy1YaEfAxE='
-                    ),
-                ));
 
-                $pesronsResponse = curl_exec($curl);
-                curl_close($curl);
-                $finalResult = json_decode($pesronsResponse);
+                $finalResult = $this->makeApiRequest($pipe_setting->url . '/persons/' . $id . '?', $pipe_setting->token);
                 
                 $country         = $finalResult->data->{'9454c36ad451a91ff4a7d6eecb49bec36a14ad48'} ?$finalResult->data->{'9454c36ad451a91ff4a7d6eecb49bec36a14ad48'} : '';
                 $edu_data = $finalResult->data->{'eac67ba1b38f1749501fb4d8526f0ffec670267a'} ? $finalResult->data->{'eac67ba1b38f1749501fb4d8526f0ffec670267a'} : '';
-                $educationArray = setEducationLevel();
-                $education_level = $educationArray[$edu_data];
+                if ($edu_data) {
+                    $educationArray = setEducationLevel();
+                    $education_level = $educationArray[$edu_data];
+                } else {
+                    $education_level = '';
+                }
                 $occupation      = $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} ? $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} :'';
                 $age             = $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} ? $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} : '';
                 $city            = $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} ? $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} : '';
@@ -311,9 +299,6 @@ class CreatedDateAssementController extends Controller
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Cookie: __cf_bm=fQeN9VVj1FHhWALwh8hHddHpRs.iIMOroyMWo.vSZs8-1695983448-0-Ae3kxdjG+cg2m/iGCXRU++cy4GZIHX7NxFuz6PyPM80QvIAaoHFZkN3ZlLw/19NuRtEMsI0KsAuVW0d3j8OrLAE='
-            ),
         ));
     
         $response = curl_exec($curl);
@@ -339,7 +324,7 @@ class CreatedDateAssementController extends Controller
             
             $brands = Brand::where('name', 'like', '%' . $brand_name . '%')->first();
             if ($brands) {
-                $allrepresentatives = Representative::whereRaw("FIND_IN_SET($brands->id, brand_id)")->get();
+                $allrepresentatives = Representative::whereRaw("FIND_IN_SET($brands->id, brand_id)")->orderby('id','DESC')->get();
             } else {
                 $allrepresentatives = [];
             }
@@ -351,7 +336,6 @@ class CreatedDateAssementController extends Controller
                 if ($vt) {
                     $vt = $vt->toArray();
                     foreach($vt as $key=>$val) {
-                    //    $visa_details = VisaTypeDetails::where('visa_type_id',$val['id'])->where('language_code',$created_data->language_code)->pluck('value','visa_key');
                     $visa_details = VisaTypeDetails::where('visa_type_id',$val['id'])->where('language_code',$created_data->language_code)->get();
                        $visa_type[$key] = $val;
                        $visa_type[$key]['visa_details'] = $visa_details;
@@ -367,12 +351,12 @@ class CreatedDateAssementController extends Controller
                 $brand_about = $brands->$a;
             } 
             //generate pdf
-            $pdf = PDF::loadView('pdf_new',compact(['brands','allrepresentatives','representative','created_data','visa_type','brand_about']));
+            $pdf = PDF::loadView('canadamigration_en',compact(['brands','allrepresentatives','representative','created_data','visa_type','brand_about']));
             $content = $pdf->output();
             $filename = 'generated_pdf_' . time() . '.pdf'; 
             $pdf_name = storage_path('app/public/' . $filename);
             file_put_contents($pdf_name, $content);
-            dd('done');
+
             //end pdf
 
             // $filename = 'generated_pdf_' . time() . '.pdf'; 

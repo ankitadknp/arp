@@ -125,41 +125,49 @@ if(!function_exists('setBritishVisaTitle')){
                 'key'      => 'Description',
                 'is_image' => 0,
                 'id'       => 'Description',
+                "validation" => 'required',
             ],
             [
                 'key'      => 'corporate sales managers salary in Canada',
                 'is_image' => 1,
-                'id'       => 'corporate_sales_managers_salary_in_Canada'
+                'id'       => 'corporate_sales_managers_salary_in_Canada',
+                "validation" => 'required',
             ],
             [
                 'key'      => 'How does This Program work?',
                 'is_image' => 0,
                 'id'       => 'How_does_This_Program_work?',
+                "validation" => 'required',
             ],
             [
                 'key' => 'Main Advantages',
                 'is_image' => 0,
                 'id' => 'Main_Advantages',
+                "validation" => 'required',
             ],
             [
                 'key' => 'Candidate Requirements',
                 'is_image' => 0,
                 'id' => 'Candidate_Requirements',
+                "validation" => 'required',
             ],
             [
                 'key' => 'Time Frame',
                 'is_image' => 0,
                 'id' => 'Time_Frame',
+                "validation" => 'required',
             ],
             [
                 'key' => 'Our Service',
                 'is_image' => 0,
                 'id' => 'Our_Service',
+                "validation" => 'required',
             ],
             [
                 'key' => 'Service Cost',
                 'is_image' => 1,
                 'id' => 'Service_Cost',
+                "validation" => 'required',
             ],
  
         ];
@@ -205,6 +213,111 @@ if(!function_exists('setAtlanticVisaTitle')){
                 'key' => 'Our Service',
                 'is_image' => 0,
                 'id' => 'Our_Service',
+            ],
+            [
+                'key' => 'Service Cost',
+                'is_image' => 1,
+                'id' => 'Service_Cost',
+            ],
+ 
+        ];
+        return $arr;
+    }
+}
+
+if(!function_exists('setWorkPermitVisaTitle')){
+    function setWorkPermitVisaTitle()
+    {
+        $arr = [
+            [
+                'key' => 'Description',
+                'is_image' => 0,
+                'id' => 'Description',
+            ],
+            [
+                'key' => 'Is an LMIA necessary? Yes, an LMIA is required',
+                'is_image' => 0,
+                'id' => 'Is_an_LMIA_necessary?_Yes,_an_LMIA_is_required'
+            ],
+            [
+                'key' => 'Candidate Requirements',
+                'is_image' => 0,
+                'id' => 'Candidate_Requirements'
+            ],
+            [
+                'key' => 'Your Salary by Experience Level in Canada',
+                'is_image' => 1,
+                'id' => 'You_Salary_by_Experience_Level_in_Canada',
+            ],
+            [
+                'key' => 'Main Advantages',
+                'is_image' => 0,
+                'id' => 'Main_Advantages',
+            ],
+            [
+                'key' => 'Time Frame',
+                'is_image' => 0,
+                'id' => 'Time_Frame',
+            ],
+            [
+                'key' => 'Our Service',
+                'is_image' => 0,
+                'id' => 'Our_Service',
+            ],
+            [
+                'key' => 'Service Cost',
+                'is_image' => 1,
+                'id' => 'Service_Cost',
+            ],
+ 
+        ];
+        return $arr;
+    }
+}
+
+if(!function_exists('setexpressVisaTitle')){
+    function setexpressVisaTitle()
+    {
+        $arr = [
+            [
+                'key' => 'Description',
+                'is_image' => 0,
+                'id' => 'Description',
+            ],
+            [
+                'key' => 'How does This Program work?',
+                'is_image' => 0,
+                'id' => 'How_does_This_Program_work?'
+            ],
+            [
+                'key' => 'Candidate Score',
+                'is_image' => 1,
+                'id' => 'Candidate_Score'
+            ],
+            [
+                'key' => 'Canada Express Entry Latest Draw 2023',
+                'is_image' => 1,
+                'id' => 'Canada_Express_Entry_Latest_Draw_2023',
+            ],
+            [
+                'key' => 'Here is a step-by-step breakdown for the process with us',
+                'is_image' => 0,
+                'id' => 'Here_is_a_step-by-step_breakdown_for_the_process_with_us',
+            ],
+            [
+                'key' => 'Main Advantages',
+                'is_image' => 0,
+                'id' => 'Main_Advantages',
+            ],
+            [
+                'key' => 'Your salary per region in Canada',
+                'is_image' => 0,
+                'id' => 'Your_salary_per_region_in_Canada',
+            ],
+            [
+                'key' => 'Time Frame',
+                'is_image' => 0,
+                'id' => 'Time_Frame',
             ],
             [
                 'key' => 'Service Cost',

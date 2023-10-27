@@ -7,7 +7,6 @@ use DataTables;
 use App\Models\Language;
 use App\Models\Brand;
 use App\Models\User;
-use App\Models\BrandDetails;
 use App\Models\PipedriveSetting;
 use App\Models\VisaType;
 use Illuminate\Support\Facades\DB;
@@ -110,26 +109,6 @@ class BrandsController extends Controller
         }
         $rec = Brand::updateOrCreate(['id' => $request->id],$reqInt);
 
-        //add brand details
-        $brand_lan   = explode(",",$request->language_id);
-        $fieldKeys = ['conclusion'];
-        foreach ($brand_lan as $l_data) { 
-            $languageCode = $l_data;
-        
-            foreach ($fieldKeys as $fieldKey) {
-                $inputFieldName = $fieldKey . '_' . $languageCode;
-        
-                BrandDetails::updateOrCreate(
-                    [
-                        'brand_id'    => $rec->id,
-                        'language_id' => $languageCode, // Assuming you use the correct language ID
-                        'brand_key'   => $fieldKey,
-                    ],
-                    ['value'          => $request->input($inputFieldName),
-                    ]
-                );
-            }
-        } //end brand details
 
         if(isset($single) && $single){
             setActivityLog('Brand Updated [Brand Name: ' . $request->name. ', ' . $request->email  . ']',json_encode($reqInt),activityEnums('brand'),$request->id,\Auth::user()->id);

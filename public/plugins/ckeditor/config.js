@@ -38,5 +38,6 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.extraPlugins = 'justify';
 
+	config.extraPlugins = 'colorbutton';
 
 };

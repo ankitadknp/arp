@@ -27,11 +27,6 @@ class VisaType extends Authenticatable
         return $this->belongsTo(Brand::class, 'brand_id');
     }
     
-    public function images()
-    {
-        return $this->hasMany(VisaTypeImages::class, 'visa_type_id');
-    }
-
     public function details()
     {
         return $this->hasMany(VisaTypeDetails::class, 'visa_type_id', 'id');

@@ -54,7 +54,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost/arp-canadapdf/'),
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/arp-canadapdf/public/'),
+    'asset_url' => env('ASSET_URL', 'http://localhost/arp-canadapdf/public'),
 
     /*
     |--------------------------------------------------------------------------

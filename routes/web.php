@@ -37,6 +37,9 @@ use App\Http\Controllers\DPDFController;
 Route::get('/', function () {
     return redirect()->action([HomeController::class, 'index']);
 });
+Route::get('logout', function () {
+    return redirect()->route('login');
+});
 
 Auth::routes(['register' => false,'verify' => false,'reset' => false]);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -82,4 +85,5 @@ Route::get('/pdf_to_html', function () {
     return view('pdf_to_html');
 });
 
+Route::post('ck/upload','VisaTypeController@uploadImage')->name('ck.upload');
 Route::get('/pdfD', [DPDFController::class, 'generateHtmlToPDF']);

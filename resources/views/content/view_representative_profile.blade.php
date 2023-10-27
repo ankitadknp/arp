@@ -239,7 +239,7 @@
                     if(typeof data.error != 'undefined' && data.error!='' && data.error!=null){
                         swal_errorMsg(data.error);
                     }else{
-                        $('#image_preview').remove();
+                        $('#signature_preview').remove();
                         $('#signature_delete').hide();
                         Swal.fire({
                             position: 'top-end',

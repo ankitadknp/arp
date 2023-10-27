@@ -38,7 +38,7 @@
         <div class="modal-content">
             <div class="modal-header bg-primary">
                 <h5 class="modal-title text-white" id="exampleModalLabel">Brand</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close brand_close" data-dismiss="modal" aria-label="Close">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
@@ -70,16 +70,12 @@
                         <textarea class="form-control ckeditor-field" name="about_en" id="ckeditor_en" placeholder="About English"></textarea><br>
                         <span id="FrenchLabel"></span>
                         <textarea class="form-control ckeditor-field" name="about_fr" id="ckeditor_fr" placeholder="About French"></textarea>
-                        @foreach ($languages as $l_data)
-                        <span class="aboutLabel">Conclusion ({{$l_data->name}})</span>
-                        <textarea class="form-control conclusion-field" name="conclusion_{{$l_data->code}}" id="conclusion_{{$l_data->code}}" placeholder="Conclusion {{$l_data->name}}"></textarea><br>
-                        @endforeach
                         <input type="hidden" name="id" id="id" value="">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light-primary font-weight-bold brand_close" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary font-weight-bold" id="saveBtn">Save changes</button>
             </div>
         </div>
@@ -257,6 +253,10 @@
                 showConfirmButton: true,
             })
         }
+
+        $('.brand_close').click(function () {
+            location.reload();
+        });
         
         // table serverside
         var table = $('#table').DataTable({
@@ -403,6 +403,7 @@
                         $('#deleteImage').hide();
                         swal_success();
                         table.draw();
+                        location.reload();
                     }
                 },
                 error: function (data) {

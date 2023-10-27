@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\VisaType;
-use App\Models\VisaTypeImages;
 use App\Models\VisaTypeDetails;
 use App\Models\Language;
 use App\Models\Brand;
@@ -81,12 +80,13 @@ class VisaTypeController extends Controller
 
     public function store(Request $request)
     {
-        
         // dd($request->all());
+        
         $language_data = $this->getLanguageCode();
 
         $valArr = [];
         if($request->id){
+            
             $valArr['name'] = [
                 'required',
                 'max:200',
@@ -120,6 +120,7 @@ class VisaTypeController extends Controller
         ];
 
         $rec = VisaType::updateOrCreate(['id' => $request->id],$reqInt);
+        $visa_title = [] ;
 
         if ($request->id == 9) {
             $visa_title = setAlbertaVisaTitle();
@@ -133,45 +134,77 @@ class VisaTypeController extends Controller
             $visa_title = setBritishVisaTitle();
         }
 
-        foreach ($language_data as $l_data) {
-            $languageCode = $l_data->code;
-            $newvalue = [];
-        
-            foreach ($visa_title as $fieldKey) {
-                $currunt_var = $request->input($fieldKey['id']);
-                $image_id = $fieldKey['id'];
+        if ($request->id == 27) {
+            $visa_title = setexpressVisaTitle();
+        }
 
-                if ( $fieldKey['is_image'] == 1) {
-                    if ($request->hasFile($image_id)) {
+        if ($request->id == 28) {
+            $visa_title = setWorkPermitVisaTitle();
+        }
 
-                        $uploadedFiles   = $request->file($currunt_var);
-                        foreach ($uploadedFiles as $val) {
-                            $file            = $val['en'];
-                            $name            = time() . '_' . $file->getClientOriginalName();
-                            $destinationPath = public_path('/uploads/visa/');
-                            $file->move($destinationPath, $name);
-                            $fieldValue      ='/uploads/visa/'. $name; // Set field value for image
-                            $is_image        = 1 ;
+        if ($visa_title) {
+
+            foreach ($language_data as $l_data) {
+                $languageCode = $l_data->code;
+                $visa_details = VisaTypeDetails::where('visa_type_id',$request->id)->where('language_code',$languageCode)->pluck('visa_key');
+            
+                foreach ($visa_title as $v_key=>$fieldKey) {
+                    $currunt_var = $request->input($fieldKey['id']);
+                    $image_id = $fieldKey['id'];
+                    $visa_key = $fieldKey['key'];
+                    $fieldValue = null;
+                    $rules = [];
+
+                    if ( $fieldKey['is_image'] == 1) {
+                        $valuesArray = $visa_details->toArray();
+                            
+                        if (in_array($visa_key, $valuesArray)) {
+                            $rules[$image_id] = 'nullable';
+                        } else {
+                            $rules[$image_id] = 'required';
                         }
-                    } 
-                } else {
-                    $fieldValue    = $currunt_var[$languageCode];
-                    $is_image       = 0 ;
-                }
 
-                // if ($currunt_var !== null && isset($currunt_var[$languageCode])) {
-                    VisaTypeDetails::updateOrCreate(
-                        [
-                            'visa_type_id'  => $rec->id,
-                            'language_code' => $languageCode, // Assuming you use the correct language ID
-                            'brand_id'      => $request->brand_id,
-                            'visa_key'      => $fieldKey['key'],
-                            'is_image'      => $is_image
-                        ],
-                        [ 'value'           => $fieldValue,
-                        ]
-                    );
-                // }
+                        $validator = Validator::make($request->all(), $rules);
+
+                        if ($validator->fails()) {
+                            return response()->json(['error' => $validator->errors()->all()]);
+                        }
+
+                        if ($request->hasFile($image_id)) {
+                            $uploadedFiles   = $request->file($currunt_var);
+                            foreach ($uploadedFiles as $key=>$val) {
+                                if($key == $image_id ) {
+                                    if (isset($val[$languageCode])) {
+                                        $file     = $val[$languageCode];
+                                        $name            = time() . '_' . $file->getClientOriginalName();
+                                        $destinationPath = public_path('/uploads/visa/');
+                                        $file->move($destinationPath, $name);
+                                        $fieldValue      ='/uploads/visa/'. $name; // Set field value for image
+                                        $is_image        = 1 ;
+                                    }
+                                }
+                            }
+                        } 
+                    } else {
+                        $fieldValue    = $currunt_var[$languageCode];
+                        $is_image      = 0 ;
+                    }
+
+                    if ( ($currunt_var !== null && isset($currunt_var[$languageCode])) || ($request->hasFile($image_id) && $fieldValue !== null) ) {
+
+                        VisaTypeDetails::updateOrCreate(
+                            [
+                                'visa_type_id'  => $rec->id,
+                                'language_code' => $languageCode, // Assuming you use the correct language ID
+                                'brand_id'      => $request->brand_id,
+                                'visa_key'      => $fieldKey['key'],
+                                'is_image'      => $is_image
+                            ],
+                            [ 'value'           => $fieldValue,
+                            ]
+                        );
+                    }
+                }
             }
         }
         
@@ -194,6 +227,7 @@ class VisaTypeController extends Controller
             return response()->json(['error' => 'Visa not found'], 404);
         }
 
+        $visa_title = [];
         if ($id == 9) {
             $visa_title = setAlbertaVisaTitle();
         }
@@ -204,6 +238,14 @@ class VisaTypeController extends Controller
 
         if ($id == 10) {
             $visa_title = setBritishVisaTitle();
+        }
+
+        if ($id == 27) {
+            $visa_title = setexpressVisaTitle();
+        }
+
+        if ($id == 28) {
+            $visa_title = setWorkPermitVisaTitle();
         }
 
         $data    = $visa->toArray();
@@ -223,17 +265,18 @@ class VisaTypeController extends Controller
 
     public function destroy($id)
     {
-        $visaImage = VisaTypeImages::where('visa_type_id',$id)->get();
+        $visaDetails = VisaTypeDetails::where('visa_type_id',$id)->get();
 
-        if ($visaImage->isNotEmpty()) {
+        if ($visaDetails->isNotEmpty()) {
             $destinationPath = public_path("");
-            foreach($visaImage as $val) {
-                $image_path = $destinationPath.$val->image;
-                VisaTypeImages::find($val->id)->delete();
-            }
-            
-            if (File::exists($destinationPath)) {
-                unlink($image_path);
+            foreach($visaDetails as $val) {
+                if ($val->is_image == 1) {
+                    $image_path = $destinationPath.$val->value;
+                    if (File::exists($destinationPath)) {
+                        unlink($image_path);
+                    }
+                }
+                VisaTypeDetails::find($val->id)->delete();
             }
         }
 
@@ -242,22 +285,22 @@ class VisaTypeController extends Controller
         return response()->json(['success'=>'Record deleted!']);
     }
 
-    public function deleteVisaImage(Request $request)
-    {
-        $imageId = $request->input('id');
-        $visaImage = VisaTypeImages::find($imageId);
-        $destinationPath = public_path("");
-        $image_path = $destinationPath.$visaImage->image;
-        
-        if (File::exists($destinationPath)) {
-            unlink($image_path);
-        }
+    // public function uploadImage(Request $request)
+    // {  
 
-        // Delete the image record from the database
-        VisaTypeImages::findOrFail($imageId)->delete();
-
-        return response()->json(['success'=>'Record deleted!']);
-    }
-
+    //     $file = $request->upload;
+    //     $fileName = $file->getClientOriginalName();
+    //     $new_name = time().$fileName;
+    //     $dir = public_path("/uploads/content_img/");
+    //     if (!file_exists($dir)) {
+    //         mkdir($dir, 0777, true);
+    //     }
+    //     $file->move(public_path('uploads/visa/'), $new_name);
+    //     $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+    //     $msg = 'File uploaded successfully';
+    //     $url = asset('public/uploads/visa/'.$new_name); 
+    //     $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+    //     echo  $response;
+    // }
 
 }

@@ -61,16 +61,20 @@ class RepresentativeController extends Controller
 
     public function store(Request $request)
     {
+        if($request->id){
+            $single = Representative::find($request->id);
+        }
+
         $valArr = [];
         if($request->id){
-            $valArr['photo']            = 'nullable|mimes:jpg,jpeg,png,gif|max:2048';
-            $valArr['signature_photo']  = 'nullable|mimes:jpg,jpeg,png,gif|max:2048';
-            $valArr['law_logo']  = 'nullable|mimes:jpg,jpeg,png,gif|max:2048';
+            $valArr['photo']            = 'nullable|mimes:jpg,jpeg,png,gif';
+            $valArr['signature_photo']  = 'nullable|mimes:jpg,jpeg,png,gif';
+            $valArr['law_logo']  = 'nullable|mimes:jpg,jpeg,png,gif';
             $valArr['email']            = 'required|max:200|email|unique:representative,email,'.$request->id.',id';
         }else{
-            $valArr['photo']            = 'required|mimes:jpg,jpeg,png,gif|max:2048';
-            $valArr['signature_photo']  = 'required|mimes:jpg,jpeg,png,gif|max:2048';
-            $valArr['law_logo']         = 'required|mimes:jpg,jpeg,png,gif|max:2048';
+            $valArr['photo']            = 'required|mimes:jpg,jpeg,png,gif';
+            $valArr['signature_photo']  = 'required|mimes:jpg,jpeg,png,gif';
+            $valArr['law_logo']         = 'required|mimes:jpg,jpeg,png,gif';
             $valArr['email']            = 'required|max:200|email|unique:representative,email|unique:users,email';
             $valArr['password']         = 'required|min:8|regex:/^(?=.*[0-9])(?=.*[A-Za-z])(?=.*[\W_]).+$/';
         }
@@ -92,15 +96,27 @@ class RepresentativeController extends Controller
             'cba_number.regex' => 'The CBA number must contain at least one number, one alphabet',
         ];
 
+        if(isset($single) && $single){
+            if (!$single->photo ) {
+                $valArr['photo']     = 'required|mimes:jpg,jpeg,png,gif';
+            }
+
+            if (!$single->signature_photo ) {
+                $valArr['signature_photo']  = 'required|mimes:jpg,jpeg,png,gif';
+            }
+
+            if (!$single->law_logo ) {
+                $valArr['law_logo']  = 'required|mimes:jpg,jpeg,png,gif';
+            }
+        }
+
         $validator = Validator::make($request->all(), $valArr,$customMessages);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()->all()]);
         }
 
-        if($request->id){
-            $single = Representative::find($request->id);
-        }
+        
         $reqInt = [
             'name'           => $request->name,
             'bio'            => $request->bio,
@@ -111,6 +127,7 @@ class RepresentativeController extends Controller
             'email'          => $request->email,
             'password'       => ($request->password)?Hash::make($request->password):$single->password,
         ];
+
         if($request->hasFile('photo')) {
             $file = $request->file('photo');
             $name = time() . '_' . $file->getClientOriginalName();
@@ -173,11 +190,11 @@ class RepresentativeController extends Controller
         $Representative = Representative::find($id);
 
         if ($Representative->photo) {
-            $Representative->photo = '<img id="image_preview" src="'.asset($Representative->photo).'" width="100" height="100"/><button type="button" id="signature_delete" class="btn btn-danger btn-sm signature_delete" data-id="'.$id.'" ><i class="fas fa-trash"></i></button>';
+            $Representative->photo = '<img id="image_preview" src="'.asset($Representative->photo).'" width="100" height="100"/><button type="button" id="photo_delete" class="btn btn-danger btn-sm  photo_delete" data-id="'.$id.'" ><i class="fas fa-trash"></i></button>';
         }
 
         if ($Representative->signature_photo) {
-            $Representative->signature_photo = '<img id="signature_preview" src="'.asset($Representative->signature_photo).'" width="100" height="100"/><button type="button" id="photo_delete" class="btn btn-danger btn-sm photo_delete" data-id="'.$id.'" ><i class="fas fa-trash"></i></button>';
+            $Representative->signature_photo = '<img id="signature_preview" src="'.asset($Representative->signature_photo).'" width="100" height="100"/><button type="button" id="signature_delete" class="btn btn-danger btn-sm signature_delete" data-id="'.$id.'" ><i class="fas fa-trash"></i></button>';
         }
 
         if ($Representative->law_logo) {
