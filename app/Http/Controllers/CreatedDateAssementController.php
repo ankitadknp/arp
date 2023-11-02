@@ -92,7 +92,7 @@ class CreatedDateAssementController extends Controller
 
         $data = [
             'visatypes'  => $visatypes,
-               'languages'  => $languages,
+            'languages'  => $languages,
             'brands'     => $brands,
             'brand'     => $brand,
             'menu'       => 'menu.v_menu_admin',
@@ -103,28 +103,23 @@ class CreatedDateAssementController extends Controller
         $checkAuth = \Auth::user()->level;
         if ($request->ajax()) {
 
-            if ($search_email !== null) {
-                $q_brand = CreatedDateAssement::select('*')->where('email', 'like', '%' . $search_email . '%')->where('is_sent_mail',0)->orderByDesc('created_at');
+            $q_brand = CreatedDateAssement::select('*')->where('email', 'like', '%' . $search_email . '%')->orderByDesc('created_at');
 
-            
-                return Datatables::of($q_brand)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row) use($checkAuth){
-                    $btn = '';
+            return Datatables::of($q_brand)
+                ->addIndexColumn()
+                ->addColumn('action', function($row) use($checkAuth){
+                $btn = '';
                     if ($row->is_sent_mail == 0) {
                         $btn = '<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Sent Mail" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2  sent_mail"><i class="fas fa-envelope"></i></div>';
-                    }
                         $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit edit"><i class=" fi-rr-edit"></i></div>';
-
+                    }
+                    if ($row->is_sent_mail == 1) {
+                        $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="view" title="View" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 view"><i class=" fi-rr-eye"></i></div>';
+                    }
                     return $btn;
-
-                    })
-                    ->make(true);
-            } else {
-                // Return an empty result when search_email is null
-                return Datatables::of([])
-                    ->make(true);
-            }
+                })
+                ->make(true);
+         
         }
 
         if ($checkAuth == 2) {
@@ -217,7 +212,7 @@ class CreatedDateAssementController extends Controller
         $checkEmail = CreatedDateAssement::where('email', 'like', '%' . $email . '%')->first();
 
         if ($checkEmail) {
-            return response()->json(['error' => "The mail has already been sent"]);
+            return response()->json(['error' => "The mail has already been sent via other legal representative"]);
         }
 
         $brands = Brand::where('name', 'like', '%' . $brand_name . '%')->first();
@@ -241,15 +236,15 @@ class CreatedDateAssementController extends Controller
         $phone_no = isset($person->phones[0]) ? str_replace('+', '', $person->phones[0]) : '';
 
         // Get the status of the person's deals
-        $dealsResponse = $this->makeApiRequest($pipe_setting->url . '/persons/' . $id . '/deals?status=all_not_deleted', $pipe_setting->token);
+        // $dealsResponse = $this->makeApiRequest($pipe_setting->url . '/persons/' . $id . '/deals?status=all_not_deleted', $pipe_setting->token);
 
-        if (!isset($dealsResponse->data[0])) {
-            return response()->json(['error' => "User status isn't found"]);
-        }
+        // if (!isset($dealsResponse->data[0])) {
+        //     return response()->json(['error' => "User status isn't found"]);
+        // }
 
-        $status = $dealsResponse->data[0]->status;
+        // $status = $dealsResponse->data[0]->status;
 
-        if ($status === 'won') {
+        //if ($status === 'won') {
             if ($brand_name == $brands->name) {
 
                 $finalResult = $this->makeApiRequest($pipe_setting->url . '/persons/' . $id . '?', $pipe_setting->token);
@@ -282,9 +277,9 @@ class CreatedDateAssementController extends Controller
                 'city' => $city,
                 'phone_no' => $phone_no,
             ]);
-        } else {
-            return response()->json(['error' => 'User status is ' . $status]);
-        }
+        // } else {
+        //     return response()->json(['error' => 'User status is ' . $status]);
+        // }
     }
 
     function makeApiRequest($url, $token) {
@@ -356,35 +351,8 @@ class CreatedDateAssementController extends Controller
             $filename = 'generated_pdf_' . time() . '.pdf'; 
             $pdf_name = storage_path('app/public/' . $filename);
             file_put_contents($pdf_name, $content);
-
+            // dd('done');
             //end pdf
-
-            // $filename = 'generated_pdf_' . time() . '.pdf'; 
-
-            // $html = View::make('pdf_new', [
-            //     'brands' => $brands,
-            //     'allrepresentatives' => $allrepresentatives,
-            //     'representative' => $representative,
-            //     'created_data' => $created_data,
-            //     'visa_type' => $visa_type,
-            //     'brand_about' => $brand_about,
-            // ])->render();
-
-            // // Initialize Dompdf
-            // $options = new Options();
-            // $options->set('debugKeepTemp', true);
-            // $options->set('isPhpEnabled', true);
-            // $dompdf = new Dompdf($options);
-            // $dompdf->loadHtml($html); // Load the HTML content
-            // $dompdf->setPaper('A4', 'portrait');   // Set paper size (optional)
-            // $dompdf->render();
-            // $dompdf->stream($filename); // This will stream the PDF to the browser
-            // $content = $dompdf->output(); // Capture the PDF content
-            // $filename = 'generated_pdf_' . time() . '.pdf';
-            // $x = storage_path('app/public/' . $filename);
-            // file_put_contents($x, $content);
-            // $pdf_name = '/var/www/html/arp/storage/app/public/' . $filename;
-            
 
             $smtpSettings = SmtpSetting::where('brand_id',$brands->id)->first();
 

@@ -384,438 +384,179 @@
 		</tr>
 	</table>
 
-	
-
 	@foreach($visa_type as $key=>$visa)
 		@if (($visa['visa_details']) != '[]')
-			@php $visaDetail = $visa['visa_details'];@endphp
-
+			@php $visaDetail = $visa['visa_details'];
+			$key_cnt = $key+1;
+			@endphp
 			@if ($created_data->recommended_visa_name == $visa['name'])
-			<table id="page11-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-				<tr>
-					<td>
-						<img width="800" height="1084" src="{{ asset('pdf/target011.png')}}" alt="background image"/>
-						<p style="position:absolute;top:865px;left:60px; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>{{$created_data->recommended_visa_name}}</i></p>
-					</td>
-				</tr>
-			</table>
-
-			<table id="page12-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-				<tr>
-					<td>
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tbody>
-								<tr>
-									<th class="page-header" height="70px" style="position: relative; padding-top: 80px; ">
-										<h2 style="margin-top: 0; text-align: left; color: #fff; background-color: #1c2839; width: 100%;"><span style="max-width: 400px; width: 400px; white-space: break-spaces; display: block;">{{$created_data->recommended_visa_name}}</span></h2>
-										<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
-										<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
-									</th>
-								</tr>
-
-								<tr>
-									<td style="padding: 35px 60px 0">
-										<p style="padding-bottom: 20px;"> {!!$visaDetail[0]->value!!}</p>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px;padding-top: 35px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[1]->visa_key}}:</strong>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 0 60px;">
-										<p style="margin-bottom: 5px; " class="ft92"><span style="color: #ef434c;"></span> {!!$visaDetail[1]->value!!}</p>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px;padding-top: 35px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[2]->visa_key}}</strong>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 0 60px;">
-										<p style="margin-bottom: 5px; " class="ft92"><img src="" style="margin-right: 15px; margin-bottom: -3px;">{!!$visaDetail[2]->value!!}</p>
-									</td>
-								</tr>
-
-								<tr>
-									<td colspan="2">
-										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 38px; padding: 0 15px 0 15px; margin-top: 35px; ">
-											<ul>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">12</li>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</table>
-
-			<table id="page13-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-				<tr>
-					<td>
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tbody>
-								<tr>
-									<th class="page-header" height="70px" style="position: relative; padding-top: 80px">
-										<h2 style="margin-top: 0; text-align: left; color: #fff; background-color: #1c2839; width: 100%;"><span style="max-width: 400px; width: 400px; white-space: break-spaces; display: block;">{{$created_data->recommended_visa_name}}</span></h2>
-										<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
-										<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
-									</th>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px;padding-top: 35px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[3]->visa_key}}:</strong>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 0 60px;">
-										<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92"> {!!$visaDetail[3]->value!!}</p>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px;padding-top: 35px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[4]->visa_key}}</strong>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 0 60px;">
-										<img src="{{ asset($visaDetail[4]->value)}}" width="100%">
-									</td>
-								</tr>
-
-								<tr>
-									<td colspan="2">
-										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 38px; padding: 0 15px 0 15px; margin-top: 35px; ">
-											<ul>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">13</li>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</table>
-
-			<table id="page14-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-				<tr>
-					<td>
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tbody>
-								<tr>
-									<th class="page-header" height="70px" style="position: relative; padding-top: 80px">
-										<h2 style="margin-top: 0; text-align: left; color: #fff; background-color: #1c2839; width: 100%;"><span style="max-width: 400px; width: 400px; white-space: break-spaces; display: block;">{{$created_data->recommended_visa_name}}</span></h2>
-										<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
-										<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
-									</th>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px;padding-top: 35px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[5]->visa_key}}:</i></strong>{!!$visaDetail[5]->value!!}
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px;padding-top: 35px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[6]->visa_key}}:</i></strong>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 0 60px;">
-										<p style="margin-bottom: 5px;" class="ft92"><span style="color: #ef434c;"></span> {!!$visaDetail[6]->value!!}</p>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 50px 60px;">
-									    <img src="{{ asset($visaDetail[7]->value)}}" width="100%">
-									</td>
-								</tr>
-
-								<tr>
-									<td colspan="2">
-										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 38px; padding: 0 15px 0 15px; margin-top: 35px; ">
-											<ul>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: 1 289 801-7117</li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:Info@canadamigration.org">{{$brands->website}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="www.canadamigration.org"> www.canadamigration.org</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">14</li>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</table>
-			@else 
-			@if ($key==2)
+				<table id="page11-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+					<tr>
+						<td>
+							<img width="800" height="1084" src="{{ asset('pdf/target011.png')}}" alt="background image"/>
+							<h2 style="font-weight: 700; color: #ffffff; opacity: .5; position:absolute;top:760px;left:60px; font-size: 72px;">
+								<strong><i>0{{$key_cnt}}</i></strong>
+							</h2>
+							<p style="position:absolute;top:865px;left:60px; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>{{$created_data->recommended_visa_name}}</i></p>
+						</td>
+					</tr>
+				</table>
+			@else
 				<table id="page7-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
 					<tr>
 						<td>
 							<img width="800" height="1103" src="{{ asset('pdf/target015.png')}}" alt="background image"/>
-							<p style="position:absolute;top:865px;left:60px; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>{{$visa['name']}} </i></p>
-						</td>
-					</tr>
-				</table>
-			@elseif($key==0)
-				<table id="page7-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-					<tr>
-						<td>
-							<img width="800" height="1103" src="{{ asset('pdf/target007.png')}}" alt="background image"/>
+							<h2 style="font-weight: 700; color: #ffffff; opacity: .5; position:absolute;top:760px;left:60px; font-size: 72px;">
+								<strong><i>0{{$key_cnt}}</i></strong>
+							</h2>
 							<p style="position:absolute;top:865px;left:60px; font-size: 72px; line-height: 78px; color: #ffffff;" class="ft73"><i>{{$visa['name']}} </i></p>
 						</td>
 					</tr>
 				</table>
 			@endif
 		
-			<table id="page8-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-				<tr>
-					<td>
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tbody>
-								<tr>
-									<th class="page-header" height="70px" style=" padding-top: 80px">
-										<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$visa['name']}} 
-									</h2>
-									</th>
-								</tr>
+			@foreach($visaDetail as $v_key=>$visas)
+				@if ($created_data->recommended_visa_name == $visa['name'])
+					<table id="page12-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+						<tr>
+							<td>
+								<table cellpadding="0" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<th class="page-header" height="70px" style="position: relative; padding-top: 80px; ">
+												<h2 style="margin-top: 0; text-align: left; color: #fff; background-color: #1c2839; width: 100%;"><span style="max-width: 400px; width: 400px; white-space: break-spaces; display: block;">{{$created_data->recommended_visa_name}}</span></h2>
+												<p style="background-color: #ee434b; text-align: left; color: #fff;"><strong><i>Most Recommended!</i></strong></p>
+												<img src="{{ asset('pdf/most-recommended-tag.png')}}" style="position: absolute; top: 78px; right: 8px; max-width: 269px; ">
+											</th>
+										</tr>
+										@if($v_key == 0)
+										<tr>
+											<td style="padding: 35px 60px 0">
+												<p style="padding-bottom: 20px;"> {!!$visas->value!!}</p>
+											</td>
+										</tr>
+										@endif
 
-								<tr>
-									<td style="padding: 35px 60px 30px">				
-										<p>{!!$visaDetail[0]->value!!}</p>
-									</td>
-								</tr>
+										@if($visas->is_image == 1)
+										<tr>
+											<td style="padding-bottom: 20px;padding-top: 50px;">
+												<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+													<strong><i>{{$visas->visa_key}}</i></strong>
+												</div>
+											</td>
+										</tr>
 
-								@if ($key==2) 
-								<tr>
-									<td style="padding-bottom: 30px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[1]->visa_key}}</i></strong>
-										</div>
-									</td>
-								</tr>
+										<tr>
+											<td style="padding: 0 60px;">
+												<img src="{{ asset($visas->value)}}" width="90%">
+											</td>
+										</tr>
+										@else
+											@if($v_key != 0)
+												<tr>
+													<td style="padding-bottom: 20px;padding-top: 50px;">
+														<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+															<strong><i>{{$visas->visa_key}}:</strong>
+														</div>
+													</td>
+												</tr>
 
-								<tr>
-									<td style="padding: 0 60px;">
-										<img src="{{ asset($visaDetail[1]->value)}}" width="90%">
-									</td>
-								</tr>
-								@elseif($key==0)
+												<tr>
+													<td style="padding: 0 60px;">
+														<p style="margin-bottom: 5px; " class="ft92"><span style="color: #ef434c;"></span> {!!$visas->value!!}</p>
+													</td>
+												</tr>
+											@endif
+										@endif
 
-									<tr>
-										<td style="padding-bottom: 50px;">
-											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-												<strong><i>{{$visaDetail[1]->visa_key}}</strong>
-											</div>
-										</td>
-									</tr>
+										<tr>
+											<td colspan="2">
+												<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 38px; padding: 0 15px 0 15px; margin-top: 35px; ">
+													<ul>
+														<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+														<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+														<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+														<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">12</li>
+													</ul>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</table>
+				@else 
+					<table id="page8-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
+						<tr>
+							<td>
+								<table cellpadding="0" cellspacing="0" width="100%">
+									<tbody>
+										<tr>
+											<th class="page-header" height="70px" style=" padding-top: 80px">
+												<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$visa['name']}} 
+											</h2>
+											</th>
+										</tr>
+										@if($v_key == 0)
+											<tr>
+												<td style="padding: 35px 60px 30px">				
+													<p>{!!$visas->value!!}</p>
+												</td>
+											</tr>
+										@endif
 
-									<tr>
-										<td style="padding: 0 60px;">
-											<p style="margin-bottom: 5px;"><img src="" style="margin-right: 15px; margin-bottom: -3px;">{!!$visaDetail[1]->value!!}</p>
-										</td>
-									</tr>
-								@endif
+										@if($visas->is_image == 1)
+										<tr>
+											<td style="padding-top: 50px; padding-bottom: 20px;">
+												<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+													<strong><i>{{$visas->visa_key}}</i></strong>
+												</div>
+											</td>
+										</tr>
 
-								<tr>
-									<td colspan="2">
-										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 38px; padding: 0 15px 0 15px; margin-top: 35px; ">
-											<ul>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">8</li>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</table>
+										<tr>
+											<td style="padding: 0 60px;">
+												<img src="{{ asset($visas->value)}}" width="90%">
+											</td>
+										</tr>
+										@else
+											@if($v_key != 0)
+												<tr>
+													<td style="padding-top: 50px; padding-bottom: 20px;">
+														<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
+															<strong><i>{{$visas->visa_key}}</strong>
+														</div>
+													</td>
+												</tr>
 
-			
-			<table id="page9-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-				<tr>
-					<td>
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tbody>
-								<tr>
-									<th class="page-header" height="70px" style=" padding-top: 80px">
-										<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$visa['name']}}</h2>
-									</th>
-								</tr>
+												<tr>
+													<td style="padding: 0 60px;">
+														<p style="margin-bottom: 5px;"><img src="" style="margin-right: 15px; margin-bottom: -3px;">{!!$visas->value!!}</p>
+													</td>
+												</tr>
+											@endif
+										@endif
 
-								<tr>
-									<td style="padding-bottom: 30px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[2]->visa_key}}:</strong>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 0 60px;">
-										<p style="margin-bottom: 5px; " class="ft92"> {!!$visaDetail[2]->value!!}</p>
-									</td>
-								</tr>
-								@if ($key==2)
-									<tr>
-										<td style="padding-bottom: 30px;padding-top: 50px;">
-											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-												<strong><i>{{$visaDetail[3]->visa_key}}:</i></strong>
-											</div>
-										</td>
-									</tr>
-
-									<tr>
-										<td style="padding: 0 60px;">
-											<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92">{!!$visaDetail[3]->value!!}</p>
-										</td>
-									</tr>
-								
-								@elseif($key==0)
-									<tr>
-										<td style="padding-bottom: 30px; padding-top: 50px;">
-											<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-												<strong><i>{{$visaDetail[3]->visa_key}}</strong>
-											</div>
-										</td>
-									</tr>
-
-									<tr>
-										<td style="padding:0 60px;">
-											<img width="680" src="{{ asset($visaDetail[3]->value)}}">
-										</td>
-									</tr>
-								@endif
-
-								<tr>
-									<td colspan="2">
-										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 38px; padding: 0 15px 0 15px; margin-top: 35px; ">
-											<ul>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}">{{$brands->website}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">9</li>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</table>
-
-			<table id="page10-div" class="page-div" style="position:relative; width:800px; margin: 0 auto 15px;">
-				<tr>
-					<td>
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tbody>
-								<tr>
-									<th class="page-header" height="70px" style=" padding-top: 80px">
-										<h2 style="margin-top: 0; text-align: left; background-color: #1c2839; color: #fff;">{{$visa['name']}}</h2>
-									</th>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px;padding-top: 35px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[4]->visa_key}}:</strong>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 0 60px;">
-										<p style="white-space:nowrap; margin-bottom: 5px; " class="ft92"> {!!$visaDetail[4]->value!!}</p>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px; padding-top: 50px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[5]->visa_key}}:</i></strong>{!!$visaDetail[5]->value!!}
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding-bottom: 30px; padding-top: 50px;">
-										<div style="position: relative;background-color: #F7F9FB;padding: 10px 55px 10px 65px; display: inline-block;">
-											<strong><i>{{$visaDetail[6]->visa_key}}:</strong>
-										</div>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 0 60px;">
-										<p style="margin-bottom: 5px; " class="ft92">{!!$visaDetail[6]->value!!}</p>
-									</td>
-								</tr>
-
-								<tr>
-									<td style="padding: 50px 60px;">
-										<img src="{{ asset($visaDetail[7]->value)}}" width="100%">
-									</td>
-								</tr>
-
-								<tr>
-									<td colspan="2">
-										<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 38px; padding: 0 15px 0 15px; margin-top: 35px; ">
-											<ul>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
-												<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">10</li>
-											</ul>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</td>
-				</tr>
-			</table>
-			@endif
-			
+										<tr>
+											<td colspan="2">
+												<div class="page-footer" width="100%" style="position: absolute; bottom: 0; width: 100%; background-color: #1c2839; height: 38px; padding: 0 15px 0 15px; margin-top: 35px; ">
+													<ul>
+														<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;">Telephone: {{$brands->phone_no}}</li>
+														<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="mailto:{{$brands->email}}">{{$brands->email}}</a> </li>
+														<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;"><a href="{{$brands->website}}"> {{$brands->website}}</a> </li>
+														<li style="white-space:nowrap; float: left; vertical-align: middle; margin: 8px 0 9px; padding-left: 6px; padding-right: 6px; font-size: 14px; letter-spacing: 0;" class="footer-logo"><img height="39px" width="auto" src="{{asset($brands->logo)}}" style="margin-right:10px">8</li>
+													</ul>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</table>
+				@endif
+			@endforeach
 		@endif
 	@endforeach
 
@@ -914,7 +655,5 @@
 			</td>
 		</tr>
 	</table>
-
 </body>
-
 </html>

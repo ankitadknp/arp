@@ -104,6 +104,74 @@
     </div>
 </div>
 
+<!-- View Modal-->
+<div class="modal fade" id="view_modal" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="exampleModalLabel">View Create Assement PDF</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="view_form" name="form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="search_email" class="form-control" id="search_email" value=""><br>
+                        <span>Email :</span>
+                        <input  name="email" class="form-control" id="view_email" value=""><br> 
+                        <span>Name :</span>
+                        <input type="text" name="name" class="form-control" id="v_name" value="" ><br>
+                        <span>Languages :</span><br>
+                        <select name="language_code" class="form-control" id="v_language_code">
+                        <option value="">Please select Language</option>
+                        @foreach($languages as $language)
+                        <option value="{{$language->code}}">{{$language->name}}</option>
+                        @endforeach
+                        </select><br>
+                        <span>Visa Type :</span>
+                        <select name="visa_type_id[]" class="form-control" id="v_visa_type_id" multiple>
+                            @foreach($visatypes as $visatype)
+                            <option value="{{$visatype->id}}">{{$visatype->name}}</option>
+                            @endforeach
+                        </select><br><br>
+                        <span>Recommended Visa Type :</span>
+                        <select name="recommended_visa_type" class="form-control" id="v_recommended_visa_type">
+                            <option value="">Please select Recommended Visa Type</option>
+                            @foreach($visatypes as $visatype)
+                            <option value="{{$visatype->id}}">{{$visatype->name}}</option>
+                            @endforeach
+                        </select><br>
+                        <span>Credit Score :</span>
+                        <input type="text" name="credit_score" class="form-control" id="v_credit_score" value=""><br>
+                        <span>City :</span>
+                        <input type="text" name="city" class="form-control" id="v_city" value=""><br>
+                        <span>Country :</span>
+                        <input type="text" name="country" class="form-control" id="v_country" value=""><br>
+                        <span>Education Level :</span>
+                        <input type="text" name="education_level" class="form-control" id="v_education_level" value=""><br>
+                        <span>Occupation :</span>
+                        <input type="text" name="occupation" class="form-control" id="v_occupation" value=""><br>
+                        <span>Case Number :</span>
+                        <input type="text" name="case_number" class="form-control" id="v_case_number" value=""><br>
+                        <span>Age :</span>
+                        <input type="text" name="age" class="form-control" id="v_age" value=""><br>
+                        <span>Phone No :</span>
+                        <input type="text" name="phone_no" class="form-control" id="v_phone_no" value="" onkeypress='return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)'><br>
+                        <span>Conclusion :</span>
+                        <textarea name="conclusion" class="form-control" id="v_conclusion" placeholder="Conclusion"></textarea><br>
+                        <input type="hidden" name="id" id="v_id" value="">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="loader-overlay" class="loader-overlay">
     <div class="loader">
         <!-- You can use any loading animation here, e.g., a spinner -->
@@ -295,7 +363,6 @@
             var selectedLanguages = $('#visa_type_id').val();
             form_data.append('visa_type_id', selectedLanguages.join(','));
             $.ajax({
-                // data: $('#form').serialize() + '&html=' + CKEDITOR.instances.ckeditor.getData(),
                 data: form_data,
                 url: "{{ route('created_date_assement.store') }}",
                 type: "POST",
@@ -305,7 +372,6 @@
                     if(typeof data.error != 'undefined' && data.error!='' && data.error!=null){
                         swal_errorMsg(data.error);
                     }else{
-                        // $('#form').trigger("reset"); 
                         $('#modal').modal('hide');
                         swal_success();
                         table.draw();
@@ -352,7 +418,6 @@
                         $('#phone_no').val(data.phone_no);
                         $('#saveBtn').show();
                         $('#search').hide();
-                        // table.draw();
                     }
                 },
                 error: function (data) {
@@ -406,7 +471,53 @@
                 }
             });
         });
-       
+
+        $('body').on('click', '.view', function () {
+            var id = $(this).data('id');
+     
+            $.get("{{route('created_date_assement.index')}}" + '/' + id + '/edit', function (data) {
+                $('#view_modal').modal('show');
+                $('#view_email').prop('disabled', true);
+                $('#v_name').prop('disabled', true);
+                $('#v_credit_score').prop('disabled', true);
+                $('#v_country').prop('disabled', true);
+                $('#v_education_level').prop('disabled', true);
+                $('#v_occupation').prop('disabled', true);
+                $('#v_age').prop('disabled', true);
+                $('#v_case_number').prop('disabled', true);
+                $('#v_phone_no').prop('disabled', true);
+                $('#v_city').prop('disabled', true);
+                $('#v_recommended_visa_type').prop('disabled', true);
+                $('#v_language_code').prop('disabled', true);
+                $('#v_conclusion').prop('disabled', true);
+                $('#v_visa_type_id').prop('disabled', true);
+
+                $('#v_id').val(data.id);
+                $('#v_name').val(data.name);
+                $('#view_email').val(data.email);
+                $('#v_credit_score').val(data.credit_score);
+                $('#v_country').val(data.country);
+                $('#v_education_level').val(data.education_level);
+                $('#v_occupation').val(data.occupation);
+                $('#v_age').val(data.age);
+                $('#v_case_number').val(data.case_number);
+                $('#v_phone_no').val(data.phone_no);
+                $('#v_city').val(data.city);
+                $('#v_recommended_visa_type').val(data.recommended_visa_type);
+                $('#v_language_code').val(data.language_code);
+                $('#v_conclusion').val(data.conclusion);
+
+                var selectedVisaIds = data.visa_type_id.split(',');
+
+                $('#v_visa_type_id option').each(function () {
+                    if (selectedVisaIds.includes($(this).val())) {
+                        $(this).prop('selected', true);
+                    }
+                });
+
+                $('#v_visa_type_id').trigger('change');
+            })
+        });
     });
 
 </script>
