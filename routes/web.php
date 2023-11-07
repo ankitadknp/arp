@@ -19,6 +19,7 @@ use App\Http\Controllers\BrandsSettingController;
 use App\Http\Controllers\RepresentativeProfileController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DPDFController;
 
 
@@ -37,53 +38,64 @@ use App\Http\Controllers\DPDFController;
 Route::get('/', function () {
     return redirect()->action([HomeController::class, 'index']);
 });
+
+Route::get('/clear', function () {
+    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+});
+
 Route::get('logout', function () {
     return redirect()->route('login');
 });
 
 Auth::routes(['register' => false,'verify' => false,'reset' => false]);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-// Route::match(['get', 'post'], 'home', [HomeController::class, 'index'])->name('home');
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 Route::post('add_login_history', [HomeController::class, 'add_login_history'])->name('add_login_history');
+Route::post('user_login', [LoginController::class, 'user_login'])->name('user_login');
+Route::match(['get', 'post'],'verify_otp', [LoginController::class, 'verify_otp'])->name('verify_otp');
 
-// Route::get('/user.get_data',[UserController::class, 'get_data'])->name('get_data');
-Route::resource('users', UsersController::class);
-Route::resource('brands', BrandsController::class);
-Route::resource('brands_setting', BrandsSettingController::class);
-Route::resource('activity-logs', ActivityLogsController::class);
-Route::resource('representative', RepresentativeController::class);
-Route::resource('languages', LanguageController::class);
-Route::resource('visa-type', VisaTypeController::class);
-Route::delete('visa-image-delete', [VisaTypeController::class, 'deleteVisaImage'])->name('visa-image-delete');
-Route::resource('smtp-setting', SmtpSettingController::class);
-Route::resource('login-history', LoginHistoryController::class);
-Route::resource('pipedeive-setting', PipedriveSettingController::class);
-Route::resource('pdf', PdfController::class);
-Route::resource('created_date_assement', CreatedDateAssementController::class);
-Route::post('search_email', [CreatedDateAssementController::class, 'search_email'])->name('search_email');
-Route::post('sent_mail', [CreatedDateAssementController::class, 'sent_mail'])->name('sent_mail');
-Route::resource('report', ReportController::class);
-Route::match(['get', 'post'], 'pdf_list', [PdfController::class, 'pdf_list'])->name('pdf_list');
-Route::match(['get', 'post'], 'search_list', [CreatedDateAssementController::class, 'search_list'])->name('search_list');
-Route::resource('representative_profile', RepresentativeProfileController::class);
-Route::post('brand_delete', [BrandsController::class, 'brand_delete'])->name('brand_delete');
-Route::post('signature_delete', [RepresentativeController::class, 'signature_delete'])->name('signature_delete');
-Route::post('photo_delete', [RepresentativeController::class, 'photo_delete'])->name('photo_delete');
-Route::post('law_logo_delete', [RepresentativeController::class, 'law_logo_delete'])->name('law_logo_delete');
+// Route::get('/dashboard', 'DashboardController@index')->middleware(['checkSession']);
 
-Route::get('forgot_password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgot_password');
-Route::match(['get', 'post'],'password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
+// Route::middleware('checkSession')->group(function () {
+    Route::resource('users', UsersController::class);
+    Route::resource('brands', BrandsController::class);
+    Route::resource('brands_setting', BrandsSettingController::class);
+    Route::resource('activity-logs', ActivityLogsController::class);
+    Route::resource('representative', RepresentativeController::class);
+    Route::resource('languages', LanguageController::class);
+    Route::resource('visa-type', VisaTypeController::class);
+    Route::delete('visa-image-delete', [VisaTypeController::class, 'deleteVisaImage'])->name('visa-image-delete');
+    Route::resource('smtp-setting', SmtpSettingController::class);
+    Route::resource('login-history', LoginHistoryController::class);
+    Route::resource('pipedeive-setting', PipedriveSettingController::class);
+    Route::resource('pdf', PdfController::class);
+    Route::resource('created_date_assement', CreatedDateAssementController::class);
+    Route::post('search_email', [CreatedDateAssementController::class, 'search_email'])->name('search_email');
+    Route::post('sent_mail', [CreatedDateAssementController::class, 'sent_mail'])->name('sent_mail');
+    Route::resource('report', ReportController::class);
+    Route::match(['get', 'post'], 'pdf_list', [PdfController::class, 'pdf_list'])->name('pdf_list');
+    Route::match(['get', 'post'], 'search_list', [CreatedDateAssementController::class, 'search_list'])->name('search_list');
+    Route::resource('representative_profile', RepresentativeProfileController::class);
+    Route::post('brand_delete', [BrandsController::class, 'brand_delete'])->name('brand_delete');
+    Route::post('signature_delete', [RepresentativeController::class, 'signature_delete'])->name('signature_delete');
+    Route::post('photo_delete', [RepresentativeController::class, 'photo_delete'])->name('photo_delete');
+    Route::post('law_logo_delete', [RepresentativeController::class, 'law_logo_delete'])->name('law_logo_delete');
 
-Route::post('getVisaTitle', [VisaTypeController::class, 'getVisaTitle'])->name('getVisaTitle');
+    Route::get('forgot_password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('forgot_password');
+    Route::match(['get', 'post'],'password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('password/reset', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
-Route::get('pdf_download/{file_name}', [CreatedDateAssementController::class, 'pdf_download'])->name('pdf_download');
+    Route::get('pdf_download/{file_name}', [CreatedDateAssementController::class, 'pdf_download'])->name('pdf_download');
+    
+// });
 
 Route::get('/pdf_to_html', function () {
     return view('pdf_to_html');
 });
 
-Route::post('ck/upload','VisaTypeController@uploadImage')->name('ck.upload');
 Route::get('/pdfD', [DPDFController::class, 'generateHtmlToPDF']);
+
+// Route::get('/mail', function () {
+//     return view('emails.sent_mail');
+// });

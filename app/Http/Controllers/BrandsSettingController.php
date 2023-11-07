@@ -79,7 +79,9 @@ class BrandsSettingController extends Controller
         }
         $valArr['email']    = 'required|max:200';
         $valArr['language_id']    = 'required';
-        $valArr['website']    = 'required|url';
+        $valArr['website']    = 'required';
+        $valArr['meeting_link']    = 'required|url';
+        $valArr['pdf_title']    = 'required';
         
         $validator = Validator::make($request->all(), $valArr);
 
@@ -92,13 +94,17 @@ class BrandsSettingController extends Controller
             $single = Brand::find($request->id);
         }
 
+        $website = preg_replace("(^https?://)", "", $request->website);
+
         $reqInt = [
             'name' => $request->name,
             'about_en' => ($request->about_en) ? $request->about_en : '',
             'email' => $request->email,
             'language_id' => $request->language_id,
             'about_fr' => ($request->about_fr) ? $request->about_fr : '',
-            'website' => $request->website,
+            'website' => $website,
+            'pdf_title' => $request->pdf_title,
+            'meeting_link' => $request->meeting_link,
         ];
         if($request->hasFile('logo')) {
             $file = $request->file('logo');

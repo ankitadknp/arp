@@ -35,7 +35,9 @@ class CreatedDateAssement extends Authenticatable
         'case_number',
         'phone_no',
         'city',
-        'conclusion'
+        'conclusion',
+        'teer_category',
+        'noc'
     ];
 
 }

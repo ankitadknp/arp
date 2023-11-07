@@ -24,7 +24,9 @@ class Brand extends Authenticatable
         'about_en',
         'language_id',
         'website',
-        'about_fr'
+        'about_fr',
+        'pdf_title',
+        'meeting_link'
     ];
 
 

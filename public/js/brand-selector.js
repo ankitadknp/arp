@@ -15,7 +15,7 @@ $(document).ready(function () {
             console.log('Selected Brand ID:', selectedBrand);
             if (selectedBrand) {
 
-                var expirationTime = 3600; // 1 hour (you can adjust this value)
+                var expirationTime = 86400; // 24 hours in seconds (24 * 60 * 60)
                 var currentTime = new Date().getTime(); // Current time in milliseconds
                 var expiryTime = currentTime + (expirationTime * 1000); // Convert to milliseconds
                 var expiryDate = new Date(expiryTime);
@@ -60,10 +60,3 @@ $(document).ready(function () {
         $('#selectedBrandLabel').text("");  // Optionally, update the brand name in the topbar to a default value
     });
 });
-
-
-
-
-
-
-

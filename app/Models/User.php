@@ -22,6 +22,7 @@ class User extends Authenticatable
         'level',
         'brand_id',
         'password',
+        'login_otp'
     ];
 
     /**

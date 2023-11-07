@@ -12,7 +12,7 @@ use App\Models\Representative;
 use App\Models\Brand;
 use App\Models\VisaTypeDetails;
 use App\Models\Language;
-use App\Models\PdfDesign;
+use App\Models\CreateAssetmentImages;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Validator,File,Mail;
@@ -114,6 +114,7 @@ class CreatedDateAssementController extends Controller
                         $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit edit"><i class=" fi-rr-edit"></i></div>';
                     }
                     if ($row->is_sent_mail == 1) {
+                        $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Sent Mail" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2  sent_mail"><i class="fas fa-reply"></i></div>';
                         $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="view" title="View" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 view"><i class=" fi-rr-eye"></i></div>';
                     }
                     return $btn;
@@ -130,6 +131,7 @@ class CreatedDateAssementController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $user_id = \Auth::user()->id;
         $valArr = [];
 
@@ -143,12 +145,13 @@ class CreatedDateAssementController extends Controller
         $valArr['visa_type_id']           = 'required|min:2';
         $valArr['recommended_visa_type']  = 'required';
         $valArr['credit_score']           = 'required|integer|between:200,600';
+        $valArr['noc']                    = 'required';
+        $valArr['teer_category']          = 'required';
         $valArr['age']                    = 'required|integer';
         $valArr['country']                = 'required';
         $valArr['education_level']        = 'required';  
         $valArr['occupation']             = 'required';
         $valArr['case_number']             = 'required';
-        $valArr['city']                   = 'required';
         $valArr['phone_no']               = 'required|string|min:7';
         $valArr['language_code']          = 'required';
      
@@ -170,6 +173,8 @@ class CreatedDateAssementController extends Controller
             'representative_id'      => $user_id,
             'name'                   => $request->name,
             'credit_score'           => $request->credit_score,
+            'teer_category'          => $request->teer_category,
+            'noc'                    => $request->noc,
             'country'                => ($request->country) ? $request->country:'',
             'occupation'             => ($request->occupation) ? $request->occupation :'',
             'education_level'        => ($request->education_level) ? $request->education_level : '',
@@ -179,10 +184,47 @@ class CreatedDateAssementController extends Controller
             'phone_no'               => $request->phone_no,
             'city'                   => $request->city,
             'language_code'          => $request->language_code,
-            'conclusion'             => $request->conclusion,
+            'conclusion'             => '-',
         ];
    
         $rec = CreatedDateAssement::updateOrCreate(['id' => $request->id],$reqInt);
+
+        //store images
+        foreach ($request->all() as $fieldName => $fieldValue) {
+            if (is_array($fieldValue)) {
+                if (str_contains($fieldName, '_salary')) {
+                    $fieldNameWithoutNumber = preg_replace('/\d+/', '', $fieldName);
+                    preg_match('/(\d+)/', $fieldName, $matches);
+
+                    if (!empty($matches)) {
+                        $visa_type_id = $matches[0];
+                    }
+                    $imagesRes = CreateAssetmentImages::where('visa_type_id',$visa_type_id)->get();
+                    if ($imagesRes) {
+                        CreateAssetmentImages::where('visa_type_id',$visa_type_id)->delete();
+                    }
+
+                    foreach ($fieldValue as $v_key=>$file) {
+                        $name            = time() . '_' . $file->getClientOriginalName();
+                        $destinationPath = public_path('/uploads/create_assetment/');
+                        $file->move($destinationPath, $name);
+                        $fieldValue      ='/uploads/create_assetment/'. $name;
+                        $key = $fieldNameWithoutNumber . '_' . $v_key;
+
+                        CreateAssetmentImages::updateOrCreate(
+                            [
+                                'create_assetment_id' => $rec->id,
+                                'visa_type_id'  => $visa_type_id,
+                                'key'           => $key,
+                            ],
+                            [ 'value'           => $fieldValue,
+                            ]
+                        );
+                    }
+                }
+            }
+        }
+
 
         if(isset($single) && $single){
             setActivityLog('PDF Updated [Name: ' . $request->name . ', ' . $request->email  . ']',json_encode($reqInt),activityEnums('visa-type'),$request->id,\Auth::user()->id);
@@ -196,6 +238,10 @@ class CreatedDateAssementController extends Controller
     public function edit($id)
     {
         $data = CreatedDateAssement::find($id);
+        $image_data = CreateAssetmentImages::where('create_assetment_id',$id)->get();
+        if ($data) {
+            $data->image_data = $image_data;
+        }
         return response()->json($data);
 
     }
@@ -259,13 +305,13 @@ class CreatedDateAssementController extends Controller
                 }
                 $occupation      = $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} ? $finalResult->data->{'2c01723a86c611b09410aef6bbd28d42db706305'} :'';
                 $age             = $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} ? $finalResult->data->{'7219491933372a53f81573177f6bb18ff526396a'} : '';
-                $city            = $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} ? $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} : '';
+                $city            = $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} ? $finalResult->data->{'ce494a53880321513b79ee0aec75d9c8312f6f13'} : '-';
             } else {
                 $country = '';
                 $education_level = '';
                 $occupation = '';
                 $age = '';
-                $city = '';
+                $city = '-';
             }
 
             return response()->json([
@@ -325,15 +371,28 @@ class CreatedDateAssementController extends Controller
             }
 
             $visa_type = [];
+
             if ( $created_data->visa_type_id) {
                 $vt = VisaType::whereRaw("FIND_IN_SET(id, '$created_data->visa_type_id')")->get();
                 
                 if ($vt) {
                     $vt = $vt->toArray();
                     foreach($vt as $key=>$val) {
-                    $visa_details = VisaTypeDetails::where('visa_type_id',$val['id'])->where('language_code',$created_data->language_code)->get();
-                       $visa_type[$key] = $val;
-                       $visa_type[$key]['visa_details'] = $visa_details;
+
+                        $visa_details = VisaTypeDetails::where('visa_type_id',$val['id'])->where('language_code',$created_data->language_code)->get();
+                        $visaImages = CreateAssetmentImages::where('visa_type_id',$val['id'])->where('create_assetment_id',$id)->get();
+                         if ( $visaImages ) {
+                            foreach($visaImages as $key1=>$val1) {
+                                $newArray = array();
+                                $newArray['is_image'] = 1;
+                                $newArray['visa_key'] = 'Your salary per region in Canada';
+                                $newArray['value'] = $val1->value;
+                                $visa_details[] = (object)$newArray;
+                            }
+                        }
+                        $visa_type[$key] = $val;
+                        $visa_type[$key]['visa_details'] = $visa_details;
+                        $visa_type[$key]['visaImages'] = $visaImages;
                     }
                 }
             }
@@ -351,7 +410,6 @@ class CreatedDateAssementController extends Controller
             $filename = 'generated_pdf_' . time() . '.pdf'; 
             $pdf_name = storage_path('app/public/' . $filename);
             file_put_contents($pdf_name, $content);
-            // dd('done');
             //end pdf
 
             $smtpSettings = SmtpSetting::where('brand_id',$brands->id)->first();
@@ -369,9 +427,9 @@ class CreatedDateAssementController extends Controller
             ]);
 
             $new_data = array(
-                'email'=>$created_data->email,
+                'pdf_title'=>$brands->pdf_title,
+                'meeting_link'=>$brands->meeting_link,
                 'name'=>$created_data->name,
-                'credit_score'=>$created_data->credit_score,
             );
 
             $attachmentMimeType = 'application/octet-stream';
@@ -380,7 +438,6 @@ class CreatedDateAssementController extends Controller
                     ->from($smtpSettings->username, 'Assetment Results Platform')
                     ->to($created_data->email)
                     ->cc([$user->email,$smtpSettings->cc_email])
-                    // ->to('jasminh.knp@gmail.com')
                     ->subject("Sent Mail")
                     ->attach($pdf_name, [
                         'as' => pathinfo($pdf_name, PATHINFO_BASENAME), 

@@ -53,6 +53,10 @@
                         <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" onkeypress='return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)'><br>
                         <span>Website <span class="label-title">*</sapn></span>
                         <input type="text" name="website" class="form-control" id="website" placeholder="Website"><br>
+                        <span>PDF Title <span class="label-title">*</sapn></span>
+                        <input type="text" name="pdf_title" class="form-control" id="pdf_title" placeholder="PDF Title"><br>
+                        <span>Meeting Link <span class="label-title">*</sapn></span>
+                        <input type="text" name="meeting_link" class="form-control" id="meeting_link" placeholder="Meeting Link"><br>
                         <span>Logo <span class="label-title">*</sapn></span><br>
                         <input required type="file" name="logo" class="form-control" id="logo" placeholder="Logo"><br>
                         <span>Languages <span class="label-title">*</sapn></span><br>
@@ -330,6 +334,8 @@
                 $('#phone_no').val(data.phone_no);
                 $('#language_id').val(null);
                 $('#website').val(data.website);
+                $('#meeting_link').val(data.meeting_link);
+                $('#pdf_title').val(data.pdf_title);
              
                 var selectedLanguageIds = data.language_id.split(',');
 
@@ -362,6 +368,8 @@
             form_data.append('email', $('#email').val());
             form_data.append('phone_no', $('#phone_no').val());
             form_data.append('website', $('#website').val());
+            form_data.append('meeting_link', $('#meeting_link').val());
+            form_data.append('pdf_title', $('#pdf_title').val());
             form_data.append('id', $('#id').val());
             var selectedLanguages = $('#language_id').val();
             form_data.append('language_id', selectedLanguages.join(','));

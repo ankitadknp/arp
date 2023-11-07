@@ -74,8 +74,12 @@
                             </select><br>
                             <span>Credit Score <span class="label-title">*</sapn></span>
                             <input type="text" name="credit_score" class="form-control" id="credit_score" value=""><br>
-                            <span>City <span class="label-title">*</sapn></span>
-                            <input type="text" name="city" class="form-control" id="city" value=""><br>
+                            <span>National Occupational Classification (NOC) <span class="label-title">*</sapn></span>
+                            <input type="text" name="noc" class="form-control" id="noc" value=""><br>
+                            <span>Teer Category <span class="label-title">*</sapn></span>
+                            <input type="text" name="teer_category" class="form-control" id="teer_category" value=""><br>
+                            <span style="display:none;">City <span class="label-title">*</span></span>
+                            <input style="display:none;" type="text" name="city" class="form-control" id="city" value=""><br>
                             <span>Country <span class="label-title">*</sapn></span>
                             <input type="text" name="country" class="form-control" id="country" value=""><br>
                             <span>Education Level <span class="label-title">*</sapn></span>
@@ -88,8 +92,10 @@
                             <input type="text" name="age" class="form-control" id="age" value=""><br>
                             <span>Phone No <span class="label-title">*</sapn></span>
                             <input type="text" name="phone_no" class="form-control" id="phone_no" value="" onkeypress='return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)'><br>
-                            <span>Conclusion <span class="label-title">*</sapn></span>
-                            <textarea name="conclusion" class="form-control" id="conclusion" placeholder="Conclusion"></textarea><br>
+                            <span style="display:none;">Conclusion <span class="label-title">*</span></span>
+                            <textarea style="display:none;" name="conclusion" class="form-control" id="conclusion" placeholder="Conclusion">-</textarea><br>
+                            <div id="salaryInputs">
+                            </div>
                             <input type="hidden" name="id" id="id" value="">
                         </div>
                     </div>
@@ -145,8 +151,12 @@
                         </select><br>
                         <span>Credit Score :</span>
                         <input type="text" name="credit_score" class="form-control" id="v_credit_score" value=""><br>
-                        <span>City :</span>
-                        <input type="text" name="city" class="form-control" id="v_city" value=""><br>
+                        <span>National Occupational Classification (NOC) :</span>
+                        <input type="text" name="noc" class="form-control" id="v_noc" value=""><br>
+                        <span>Teer Category :</span>
+                        <input type="text" name="teer_category" class="form-control" id="v_teer_category" value=""><br>
+                        <span style="display:none;">City :</span>
+                        <input style="display:none;" type="text" name="city" class="form-control" id="v_city" value=""><br>
                         <span>Country :</span>
                         <input type="text" name="country" class="form-control" id="v_country" value=""><br>
                         <span>Education Level :</span>
@@ -159,8 +169,8 @@
                         <input type="text" name="age" class="form-control" id="v_age" value=""><br>
                         <span>Phone No :</span>
                         <input type="text" name="phone_no" class="form-control" id="v_phone_no" value="" onkeypress='return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)'><br>
-                        <span>Conclusion :</span>
-                        <textarea name="conclusion" class="form-control" id="v_conclusion" placeholder="Conclusion"></textarea><br>
+                        <span style="display:none;">Conclusion :</span>
+                        <textarea style="display:none;" name="conclusion" class="form-control" id="v_conclusion" placeholder="Conclusion"></textarea><br>
                         <input type="hidden" name="id" id="v_id" value="">
                     </div>
                 </form>
@@ -193,10 +203,39 @@
     $('#selectedBrandLabel').text(brands.name);
 </script>
 @endif
+
 <script>
     $('document').ready(function () {
+        var bName = $('#selectedBrandLabel').text()
+
+        if (bName.trim() == "" ) {
+            window.location.href = "{{ route('logout') }}";
+        }
 
         $('#visa_type_id').select2();
+        var isEditMode = false;
+
+        var salaryInputsContainer = document.getElementById("salaryInputs");
+        $('#visa_type_id').on('change', function() {
+            salaryInputsContainer.innerHTML = "";
+
+            $(this).find('option:selected').each(function () {
+                var selectedValue = $(this).val();
+                var selectedName = $(this).text();
+
+                var nameWithoutSpaces = selectedName.replace(/\s/g, '_'); // Remove spaces
+
+                var inputField = document.createElement("div");
+                inputField.innerHTML = `
+                    <label for="visa_salary_${selectedValue}">${selectedName} Salary:</label>
+                    <input type="file" name="${nameWithoutSpaces}${selectedValue}_salary[]" id="${nameWithoutSpaces}_salary" class="form-control" multiple>
+                    <div id="image_preview_${selectedValue}">
+                    </div>
+                `;
+
+                salaryInputsContainer.appendChild(inputField);
+            });
+        });
 
         // success alert
         function swal_success() {
@@ -314,6 +353,7 @@
             var id = $(this).data('id');
      
             $.get("{{route('created_date_assement.index')}}" + '/' + id + '/edit', function (data) {
+                isEditMode = true;
                 $('#modal').modal('show');
                 $('.crm_data').show();
                 $('#email').prop('disabled', true);
@@ -323,6 +363,8 @@
                 $('#name').val(data.name);
                 $('#email').val(data.email);
                 $('#credit_score').val(data.credit_score);
+                $('#noc').val(data.noc);
+                $('#teer_category').val(data.teer_category);
                 $('#country').val(data.country);
                 $('#education_level').val(data.education_level);
                 $('#occupation').val(data.occupation);
@@ -343,9 +385,43 @@
                 });
 
                 $('#visa_type_id').trigger('change');
+
+                var imagesByVisaType = {};
+
+                // Assuming data.image_data is an array of image objects
+                data.image_data.forEach(function (image) {
+                    if (!imagesByVisaType[image.visa_type_id]) {
+                        imagesByVisaType[image.visa_type_id] = [];
+                    }
+                    imagesByVisaType[image.visa_type_id].push(image);
+                });
+
+
+                for (var i = 0; i < selectedVisaIds.length; i++) {
+                    var selectedValue = selectedVisaIds[i];
+                    var baseUrl = '{{ asset("") }}';
+
+                    var containerId = `image_preview_${selectedValue}`;
+                    var container = document.getElementById(containerId);
+
+                    if (container) {
+                        var imagesForCurrentVisaType = imagesByVisaType[selectedValue];
+                        if (imagesForCurrentVisaType) {
+                            imagesForCurrentVisaType.forEach(function (image) {
+                                var imageElement = document.createElement('img');
+                                var fullImageUrl = baseUrl + image.value;
+                                imageElement.src = fullImageUrl;
+                                imageElement.width = 100; // Set the width here
+                                imageElement.height = 100;
+                                imageElement.style.marginRight = '10px';
+                                container.appendChild(imageElement);
+                            });
+                        }
+                    }
+                }
             })
         });
-   
+
         // initialize btn save
         $('#saveBtn').click(function (e) {
             e.preventDefault();
@@ -353,6 +429,8 @@
             form_data.append('email', $('#email').val());
             form_data.append('name', $('#name').val());
             form_data.append('credit_score', $('#credit_score').val());
+            form_data.append('teer_category', $('#teer_category').val());
+            form_data.append('noc', $('#noc').val());
             form_data.append('recommended_visa_type', $('#recommended_visa_type').val());
             form_data.append('language_code', $('#language_code').val());
             form_data.append('country', $('#country').val());
@@ -362,6 +440,20 @@
             form_data.append('case_number', $('#case_number').val());
             var selectedLanguages = $('#visa_type_id').val();
             form_data.append('visa_type_id', selectedLanguages.join(','));
+
+            $(this).find('option:selected').each(function () {
+                var selectedName = $(this).text();
+                var visa_id = $(this).val();
+                var nameWithoutSpaces = selectedName.replace(/\s/g, '_'); // Remove spaces
+
+                // Access the dynamically generated input field by name
+                var inputFieldName = nameWithoutSpaces+visa_id + '_salary[]';
+                var inputValue = $(`input[name="${inputFieldName}"]`).val();
+
+                // Append the value to the FormData object
+                form_data.append(inputFieldName, inputValue);
+            });
+
             $.ajax({
                 data: form_data,
                 url: "{{ route('created_date_assement.store') }}",
@@ -375,6 +467,7 @@
                         $('#modal').modal('hide');
                         swal_success();
                         table.draw();
+                        location.reload();
                     }
                 },
                 error: function (data) {
@@ -480,6 +573,8 @@
                 $('#view_email').prop('disabled', true);
                 $('#v_name').prop('disabled', true);
                 $('#v_credit_score').prop('disabled', true);
+                $('#v_noc').prop('disabled', true);
+                $('#v_teer_category').prop('disabled', true);
                 $('#v_country').prop('disabled', true);
                 $('#v_education_level').prop('disabled', true);
                 $('#v_occupation').prop('disabled', true);
@@ -496,6 +591,8 @@
                 $('#v_name').val(data.name);
                 $('#view_email').val(data.email);
                 $('#v_credit_score').val(data.credit_score);
+                $('#v_teer_category').val(data.teer_category);
+                $('#v_noc').val(data.noc);
                 $('#v_country').val(data.country);
                 $('#v_education_level').val(data.education_level);
                 $('#v_occupation').val(data.occupation);

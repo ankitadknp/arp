@@ -78,6 +78,7 @@
     var imageUrl = "{{asset('')}}";
 
     $('document').ready(function () {
+
         // success alert
         function swal_success() {
             Swal.fire({
@@ -156,7 +157,6 @@
             $('#modal').modal('show');
         });
    
-
         var textareasAppended = false;
 
         $('body').on('click', '.edit', function () {
@@ -236,33 +236,36 @@
             var hasEmptyEditor = false; 
 
             $('textarea.ckeditor_visa_type').each(function () {
+
                 var $textarea = $(this);
                 var editorName = $textarea.attr('name');
                 var ckEditorInstance = CKEDITOR.instances[editorName];
-
-                // Update and get the data only for the CKEditor instance that has changed
-                // if (ckEditorInstance.checkDirty()) {
+                  // if (ckEditorInstance.checkDirty()) {
                 //     ckEditorInstance.updateElement();
                 //      var editorData = ckEditorInstance.getData();
                         // form_data.append(editorName, editorData);
                 // }
-                    var editorData = ckEditorInstance.getData();
-                    if (!editorData.trim()) {
-                        hasEmptyEditor = true;
-                        Swal.fire({
-                            position: 'centered',
-                            icon: 'error',
-                            title: editorName + 'field is required',
-                            showConfirmButton: true,
-                        })
-                    } else {
-                        form_data.append(editorName, editorData);
-                    }
-                
+
+
+                var editorData = ckEditorInstance.getData();
+                if (!editorData.trim()) {
+                    hasEmptyEditor = true;
+                    Swal.fire({
+                        position: 'centered',
+                        icon: 'error',
+                        title: editorName + 'field is required',
+                        showConfirmButton: true,
+                    })
+                } else {
+                    form_data.append(editorName, editorData);
+                }
             });
+
             if (hasEmptyEditor) {
                 return false;
             }
+
+            console.log('form data =>' ,form_data);
 
             $.ajax({
                 data: form_data,

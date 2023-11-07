@@ -80,6 +80,8 @@ class BrandsController extends Controller
         $valArr['language_id']    = 'required';
         // $valArr['website']    = 'required|url';
         $valArr['website']    = 'required';
+        $valArr['pdf_title']    = 'required';
+        $valArr['meeting_link']    = 'required|url';
         
         $validator = Validator::make($request->all(), $valArr);
 
@@ -92,6 +94,8 @@ class BrandsController extends Controller
             $single = Brand::find($request->id);
         }
 
+        $website = preg_replace("(^https?://)", "", $request->website);
+
         $reqInt = [
             'name' => $request->name,
             'about_en' => ($request->about_en) ? $request->about_en : '',
@@ -99,8 +103,11 @@ class BrandsController extends Controller
             'phone_no' => $request->phone_no,
             'language_id' => $request->language_id,
             'about_fr' => ($request->about_fr) ? $request->about_fr : '',
-            'website' => $request->website,
+            'website' => $website,
+            'meeting_link' => $request->meeting_link,
+            'pdf_title' => $request->pdf_title,
         ];
+
         if($request->hasFile('logo')) {
             $file = $request->file('logo');
             $name = time().'_'.$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
