@@ -68,8 +68,9 @@
 </div>
 
 @push('scripts')
-<script type="text/javascript" src="{{asset("/plugins/ckeditor/ckeditor.js")}}"></script>
-
+<script type="text/javascript" src="{{asset('/plugins/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('/plugins/ckeditor/plugins/canadaFlagBullet/canadaFlagBullet.js')}}"></script>
+<script src="{{asset('/plugins/ckeditor/plugins/rightBullet/rightBullet.js')}}"></script>
 <script>
     var brand_name = <?php echo json_encode($menu_brand); ?>; 
     $('#selectedBrandLabel').text(brand_name.name);

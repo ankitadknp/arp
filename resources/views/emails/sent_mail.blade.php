@@ -31,7 +31,7 @@
                         •	Answer questions that arise from your side.<br>
                         •	Choose the Immigration Program that matches your needs.<br>
                         •	Explain the next step.<br>
-                        <p><b><a href="{{$meeting_link}}">Book a video Meeting with your Case Manager to reviews your Positive legal evolution!<a></b></p>
+                        <p><b><a href="{{$meeting_link}}" style="color:black">Book a video Meeting with your Case Manager to reviews your Positive legal evolution!<a></b></p>
                     </td>
                 </tr>
             </tbody>

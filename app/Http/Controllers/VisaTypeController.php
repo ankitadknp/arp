@@ -149,6 +149,11 @@ class VisaTypeController extends Controller
 
             foreach ($language_data as $l_data) {
                 $languageCode = $l_data->code;
+                // $visaRes = VisaTypeDetails::where('visa_type_id',$rec->id)->where('language_code', $languageCode)->where('brand_id',$request->brand_id)->get();
+
+                // if ($visaRes) {
+                //     VisaTypeDetails::where('visa_type_id',$rec->id)->where('language_code', $languageCode)->where('brand_id',$request->brand_id)->delete();
+                // }
             
                 foreach ($visa_title as $v_key=>$fieldKey) {
                     $currunt_var = $request->input($fieldKey['id']);

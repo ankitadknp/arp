@@ -32,52 +32,6 @@ class CreatedDateAssementController extends Controller
         $this->middleware('auth');
     } 
 
-    // public function search_list(Request $request)
-    // {
-    //     $languages = Language::all();
-    //     $visatypes = VisaType::all();
-    //     $user = \Auth::user();
-    //     $brand_ids = $user->brand_id;
-    //     $brands = explode(",",$brand_ids);
-    //     $brand = DB::table('brands')->join('users', 'brands.id', '=', 'users.brand_id')->select('brands.name')->where('users.id',$user->id)->first();
-
-    //     $data = [
-    //         'visatypes'  => $visatypes,
-    //         'languages'  => $languages,
-    //         'brands'     => $brands,
-    //         'brand'     => $brand,
-    //         'menu'       => 'menu.v_menu_admin',
-    //         'content'    => 'content.view_created_date_assement',
-    //         'title'      => 'Create Assement PDF'
-    //     ];
-
-    //     $checkAuth = \Auth::user()->level;
-    //     if ($request->ajax()) {
-    //         $q_brand = CreatedDateAssement::select('*')->orderByDesc('created_at');
-
-            
-    //         return Datatables::of($q_brand)
-    //                 ->addIndexColumn()
-    //                 ->addColumn('action', function($row) use($checkAuth){
-    //                 $btn = '';
-    //                 // if ($row->is_sent_mail == 0) {
-    //                     $btn = '<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Sent Mail" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2  sent_mail"><i class="fas fa-envelope"></i></div>';
-    //                 // }
-    //                 $btn = $btn.'<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit edit"><i class=" fi-rr-edit"></i></div>';
-
-    //                 return $btn;
-
-    //                 })
-    //                 ->make(true);
-    //     }
-
-    //     if ($checkAuth == 2) {
-    //         return view('layouts.v_template',$data);
-    //     }
-    //     return view('layouts.v_not_representative');
-
-    // }
-
     public function index(Request $request) {}
 
     public function search_list(Request $request)

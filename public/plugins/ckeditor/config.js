@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
 	config.extraPlugins = 'justify';
+	config.extraPlugins = ['canadaFlagBullet','rightBullet','colorbutton'];
 
-	config.extraPlugins = 'colorbutton';
 
 };

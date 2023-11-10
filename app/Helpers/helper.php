@@ -294,16 +294,16 @@ if(!function_exists('setexpressVisaTitle')){
                 'is_image' => 0,
                 'id' => 'How_does_This_Program_work?'
             ],
-            // [
-            //     'key' => 'Candidate Score',
-            //     'is_image' => 1,
-            //     'id' => 'Candidate_Score'
-            // ],
-            // [
-            //     'key' => 'Canada Express Entry Latest Draw 2023',
-            //     'is_image' => 1,
-            //     'id' => 'Canada_Express_Entry_Latest_Draw_2023',
-            // ],
+            [
+                'key' => 'Candidate Score',
+                'is_image' => 1,
+                'id' => 'Candidate_Score'
+            ],
+            [
+                'key' => 'Canada Express Entry Latest Draw 2023',
+                'is_image' => 1,
+                'id' => 'Canada_Express_Entry_Latest_Draw_2023',
+            ],
             [
                 'key' => 'Here is a step-by-step breakdown for the process with us',
                 'is_image' => 0,

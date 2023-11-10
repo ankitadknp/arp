@@ -511,8 +511,8 @@
 										</tr>
 
 										<tr>
-											<td style="padding: 0 60px;">
-												<img src="{{ asset($visas->value)}}" width="90%">
+											<td style="padding: 0 60px; text-align: center;">
+												<img src="{{ asset($visas->value)}}" width="auto" style="min-width: 250px; max-width: 90%;">
 											</td>
 										</tr>
 										@else
@@ -566,8 +566,8 @@
 										</tr>
 
 										<tr>
-											<td style="padding: 0 60px;">
-												<img src="{{ asset($visas->value)}}" width="90%">
+											<td style="padding: 0 60px;text-align: center;">
+												<img src="{{ asset($visas->value)}}" width="auto" style="min-width: 250px; max-width: 90%;">
 											</td>
 										</tr>
 									@else
@@ -596,7 +596,7 @@
 						$cc = 1;
 					}
 					if($cc == 0) {
-						$cc = ($cc + 1); 
+						$cc = ($cc + 2); 
 					}else{
 						$cc = 0; 
 				@endphp
